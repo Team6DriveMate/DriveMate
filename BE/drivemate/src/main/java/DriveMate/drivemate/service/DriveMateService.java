@@ -4,12 +4,17 @@ import DriveMate.drivemate.domain.Route;
 import DriveMate.drivemate.domain.SemiRouteLineString;
 import DriveMate.drivemate.domain.SemiRoutePoint;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.catalina.util.URLEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Value;
 
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,37 +23,83 @@ import java.util.List;
 public class DriveMateService {
     private final RestTemplate restTemplate;
     private final String routeUrl = "https://apis.openapi.sk.com/tmap/routes";
-
+    private final String addressUrl = "https://apis.openapi.sk.com/tmap/geo/geocoding";
     private final String trafficUrl = "https://apis.openapi.sk.com/tmap/traffic";
 
     @Value("${tmap.api.key}") // application.properties 파일에 API 키를 저장
     private String appKey;
 
+    @Autowired
     public DriveMateService(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder.build();
+        this.restTemplate = new RestTemplate();
     }
 
-    public String getTraffic(double  centerLat, double centerLon){
-        RestTemplate restTemplate = new RestTemplate();
+    public String addressToCoordinate(String address){
+        String[] tokens = address.split(" ");
+        // 0 : 시,도 / 1 : 구,군 / 2 : 도로명 / 3 : 번지 / 4 : 상세주소
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.set("appKey", appKey);
 
-        String requestBody = String.format(
-                "version=1&centerLat=%s&centerLon=%s&trafficType=POINT",
-                centerLat, centerLon
+        for (int i = 0; i < tokens.length; i++) {
+            try {
+                tokens[i] = new String(tokens[i].getBytes("UTF-8"), "UTF-8");
+            } catch (UnsupportedEncodingException uee) {
+                uee.printStackTrace();
+            }
+        }
+
+        String urlWithParams = String.format(
+                "%s?version=1&city_do=%s&gu_gun=%s&dong=%s&bunji=%s&addressFlag=F00&coordType=WGS84GEO",
+                addressUrl, tokens[0], tokens[1], tokens[2], tokens[3]
         );
 
-        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
+        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 
-        ResponseEntity<String> responseEntity = restTemplate.exchange(trafficUrl, HttpMethod.GET, requestEntity, String.class);
+        // GET 요청으로 변경된 URL과 함께 전송
+        ResponseEntity<String> responseEntity = restTemplate.exchange(urlWithParams, HttpMethod.GET, requestEntity, String.class
+        );
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String newLat = null;
+        String newLon = null;
+
+        try {
+            JsonNode rootNode = objectMapper.readTree(responseEntity.getBody());
+            newLat = rootNode.path("coordinateInfo").path("newLat").asText();
+            newLon = rootNode.path("coordinateInfo").path("newLon").asText();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return String.format("newLat: %s, newLon: %s", newLat, newLon);
+    }
+    public String getTraffic(double centerLat, double centerLon) {
+
+        // 헤더 설정
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.set("appKey", appKey);
+
+        // URL에 쿼리 파라미터 포함
+        String urlWithParams = String.format(
+                "%s?version=1&centerLat=%s&centerLon=%s&trafficType=POINT&radius=1&zoomLevel=10",
+                trafficUrl, centerLat, centerLon
+        );
+
+        // HttpEntity는 헤더만 포함 (GET 요청은 보통 바디 없이 보냄)
+        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+
+        // GET 요청으로 변경된 URL과 함께 전송
+        ResponseEntity<String> responseEntity = restTemplate.exchange(urlWithParams, HttpMethod.GET, requestEntity, String.class
+        );
 
         return responseEntity.getBody();
     }
 
+
     public String getRoute(double startY, double startX, double endY, double endX) {
-        RestTemplate restTemplate = new RestTemplate(); // RESTful HTTP 통신 요청을 보내기 위해서.
 
         // HTTP 헤더 설정
         HttpHeaders headers = new HttpHeaders();
@@ -154,21 +205,6 @@ public class DriveMateService {
             return coordinate;
         }
         return null; // 유효하지 않은 좌표의 경우 null 반환
-    }
-
-    // LineString에서 여러 좌표를 파싱하는 메서드
-    private List<Coordinate> parseCoordinatesList(JsonNode coordinatesArray) {
-        List<Coordinate> coordinates = new ArrayList<>();
-
-        if (coordinatesArray.isArray()) {
-            for (JsonNode coordinateNode : coordinatesArray) {
-                Coordinate coordinate = parseCoordinate(coordinateNode);
-                if (coordinate != null) {
-                    coordinates.add(coordinate);
-                }
-            }
-        }
-        return coordinates;
     }
 
     private String getStringValue(JsonNode node, String fieldName) {

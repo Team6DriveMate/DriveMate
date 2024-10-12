@@ -18,4 +18,9 @@ public class Coordinate {
 
     private double first;
     private double second;
+
+    void setSemiRoute(SemiRoute semiRoute){
+        this.semiRoute = semiRoute;
+        semiRoute.getCoordinateList().add(this);
+    }
 }
