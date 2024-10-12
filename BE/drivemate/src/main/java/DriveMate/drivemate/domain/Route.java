@@ -25,8 +25,21 @@ public class Route {
     private String totalDistance;
     private String totalTime;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    private DriveReport driveReport;
+
     @OneToMany(mappedBy = "route", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SemiRoute> semiRouteList = new ArrayList<>();
+
+    void setDriveReport(DriveReport driveReport){
+        this.driveReport = driveReport;
+        driveReport.setRoute(this);
+    }
+
+    void addSemiRouteList(SemiRoute semiRoute){
+        this.semiRouteList.add(semiRoute);
+        semiRoute.setRoute(this);
+    }
 
 }

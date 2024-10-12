@@ -23,6 +23,22 @@ public class DriveReport {
     @JoinColumn(name="survey_id")
     private Survey survey;
 
-    @OneToMany(mappedBy = "driveReport", fetch = FetchType.LAZY)
-    private List<SemiRouteInfo> semiRouteInfoList = new ArrayList<>();
+    @OneToOne(mappedBy = "driveReport", fetch = FetchType.LAZY)
+    @JoinColumn(name = "route_id")
+    private Route route;
+
+    void setUser(User user){
+        this.user = user;
+        user.getDriveReportList().add(this);
+    }
+
+    void setSurvey(Survey survey){
+        this.survey = survey;
+        survey.setDriveReport(this);
+    }
+
+    void setRoute(Route route){
+        this.route = route;
+        route.setDriveReport(this);
+    }
 }

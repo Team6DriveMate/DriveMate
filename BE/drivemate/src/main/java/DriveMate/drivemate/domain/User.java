@@ -21,11 +21,15 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<DriveReport> driveReportList = new ArrayList<>();
 
-    public static User createuser(String userName, String userPW){
+    public static User createUser(String userName, String userPW){
         User user = new User();
         user.setUserName(userName);
         user.setUserPW(userPW);
-
         return user;
+    }
+
+    void addDriveReportList(DriveReport driveReport){
+        this.getDriveReportList().add(driveReport);
+        driveReport.setUser(this);
     }
 }

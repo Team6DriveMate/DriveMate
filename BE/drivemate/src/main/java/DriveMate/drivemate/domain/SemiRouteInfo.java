@@ -16,10 +16,6 @@ public class SemiRouteInfo {
     @JoinColumn(name = "semiRoute_id")
     private SemiRoute semiRoute;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "driveReport_id")
-    private DriveReport driveReport;
-
     private String lineName;
     private String lineStartName;
     private String lineEndName;

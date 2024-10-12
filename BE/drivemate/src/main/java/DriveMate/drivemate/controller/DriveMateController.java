@@ -31,6 +31,11 @@ public class DriveMateController {
         return driveMateService.getTraffic(centerLat, centerLon);
     }
 
+    @GetMapping("/address")
+    public String getAddress(@RequestParam String address){
+        return driveMateService.addressToCoordinate(address);
+    }
+
     @PostMapping("/create")
     public ResponseEntity<Route> createRoute(@RequestParam double startY, @RequestParam double startX,
                                              @RequestParam double endY, @RequestParam double endX) {
