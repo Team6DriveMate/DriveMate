@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/drivemate?useSSL=false&serverTimezone=UTC
-    username: root  # MySQL 사용자 이름으로 변경
-    password: root  # MySQL 비밀번호로 변경
+    url: jdbc:mysql://mydrivemate.cnyc0ess4ogo.us-east-1.rds.amazonaws.com:3306/drivemate?useSSL=false&serverTimezone=UTC
+    username: g2hyeong
+    password: g2hyeong
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
