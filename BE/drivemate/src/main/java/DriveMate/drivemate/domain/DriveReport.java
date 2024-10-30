@@ -27,17 +27,17 @@ public class DriveReport {
     @JoinColumn(name = "route_id")
     private Route route;
 
-    void setUser(User user){
+    public void setUser(User user){
         this.user = user;
         user.getDriveReportList().add(this);
     }
 
-    void setSurvey(Survey survey){
+    public void setSurvey(Survey survey){
         this.survey = survey;
         survey.setDriveReport(this);
     }
 
-    void setRoute(Route route){
+    public void setRoute(Route route){
         this.route = route;
         route.setDriveReport(this);
     }

@@ -16,11 +16,22 @@ public class Coordinate {
     @JoinColumn(name="semiRoute_id")
     private SemiRoute semiRoute;
 
-    private double first;
-    private double second;
+    @OneToOne(mappedBy="coordinate", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private SemiRouteRoadInfo semiRouteRoadInfo;
 
-    void setSemiRoute(SemiRoute semiRoute){
+    private double first;   // Lon
+    private double second;  // Lat
+
+    public void setSemiRoute(SemiRoute semiRoute){
         this.semiRoute = semiRoute;
         semiRoute.getCoordinateList().add(this);
     }
+
+    /*
+    public void setSemiRouteInfo(SemiRouteRoadInfo semiRouteRoadInfo){
+        this.semiRouteRoadInfo = semiRouteRoadInfo;
+        semiRouteRoadInfo.setCoordinate(this);
+    }
+
+     */
 }

@@ -1,8 +1,5 @@
 package DriveMate.drivemate.service;
-import DriveMate.drivemate.domain.Coordinate;
-import DriveMate.drivemate.domain.Route;
-import DriveMate.drivemate.domain.SemiRouteLineString;
-import DriveMate.drivemate.domain.SemiRoutePoint;
+import DriveMate.drivemate.domain.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.catalina.util.URLEncoder;
@@ -18,6 +15,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static org.locationtech.jts.util.Debug.print;
 
 @Service
 public class DriveMateService {
@@ -75,16 +74,19 @@ public class DriveMateService {
 
         return String.format("newLat: %s, newLon: %s", newLat, newLon);
     }
-    public String getTraffic(double centerLat, double centerLon) {
+    public String getTraffic(Coordinate coordinate) {
 
         // 헤더 설정
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.set("appKey", appKey);
 
+        double centerLat = coordinate.getFirst();
+        double centerLon = coordinate.getSecond();
+
         // URL에 쿼리 파라미터 포함
         String urlWithParams = String.format(
-                "%s?version=1&centerLat=%s&centerLon=%s&trafficType=POINT&radius=1&zoomLevel=10",
+                "%s?version=1&centerLat=%f&centerLon=%f&trafficType=POINT&radius=1&zoomLevel=10",
                 trafficUrl, centerLat, centerLon
         );
 
@@ -196,6 +198,51 @@ public class DriveMateService {
         return route;
     }
 
+
+    // 도로 정보, 돌발 정보 api 받아오기
+    public Coordinate parseTrafficInfo(JsonNode responseNode, Coordinate coordinate){
+        JsonNode featuresArray = responseNode.get("features");
+
+        if (featuresArray != null && featuresArray.isArray()) {
+            for (JsonNode feature : featuresArray) {
+                SemiRouteRoadInfo info = new SemiRouteRoadInfo();
+                JsonNode properties = feature.get("properties");
+                if (properties != null){
+                    info.setInfoIndex(getIntValue(properties, "index"));
+                    info.setName(getStringValue(properties, "name"));
+                    info.setDescription(getStringValue(properties, "description"));
+                    info.setCongestion(getStringValue(properties, "congestion"));
+                    info.setDirection(getStringValue(properties, "direction"));
+                    info.setRoadType(getStringValue(properties, "roadType"));
+                    info.setDistance(getIntValue(properties, "distance"));
+                    info.setTime(getDoubleValue(properties, "time"));
+                    info.setSpeed(getIntValue(properties, "speed"));
+                }
+                info.setCoordinate(coordinate);
+
+            }
+        }
+        return coordinate;
+    }
+
+    public Route setTrafficInfo(Route route){
+        for(SemiRoute semiRoute : route.getSemiRouteList()){
+            if (semiRoute.getClass().getName().equals("DriveMate.drivemate.domain.SemiRoutePoint")){
+                Coordinate coordinate = semiRoute.getCoordinateList().get(0);
+                String trafficRespond = getTraffic(coordinate);
+                try {
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    JsonNode jsonNode = objectMapper.readTree(trafficRespond);
+                    parseTrafficInfo(jsonNode, coordinate);
+                }
+                catch (Exception e) {
+                    // 오류가 발생하면 에러 처리
+                }
+            }
+        }
+        return route;
+    }
+
     // 단일 좌표를 파싱하는 메서드
     private Coordinate parseCoordinate(JsonNode coordinates) {
         if (coordinates.isArray() && coordinates.size() == 2) {
@@ -215,6 +262,11 @@ public class DriveMateService {
     private int getIntValue(JsonNode node, String fieldName) {
         JsonNode valueNode = node.get(fieldName);
         return (valueNode != null && !valueNode.isNull()) ? valueNode.asInt() : 0;
+    }
+
+    private double getDoubleValue(JsonNode node, String fieldName) {
+        JsonNode valueNode = node.get(fieldName);
+        return (valueNode != null && !valueNode.isNull()) ? valueNode.asDouble() : 0;
     }
 
 

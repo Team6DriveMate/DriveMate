@@ -9,6 +9,9 @@ import lombok.Setter;
 @Getter @Setter
 public class SemiRouteLineString extends SemiRoute{
 
+    @Transient
+    private String semiRouteType = "LineString";
+
     private Integer lineIndex;
     private String name;
     private String description;

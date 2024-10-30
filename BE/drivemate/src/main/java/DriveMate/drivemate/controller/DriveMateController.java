@@ -1,6 +1,8 @@
 package DriveMate.drivemate.controller;
 
+import DriveMate.drivemate.domain.Coordinate;
 import DriveMate.drivemate.domain.Route;
+import DriveMate.drivemate.domain.SemiRoute;
 import DriveMate.drivemate.service.DriveMateService;
 import DriveMate.drivemate.service.RouteService;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -10,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLOutput;
 import java.util.Map;
 
 // Modification for testing
@@ -28,10 +31,12 @@ public class DriveMateController {
         return driveMateService.getRoute(startY, startX, endY, endX);
     }
 
+    /*
     @GetMapping("/traffic")
     public String getTraffic(@RequestParam double centerLat, @RequestParam double centerLon){
         return driveMateService.getTraffic(centerLat, centerLon);
     }
+    */
 
     @GetMapping("/address")
     public String getAddress(@RequestParam String address){
@@ -52,6 +57,7 @@ public class DriveMateController {
 
             // 변환된 JsonNode를 parseRouteData에 전달
             Route route = driveMateService.parseRouteData(jsonNode);
+            route = driveMateService.setTrafficInfo(route);
             routeService.saveRoute(route);
 
             return ResponseEntity.ok(route);
@@ -59,6 +65,31 @@ public class DriveMateController {
             // 오류가 발생하면 에러 처리
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
+    }
+
+    @PostMapping("/test")
+    public String Test(){
+        Route route = routeService.getRoute().get(0);
+        Coordinate coordinate = route.getSemiRouteList().get(2).getCoordinateList().get(0);
+        SemiRoute semiRoute = route.getSemiRouteList().get(1);
+        if(semiRoute.getClass().getName().equals("DriveMate.drivemate.domain.SemiRoutePoint")){
+            System.out.println("yes");
+        }
+        else {
+            System.out.println(semiRoute.getClass().getName());
+        }
+
+        String trafficRespond = driveMateService.getTraffic(coordinate);
+        Coordinate rst = new Coordinate();
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(trafficRespond);
+            driveMateService.parseTrafficInfo(jsonNode, coordinate);
+        }
+        catch (Exception e) {
+            // 오류가 발생하면 에러 처리
+        }
+        return coordinate.getSemiRouteRoadInfo().getDescription();
     }
 
 }

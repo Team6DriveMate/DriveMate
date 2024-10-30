@@ -10,6 +10,9 @@ import org.locationtech.jts.geom.Point;
 @Getter @Setter
 public class SemiRoutePoint extends SemiRoute {
 
+    @Transient
+    private String semiRouteType = "Point";
+
     private Integer pointIndex;
     private String name;
     private String description;

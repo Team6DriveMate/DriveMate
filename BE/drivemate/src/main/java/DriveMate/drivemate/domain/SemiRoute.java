@@ -13,15 +13,11 @@ public abstract class SemiRoute {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="SemiRoute_id")
-    private Long id; //
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)// 엔티티 ID
     @JoinColumn(name="route_id")
     private Route route;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="semiRouteInfo_id")
-    private SemiRouteInfo semiRouteInfo;
 
     private Integer numIndex;
 
