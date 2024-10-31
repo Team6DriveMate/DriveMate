@@ -1,5 +1,6 @@
 package DriveMate.drivemate.service;
 import DriveMate.drivemate.domain.*;
+import DriveMate.drivemate.repository.CoordinateRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.catalina.util.URLEncoder;
@@ -21,6 +22,8 @@ import static org.locationtech.jts.util.Debug.print;
 @Service
 public class DriveMateService {
     private final RestTemplate restTemplate;
+
+    private final CoordinateRepository coordinateRepository;
     private final String routeUrl = "https://apis.openapi.sk.com/tmap/routes";
     private final String addressUrl = "https://apis.openapi.sk.com/tmap/geo/geocoding";
     private final String trafficUrl = "https://apis.openapi.sk.com/tmap/traffic";
@@ -29,9 +32,12 @@ public class DriveMateService {
     private String appKey;
 
     @Autowired
-    public DriveMateService(RestTemplateBuilder restTemplateBuilder) {
+    public DriveMateService(RestTemplateBuilder restTemplateBuilder, CoordinateRepository coordinateRepository) {
         this.restTemplate = new RestTemplate();
+        this.coordinateRepository = coordinateRepository;
     }
+
+
 
     public String addressToCoordinate(String address){
         String[] tokens = address.split(" ");
@@ -170,6 +176,7 @@ public class DriveMateService {
                     SemiRouteLineString lineString = new SemiRouteLineString();
 
                     JsonNode coordinatesArray = feature.get("geometry").get("coordinates");
+                    //coordinateRepository.batchInsertCoordinate(coordinatesArray);
                     if (coordinatesArray.isArray()) {
                         for (JsonNode coordinateNode : coordinatesArray) {
                             Coordinate coordinate = parseCoordinate(coordinateNode);
@@ -178,7 +185,7 @@ public class DriveMateService {
                             }
                         }
                     }
-
+                    
                     if (properties != null) {
                         lineString.setNumIndex(getIntValue(properties, "index"));
                         lineString.setLineIndex(getIntValue(properties, "lineIndex"));
