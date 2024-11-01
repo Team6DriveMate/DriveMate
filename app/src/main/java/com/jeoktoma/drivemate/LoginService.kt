@@ -1,10 +1,7 @@
 package com.jeoktoma.drivemate
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,24 +23,13 @@ interface LoginService {
     suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
 }
 
-
-fun performLogin(id: String, pw: String, context: Context) {
-    CoroutineScope(Dispatchers.IO).launch {
+suspend fun performLoginService(id: String, pw: String, context: Context): Boolean {
+    return try {
         val response = loginService.login(LoginRequest(id, pw))
-        withContext(Dispatchers.Main) {
-            if (response.isSuccessful) {
-                val loginResponse = response.body()
-                if (loginResponse?.success == true) {
-                    // 로그인 성공 처리
-                    Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show()
-                } else {
-                    // 로그인 실패 처리
-                    Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show()
-                }
-            } else {
-                // 네트워크 오류 처리
-                Toast.makeText(context, "네트워크 오류: ${response.code()}", Toast.LENGTH_SHORT).show()
-            }
-        }
+        response.isSuccessful && response.body()?.success == true
+    } catch (e: Exception) {
+        Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_SHORT).show()
+        false
     }
 }
+
