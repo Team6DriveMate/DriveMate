@@ -7,12 +7,17 @@ import DriveMate.drivemate.service.DriveMateService;
 import DriveMate.drivemate.service.RouteService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 // Modification for testing
@@ -50,6 +55,10 @@ public class DriveMateController {
         // TMAP API로부터 경로 데이터를 String으로 받아옴
         String tmapResponse = driveMateService.getRoute(startY, startX, endY, endX);
 
+        System.out.println(tmapResponse);
+
+        int batchSize = 30;
+
         try {
             // ObjectMapper를 사용하여 String을 JsonNode로 변환
             ObjectMapper objectMapper = new ObjectMapper();
@@ -57,7 +66,7 @@ public class DriveMateController {
             // 변환된 JsonNode를 parseRouteData에 전달
             Route route = driveMateService.parseRouteData(jsonNode);
             route = driveMateService.setTrafficInfo(route);
-            routeService.saveRoute(route);
+            driveMateService.saveRoute(route);
 
             return ResponseEntity.ok(route);
         } catch (Exception e) {

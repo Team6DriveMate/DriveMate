@@ -11,7 +11,7 @@ import java.util.List;
 @Getter @Setter
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // 이게 무슨 차이였지? AUTO 랑 IDENTITY ?
+    @GeneratedValue(strategy = GenerationType.SEQUENCE) // 이게 무슨 차이였지? AUTO 랑 IDENTITY ?
     @Column(name = "user_id")
     private Long id;
 

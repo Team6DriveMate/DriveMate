@@ -11,7 +11,7 @@ import java.util.List;
 @Getter @Setter
 public abstract class SemiRoute {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name="SemiRoute_id")
     private Long id;
 
@@ -21,8 +21,7 @@ public abstract class SemiRoute {
 
     private Integer numIndex;
 
-    @OneToMany(mappedBy = "semiRoute", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "semiRoute", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Coordinate> coordinateList = new ArrayList<>();
 
     public void setRoute(Route route){

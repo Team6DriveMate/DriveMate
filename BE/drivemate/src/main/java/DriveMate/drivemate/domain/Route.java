@@ -11,7 +11,7 @@ import java.util.List;
 @Getter @Setter
 public class Route {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "route_id")
     private Long id;
 
@@ -22,14 +22,13 @@ public class Route {
     private String endLat;
     private String endLon;
 
-    private String totalDistance;
-    private String totalTime;
+    private Integer totalDistance;
+    private Integer totalTime;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     private DriveReport driveReport;
 
-    @OneToMany(mappedBy = "route", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "route", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<SemiRoute> semiRouteList = new ArrayList<>();
 
     public void setDriveReport(DriveReport driveReport){

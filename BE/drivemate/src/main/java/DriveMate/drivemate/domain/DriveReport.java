@@ -12,7 +12,7 @@ import java.util.List;
 public class DriveReport {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long Id;
 
     @ManyToOne(fetch = FetchType.LAZY)

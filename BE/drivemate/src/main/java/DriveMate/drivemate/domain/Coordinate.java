@@ -9,7 +9,7 @@ import lombok.Setter;
 public class Coordinate {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)// 엔티티 ID
@@ -26,6 +26,7 @@ public class Coordinate {
         this.semiRoute = semiRoute;
         semiRoute.getCoordinateList().add(this);
     }
+
 
     /*
     public void setSemiRouteInfo(SemiRouteRoadInfo semiRouteRoadInfo){

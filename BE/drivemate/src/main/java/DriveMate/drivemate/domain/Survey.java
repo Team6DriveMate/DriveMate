@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter @Setter
 public class Survey {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name="survey_id")
     private Long id;
 

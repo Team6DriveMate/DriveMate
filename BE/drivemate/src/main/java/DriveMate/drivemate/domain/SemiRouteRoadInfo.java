@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter @Setter
 public class SemiRouteRoadInfo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "semiRouteRoadInfo_id")
     private Long id;
 
