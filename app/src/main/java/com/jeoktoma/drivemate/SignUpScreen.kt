@@ -19,6 +19,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
@@ -85,8 +87,8 @@ fun SignUpScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
-            if (inputPW == checkPW) {
-                coroutineScope.launch {
+            CoroutineScope(Dispatchers.Main).launch {
+                if (inputPW == checkPW) {
                     val success = performSignUpService(id = inputID, pw = inputPW, context = context)
                     if (success) {
                         Toast.makeText(context, "계정 생성 성공", Toast.LENGTH_SHORT).show()
@@ -94,13 +96,14 @@ fun SignUpScreen(navController: NavController) {
                     } else {
                         Toast.makeText(context, "계정 생성 실패", Toast.LENGTH_SHORT).show()
                     }
+                } else {
+                    Toast.makeText(context, "비밀번호를 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
                 }
-            } else {
-                Toast.makeText(context, "비밀번호를 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
             }
         }) {
             Text("회원가입")
         }
+
 
         Spacer(modifier = Modifier.height(16.dp))
 

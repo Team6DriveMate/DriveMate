@@ -4,52 +4,93 @@ import android.content.Context
 import android.widget.Toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-data class SignUpRequest(val id: String, val password: String)
+private val retrofit = Retrofit.Builder().baseUrl("https://3f7e2b24-1cc2-47ea-992c-ea0009e1538c.mock.pstmn.io/user/")
+    .addConverterFactory(GsonConverterFactory.create())
+    .build()
 
-data class SignUpResponse(val success: Boolean, val message: String?)
+val signUpService = retrofit.create(SignUpService::class.java)
 
-interface SignUpApi {
-    @POST("/signup")
-    suspend fun signUp(@Body request: SignUpRequest): SignUpResponse
-}
-
-object RetrofitClient {
-    private const val BASE_URL = "https://9a16ddb0-40b6-4586-9705-5429842da0f1.mock.pstmn.io/user/"
-
-    val instance: SignUpApi by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(SignUpApi::class.java)
-    }
+interface SignUpService {
+    @POST("signup")
+    suspend fun signUp(@Body signUpRequest: SignUpRequest): Response<SignUpResponse>
 }
 
 suspend fun performSignUpService(id: String, pw: String, context: Context): Boolean {
-    return withContext(Dispatchers.IO) {
-        try {
-            val response = RetrofitClient.instance.signUp(SignUpRequest(id = id, password = pw))
-            if (response.success) {
+    return try {
+        withContext(Dispatchers.IO) {
+            val response = signUpService.signUp(SignUpRequest(id, pw))
+            if (response.isSuccessful && response.body()?.success == true) {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(context, "계정 생성 성공", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "회원가입 성공", Toast.LENGTH_SHORT).show()
                 }
                 true
             } else {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(context, response.message ?: "회원가입 실패", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "회원가입 실패: ${response.code()}", Toast.LENGTH_SHORT).show()
                 }
                 false
             }
-        } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
-            false
         }
+    } catch (e: Exception) {
+        withContext(Dispatchers.Main) {
+            Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
+        false
     }
 }
+//
+//suspend fun performSignUpService(id: String, pw: String, context: Context): Boolean {
+//    return try {
+//        withContext(Dispatchers.IO) {
+//            val response = SignUpService.signUp(SignUpRequest(id, pw))
+//            if (response.isSuccessful && response.body()?.success == true) {
+//                withContext(Dispatchers.Main) {
+//                    Toast.makeText(context, "회원가입 성공", Toast.LENGTH_SHORT).show()
+//                }
+//                true
+//            } else {
+//                withContext(Dispatchers.Main) {
+//                    Toast.makeText(context, "회원가입 실패: ${response.code()}", Toast.LENGTH_SHORT).show()
+//                }
+//                false
+//            }
+//        }
+//    } catch (e: Exception) {
+//        withContext(Dispatchers.Main) {
+//            Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_SHORT).show()
+//        }
+//        false
+//    }
+//}
+
+
+//suspend fun performSignUpService(id: String, pw: String, context: Context): Boolean {
+//    return withContext(Dispatchers.IO) {
+//        try {
+//            val response = RetrofitClient.instance.signUp(SignUpRequest(id = id, password = pw))
+//            if (response.success) {
+//                withContext(Dispatchers.Main) {
+//                    Toast.makeText(context, "계정 생성 성공", Toast.LENGTH_SHORT).show()
+//                }
+//                true
+//            } else {
+//                withContext(Dispatchers.Main) {
+//                    Toast.makeText(context, response.message ?: "회원가입 실패", Toast.LENGTH_SHORT).show()
+//                }
+//                false
+//            }
+//        } catch (e: Exception) {
+//            withContext(Dispatchers.Main) {
+//                Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_SHORT).show()
+//            }
+//            false
+//        }
+//    }
+//}
+

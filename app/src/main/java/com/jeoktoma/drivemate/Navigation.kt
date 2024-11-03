@@ -10,6 +10,11 @@ fun AppNavigation(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "loginScreen") {
         composable("loginScreen") { LoginScreen(navController) }
         composable("signUpScreen") { SignUpScreen(navController) }
-        composable("mainScreen") { MainScreen() }
+        composable("mainScreen") { MainScreen(navController) }
+        composable("pathScreen") { PathScreen(navController) }
+        composable("driveScreen") { DriveScreen(navController) }
+        composable("surveyScreen") { SurveyScreen(navController) }
+        composable("tipScreen") { TipScreen(navController) }
+
     }
 }

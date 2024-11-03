@@ -2,9 +2,7 @@ package com.jeoktoma.drivemate
 
 import android.content.Context
 import android.widget.Toast
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -12,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-private val retrofit = Retrofit.Builder().baseUrl("https://9a16ddb0-40b6-4586-9705-5429842da0f1.mock.pstmn.io/user/")
+private val retrofit = Retrofit.Builder().baseUrl("https://3f7e2b24-1cc2-47ea-992c-ea0009e1538c.mock.pstmn.io/user/")
     .addConverterFactory(GsonConverterFactory.create())
     .build()
 
@@ -25,11 +23,49 @@ interface LoginService {
 
 suspend fun performLoginService(id: String, pw: String, context: Context): Boolean {
     return try {
-        val response = loginService.login(LoginRequest(id, pw))
-        response.isSuccessful && response.body()?.success == true
+        withContext(Dispatchers.IO) {
+            val response = loginService.login(LoginRequest(id, pw))
+            if (response.isSuccessful && response.body()?.success == true) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show()
+                }
+                true
+            } else {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show()
+                }
+                false
+            }
+        }
     } catch (e: Exception) {
-        Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_SHORT).show()
+        withContext(Dispatchers.Main) {
+            Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
         false
     }
 }
+
+
+
+//fun performLoginService(id: String, pw: String, context: Context) {
+//    CoroutineScope(Dispatchers.IO).launch {
+//        val response = loginService.login(LoginRequest(id, pw))
+//        withContext(Dispatchers.Main) {
+//            if (response.isSuccessful) {
+//                val loginResponse = response.body()
+//                if (loginResponse?.success == true) {
+//                    // 로그인 성공 처리
+//                    Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show()
+//                } else {
+//                    // 로그인 실패 처리
+//                    Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show()
+//                }
+//            } else {
+//                // 네트워크 오류 처리
+//                Toast.makeText(context, "네트워크 오류: ${response.code()}", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//    }
+//}
+
 
