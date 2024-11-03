@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.4'
 	id 'io.spring.dependency-management' version '1.1.6'
+	id 'org.jetbrains.kotlin.jvm' version '1.8.0'  // Kotlin JVM 플러그인 추가
 }
 
 group = 'DriveMate'
@@ -28,6 +29,8 @@ dependencies {
 	implementation 'org.locationtech.jts:jts-core:1.16.1'  // 또는 최신 버전
 	implementation 'org.hibernate:hibernate-core:6.5.3.Final'
 	implementation 'org.hibernate:hibernate-spatial:6.5.3.Final' // 버전은 필요에 따라 조정
+	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+	implementation "org.jetbrains.kotlin:kotlin-reflect"
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql:42.5.0'  // PostgreSQL JDBC 드라이버 추가
 	annotationProcessor 'org.projectlombok:lombok'
