@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/User")
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -19,7 +19,7 @@ public class UserController {
         return userService.logIn(username, password);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/register")
     public boolean signIn(@RequestParam String username, @RequestParam String password){
         Long id = userService.saveUser(userService.createUser(username, password));
         return id != null;

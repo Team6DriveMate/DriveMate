@@ -1,11 +1,9 @@
 package DriveMate.drivemate.service;
 import DriveMate.drivemate.domain.*;
-import DriveMate.drivemate.repository.CoordinateRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.apache.catalina.util.URLEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
@@ -28,22 +26,22 @@ public class DriveMateService {
 
     @PersistenceContext
     private EntityManager em;
-    private final CoordinateRepository coordinateRepository;
     private final RouteService routeService;
-    @PersistenceContext
-    private EntityManager entityManager;
+
+    private final DriveReportService driveReportService;
     private final String routeUrl = "https://apis.openapi.sk.com/tmap/routes";
     private final String addressUrl = "https://apis.openapi.sk.com/tmap/geo/geocoding";
     private final String trafficUrl = "https://apis.openapi.sk.com/tmap/traffic";
+    private final String geoURl = "https://apis.openapi.sk.com/tmap/geo/reversegeocoding";
 
     @Value("${tmap.api.key}") // application.properties 파일에 API 키를 저장
     private String appKey;
 
     @Autowired
-    public DriveMateService(RestTemplateBuilder restTemplateBuilder, CoordinateRepository coordinateRepository, RouteService routeService) {
+    public DriveMateService(RestTemplateBuilder restTemplateBuilder, RouteService routeService, DriveReportService driveReportService) {
         this.restTemplate = new RestTemplate();
-        this.coordinateRepository = coordinateRepository;
         this.routeService = routeService;
+        this.driveReportService = driveReportService;
     }
 
 
@@ -95,6 +93,7 @@ public class DriveMateService {
     }
 
 
+
     /**
      *  getRoute
      *  출발 좌표와 도착 좌표를 받아 경로 데이터가 담긴 JSON 파일을 받아온다.
@@ -142,6 +141,8 @@ public class DriveMateService {
 
     public Route parseRouteData(JsonNode responseNode) {
         Route route = new Route();
+        DriveReport driveReport = new DriveReport();
+        route.setDriveReport(driveReport);
 
         // features 배열에서 순차적으로 경로 정보를 파싱
         JsonNode featuresArray = responseNode.get("features");
@@ -167,6 +168,28 @@ public class DriveMateService {
                     JsonNode coordinates = feature.get("geometry").get("coordinates");
                     // 좌표 파싱하여 Coordinate 객체에 추가
                     Coordinate coordinate = parseCoordinate(coordinates);
+
+                    if (coordinate != null) {
+                        String trafficRespond = getTraffic(coordinate);
+                        try {
+                            ObjectMapper objectMapper = new ObjectMapper();
+                            JsonNode jsonNode = objectMapper.readTree(trafficRespond);
+                            parseTrafficInfo(jsonNode, coordinate);
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        String geoRespond = getGeo(coordinate);
+                        try {
+                            ObjectMapper objectMapper = new ObjectMapper();
+                            JsonNode jsonNode = objectMapper.readTree(geoRespond);
+                            parseGeoInfo(jsonNode, driveReport, point);
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
                     point.addCoordinate(coordinate);
 
                     if (properties != null) {
@@ -274,35 +297,70 @@ public class DriveMateService {
         return coordinate;
     }
 
+
     /**
-     * getTraffic 과 parseTrafficInfo를 합친 메서드
+     *
      */
 
-    public Route setTrafficInfo(Route route){
-        for(SemiRoute semiRoute : route.getSemiRouteList()){
-            if (semiRoute.getClass().getName().equals("DriveMate.drivemate.domain.SemiRoutePoint")){
-                Coordinate coordinate = semiRoute.getCoordinateList().get(0);
-                String trafficRespond = getTraffic(coordinate);
-                try {
-                    ObjectMapper objectMapper = new ObjectMapper();
-                    JsonNode jsonNode = objectMapper.readTree(trafficRespond);
-                    parseTrafficInfo(jsonNode, coordinate);
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return route;
+    public String getGeo(Coordinate coordinate){
+        // 헤더 설정
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.set("appKey", appKey);
+
+        double Lat = coordinate.getFirst();
+        double Lon = coordinate.getSecond();
+
+        // URL에 쿼리 파라미터 포함
+        String urlWithParams = String.format(
+                "%s?version=1&&lat=%f&lon=%f&coordType=WGS84GEO&addressType=A02&newAddressExtend=Y",
+                geoURl, Lat, Lon
+        );
+
+        // HttpEntity는 헤더만 포함 (GET 요청은 보통 바디 없이 보냄)
+        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+
+        // GET 요청으로 변경된 URL과 함께 전송
+        ResponseEntity<String> responseEntity = restTemplate.exchange(urlWithParams, HttpMethod.GET, requestEntity, String.class
+        );
+
+        return responseEntity.getBody();
     }
 
+    public Section parseGeoInfo(JsonNode jsonNode, DriveReport driveReport, SemiRoute semiRoute){
+        JsonNode addressInfo = jsonNode.get("addressInfo");
+        String sectionName = getStringValue(addressInfo, "city_do") + " " + getStringValue(addressInfo, "gu_gun");
+        Section section = new Section();
+        section.setSectionName(sectionName);
+        section.addSemiRouteList(semiRoute);
+        section.setDriveReport(driveReport);
+        return section;
+    }
+
+    /**
+     *
+     */
     @Transactional
     public void saveRoute(Route route){
         try{
             int batchSize = 30;
+
             routeService.saveRoute(route);
+            driveReportService.saveDriveReport(route.getDriveReport());
+
+            List<Section> sectionList = route.getDriveReport().getSectionList();
             List<SemiRoute> semiRouteList = route.getSemiRouteList();
             List<Coordinate> coordinateList = new ArrayList<>();
+
+            for (int i=0; i<sectionList.size(); i++){
+                em.persist(sectionList.get(i));
+                if (i % batchSize == 0 && i>0){
+                    em.flush();
+                    em.clear();
+                }
+            }
+            em.flush();
+            em.clear();
 
             for (int i=0; i<semiRouteList.size(); i++){
                 coordinateList.addAll(semiRouteList.get(i).getCoordinateList());
@@ -315,7 +373,6 @@ public class DriveMateService {
             }
             em.flush();
             em.clear();
-
 
             for (int i=0; i<coordinateList.size(); i++){
                 em.persist(coordinateList.get(i));

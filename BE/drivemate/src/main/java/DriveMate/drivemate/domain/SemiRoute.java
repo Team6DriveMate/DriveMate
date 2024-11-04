@@ -24,6 +24,10 @@ public abstract class SemiRoute {
     @OneToMany(mappedBy = "semiRoute", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Coordinate> coordinateList = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="section_id")
+    private Section section;
+
     public void setRoute(Route route){
         this.route = route;
         route.getSemiRouteList().add(this);
