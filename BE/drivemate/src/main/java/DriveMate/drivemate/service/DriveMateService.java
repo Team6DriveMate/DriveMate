@@ -1,9 +1,11 @@
 package DriveMate.drivemate.service;
 import DriveMate.drivemate.domain.*;
+import DriveMate.drivemate.repository.SectionRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
@@ -28,6 +30,8 @@ public class DriveMateService {
     private EntityManager em;
     private final RouteService routeService;
 
+    private final SectionService sectionService;
+
     private final DriveReportService driveReportService;
     private final String routeUrl = "https://apis.openapi.sk.com/tmap/routes";
     private final String addressUrl = "https://apis.openapi.sk.com/tmap/geo/geocoding";
@@ -38,10 +42,11 @@ public class DriveMateService {
     private String appKey;
 
     @Autowired
-    public DriveMateService(RestTemplateBuilder restTemplateBuilder, RouteService routeService, DriveReportService driveReportService) {
+    public DriveMateService(RestTemplateBuilder restTemplateBuilder, RouteService routeService, DriveReportService driveReportService, SectionService sectionService) {
         this.restTemplate = new RestTemplate();
         this.routeService = routeService;
         this.driveReportService = driveReportService;
+        this.sectionService = sectionService;
     }
 
 
@@ -144,6 +149,8 @@ public class DriveMateService {
         DriveReport driveReport = new DriveReport();
         route.setDriveReport(driveReport);
 
+        List<Section> sectionList = new ArrayList<>();
+
         // features 배열에서 순차적으로 경로 정보를 파싱
         JsonNode featuresArray = responseNode.get("features");
 
@@ -183,7 +190,7 @@ public class DriveMateService {
                         try {
                             ObjectMapper objectMapper = new ObjectMapper();
                             JsonNode jsonNode = objectMapper.readTree(geoRespond);
-                            parseGeoInfo(jsonNode, driveReport, point);
+                            parseGeoInfo(jsonNode, driveReport, point, sectionList);
                         }
                         catch (Exception e) {
                             e.printStackTrace();
@@ -327,14 +334,25 @@ public class DriveMateService {
         return responseEntity.getBody();
     }
 
-    public Section parseGeoInfo(JsonNode jsonNode, DriveReport driveReport, SemiRoute semiRoute){
+    public Section parseGeoInfo(JsonNode jsonNode, DriveReport driveReport, SemiRoute semiRoute, List<Section> sectionList){
         JsonNode addressInfo = jsonNode.get("addressInfo");
         String sectionName = getStringValue(addressInfo, "city_do") + " " + getStringValue(addressInfo, "gu_gun");
+
+        // DB에 저장을 안했는데 어떻게 검사를 해 ㅋㅋㅋㅋㅋ
+        for (Section section : sectionList){
+            if (section.getSectionName().equals(sectionName)){
+                section.addSemiRouteList(semiRoute);
+                return section;
+            }
+        }
+
         Section section = new Section();
+        sectionList.add(section);
         section.setSectionName(sectionName);
         section.addSemiRouteList(semiRoute);
         section.setDriveReport(driveReport);
         return section;
+
     }
 
     /**
@@ -353,6 +371,7 @@ public class DriveMateService {
             List<Coordinate> coordinateList = new ArrayList<>();
 
             for (int i=0; i<sectionList.size(); i++){
+                System.out.println(sectionList.get(i));
                 em.persist(sectionList.get(i));
                 if (i % batchSize == 0 && i>0){
                     em.flush();
