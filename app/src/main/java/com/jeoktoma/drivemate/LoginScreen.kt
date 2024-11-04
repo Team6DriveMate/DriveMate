@@ -15,8 +15,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
@@ -24,6 +22,7 @@ fun LoginScreen(navController: NavController) {
     var inputID by remember { mutableStateOf("") }
     var inputPW by remember { mutableStateOf("") }
     val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -67,10 +66,12 @@ fun LoginScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
-            CoroutineScope(Dispatchers.Main).launch {
-                val success = performLoginService(inputID, inputPW, context)
+            coroutineScope.launch {
+                val success = performLoginService(id = inputID, pw = inputPW, context = context)
                 if (success) {
-                    navController.navigate("mainScreen")
+                    navController.navigate("mainScreen") // 로그인 성공 시 메인 화면으로 이동
+                } else {
+                    Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show()
                 }
             }
         }) {
