@@ -11,5 +11,7 @@ public class Tip {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    private Integer typeTip;
+    private String title;
     private String description;
 }

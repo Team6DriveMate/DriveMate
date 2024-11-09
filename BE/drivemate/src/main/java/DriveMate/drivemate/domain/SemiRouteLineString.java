@@ -7,6 +7,7 @@ import lombok.Setter;
 
 @Entity
 @Getter @Setter
+@DiscriminatorValue("LineString")
 public class SemiRouteLineString extends SemiRoute{
 
     @Transient

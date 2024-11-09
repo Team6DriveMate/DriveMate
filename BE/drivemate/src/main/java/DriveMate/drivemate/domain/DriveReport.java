@@ -30,6 +30,9 @@ public class DriveReport {
     @OneToMany(mappedBy = "driveReport", fetch = FetchType.LAZY)
     private List<Section> sectionList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "driveReport", fetch = FetchType.LAZY)
+    private List<SemiRouteSurvey> semiRouteSurveyList = new ArrayList<>();
+
     public void setUser(User user){
         this.user = user;
         user.getDriveReportList().add(this);

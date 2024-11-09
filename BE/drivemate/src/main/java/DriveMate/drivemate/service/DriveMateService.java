@@ -1,4 +1,5 @@
 package DriveMate.drivemate.service;
+import DriveMate.drivemate.dataclass.Location;
 import DriveMate.drivemate.domain.*;
 import DriveMate.drivemate.repository.SectionRepository;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -50,12 +51,22 @@ public class DriveMateService {
     }
 
 
+    private Route routeTmp;
+
+    public void setRouteTmp(Route route){
+        routeTmp = route;
+    }
+
+    public Route getRouteTmp(){
+        return routeTmp;
+    }
+
     /**
      *  addressToCoordinate
      *  도로명주소 -> 위도 경도
      */
 
-    public String addressToCoordinate(String address){
+    public Location addressToCoordinate(String address){
         String[] tokens = address.split(" ");
         // 0 : 시,도 / 1 : 구,군 / 2 : 도로명 / 3 : 번지 / 4 : 상세주소
 
@@ -83,18 +94,18 @@ public class DriveMateService {
         );
 
         ObjectMapper objectMapper = new ObjectMapper();
-        String newLat = null;
-        String newLon = null;
+        double newLat = 0;
+        double newLon = 0;
 
         try {
             JsonNode rootNode = objectMapper.readTree(responseEntity.getBody());
-            newLat = rootNode.path("coordinateInfo").path("newLat").asText();
-            newLon = rootNode.path("coordinateInfo").path("newLon").asText();
+            newLat = rootNode.path("coordinateInfo").path("newLat").asDouble();
+            newLon = rootNode.path("coordinateInfo").path("newLon").asDouble();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return String.format("newLat: %s, newLon: %s", newLat, newLon);
+        return new Location(newLat, newLon);
     }
 
 
@@ -154,15 +165,15 @@ public class DriveMateService {
         // features 배열에서 순차적으로 경로 정보를 파싱
         JsonNode featuresArray = responseNode.get("features");
 
-        boolean isFirst = true;
+        boolean isFirstPoint = true;
 
         if (featuresArray != null && featuresArray.isArray()) {
             for (JsonNode feature : featuresArray) {
-                if (isFirst){
+                if (isFirstPoint){
                     JsonNode properties = feature.get("properties");
                     route.setTotalDistance(getIntValue(properties, "totalDistance"));
                     route.setTotalTime(getIntValue(properties, "totalTime"));
-                    isFirst = false;
+                    isFirstPoint = false;
                 }
                 // geometry와 properties 파싱
                 String type = feature.get("geometry").get("type").asText();
@@ -175,28 +186,6 @@ public class DriveMateService {
                     JsonNode coordinates = feature.get("geometry").get("coordinates");
                     // 좌표 파싱하여 Coordinate 객체에 추가
                     Coordinate coordinate = parseCoordinate(coordinates);
-
-                    if (coordinate != null) {
-                        String trafficRespond = getTraffic(coordinate);
-                        try {
-                            ObjectMapper objectMapper = new ObjectMapper();
-                            JsonNode jsonNode = objectMapper.readTree(trafficRespond);
-                            parseTrafficInfo(jsonNode, coordinate);
-                        }
-                        catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        String geoRespond = getGeo(coordinate);
-                        try {
-                            ObjectMapper objectMapper = new ObjectMapper();
-                            JsonNode jsonNode = objectMapper.readTree(geoRespond);
-                            parseGeoInfo(jsonNode, driveReport, point, sectionList);
-                        }
-                        catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
                     point.addCoordinate(coordinate);
 
                     if (properties != null) {
@@ -215,8 +204,32 @@ public class DriveMateService {
 
                     JsonNode coordinatesArray = feature.get("geometry").get("coordinates");
                     if (coordinatesArray.isArray()) {
+                        boolean isFirstLineString = true;
                         for (JsonNode coordinateNode : coordinatesArray) {
                             Coordinate coordinate = parseCoordinate(coordinateNode);
+                            if (isFirstLineString){
+                                if (coordinate != null) {
+                                    String trafficRespond = getTraffic(coordinate);
+                                    try {
+                                        ObjectMapper objectMapper = new ObjectMapper();
+                                        JsonNode jsonNode = objectMapper.readTree(trafficRespond);
+                                        parseTrafficInfo(jsonNode, coordinate);
+                                    }
+                                    catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    String geoRespond = getGeo(coordinate);
+                                    try {
+                                        ObjectMapper objectMapper = new ObjectMapper();
+                                        JsonNode jsonNode = objectMapper.readTree(geoRespond);
+                                        parseGeoInfo(jsonNode, driveReport, lineString, sectionList);
+                                    }
+                                    catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                isFirstLineString = false;
+                            }
                             if (coordinate != null) {
                                 coordinate.setSemiRoute(lineString);
                             }
@@ -238,7 +251,6 @@ public class DriveMateService {
         }
         return route;
     }
-
 
     /**
      *  getTraffic
@@ -338,7 +350,6 @@ public class DriveMateService {
         JsonNode addressInfo = jsonNode.get("addressInfo");
         String sectionName = getStringValue(addressInfo, "city_do") + " " + getStringValue(addressInfo, "gu_gun");
 
-        // DB에 저장을 안했는데 어떻게 검사를 해 ㅋㅋㅋㅋㅋ
         for (Section section : sectionList){
             if (section.getSectionName().equals(sectionName)){
                 section.addSemiRouteList(semiRoute);

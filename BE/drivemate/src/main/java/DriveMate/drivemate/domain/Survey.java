@@ -1,6 +1,7 @@
 package DriveMate.drivemate.domain;
 
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +16,12 @@ public class Survey {
     private Integer switchLight;
     private Integer sideMirror;
     private Integer tensionLevel;
+    private Integer weather;
+    private Integer laneStaying;
+
     private Integer sightDegree;
+
+    private String memo;
 
     @OneToOne(fetch = FetchType.LAZY)
     private DriveReport driveReport;

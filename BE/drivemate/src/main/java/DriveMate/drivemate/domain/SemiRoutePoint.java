@@ -8,6 +8,7 @@ import org.locationtech.jts.geom.Point;
 
 @Entity
 @Getter @Setter
+@DiscriminatorValue("Point")
 public class SemiRoutePoint extends SemiRoute {
 
     @Transient

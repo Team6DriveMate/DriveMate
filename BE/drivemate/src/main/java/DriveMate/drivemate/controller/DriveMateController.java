@@ -1,5 +1,6 @@
 package DriveMate.drivemate.controller;
 
+import DriveMate.drivemate.dataclass.Location;
 import DriveMate.drivemate.domain.Coordinate;
 import DriveMate.drivemate.domain.Route;
 import DriveMate.drivemate.domain.SemiRoute;
@@ -44,7 +45,7 @@ public class DriveMateController {
     */
 
     @GetMapping("/address")
-    public String getAddress(@RequestParam String address){
+    public Location getAddress(@RequestParam String address){
         return driveMateService.addressToCoordinate(address);
     }
 
@@ -65,6 +66,8 @@ public class DriveMateController {
             JsonNode jsonNode = objectMapper.readTree(tmapResponse);
             // 변환된 JsonNode를 parseRouteData에 전달
             Route route = driveMateService.parseRouteData(jsonNode);
+            driveMateService.setRouteTmp(route);
+            System.out.println(route.getTotalDistance());
             driveMateService.saveRoute(route);
 
             return ResponseEntity.ok(route);
