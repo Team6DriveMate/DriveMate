@@ -29,6 +29,16 @@ public class PathController {
         this.driveMateService = driveMateService;
     }
 
+    @PostMapping("/coord")
+    public AddressRespondDTO addressToCoord(@RequestBody AddressRequestDTO addressRequestDTO){
+        String address = addressRequestDTO.getAddress();
+        Location location = driveMateService.addressToCoordinate(address);
+        AddressRespondDTO addressRespondDTO = new AddressRespondDTO();
+        addressRespondDTO.setLat(location.getLatitude());
+        addressRespondDTO.setLng(location.getLongitude());
+        return addressRespondDTO;
+    }
+
     @PostMapping("/set")
     public RouteResponseDTO setRoute(@RequestBody RouteRequestDTO routeRequestDTO){
         String start = routeRequestDTO.getStartLocation().getName();
