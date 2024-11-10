@@ -97,7 +97,8 @@ public class PathController {
                     segmentDTO.setDistance(((SemiRouteLineString) semiRoute).getDistance());
                     segmentDTO.setRoadName(((SemiRouteLineString) semiRoute).getName());
                     System.out.println(semiRoute.getNumIndex());
-                    segmentDTO.setTraffic(semiRoute.getCoordinateList().get(0).getSemiRouteRoadInfo().getCongestion());
+                    if (semiRoute.getSemiRouteRoadInfo() != null)
+                        segmentDTO.setTraffic(semiRoute.getSemiRouteRoadInfo().getCongestion());
                     routeDTO.addSegment(segmentDTO);
                 }
             }

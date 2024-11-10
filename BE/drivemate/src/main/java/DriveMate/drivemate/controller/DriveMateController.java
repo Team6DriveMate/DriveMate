@@ -77,29 +77,5 @@ public class DriveMateController {
         }
     }
 
-    @PostMapping("/test")
-    public String Test(){
-        Route route = routeService.getRoute().get(0);
-        Coordinate coordinate = route.getSemiRouteList().get(2).getCoordinateList().get(0);
-        SemiRoute semiRoute = route.getSemiRouteList().get(1);
-        if(semiRoute.getClass().getName().equals("DriveMate.drivemate.domain.SemiRoutePoint")){
-            System.out.println("yes");
-        }
-        else {
-            System.out.println(semiRoute.getClass().getName());
-        }
-
-        String trafficRespond = driveMateService.getTraffic(coordinate);
-        Coordinate rst = new Coordinate();
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = objectMapper.readTree(trafficRespond);
-            driveMateService.parseTrafficInfo(jsonNode, coordinate);
-        }
-        catch (Exception e) {
-            // 오류가 발생하면 에러 처리
-        }
-        return coordinate.getSemiRouteRoadInfo().getDescription();
-    }
 
 }

@@ -13,9 +13,15 @@ public class SemiRouteRoadInfo {
     @Column(name = "semiRouteRoadInfo_id")
     private Long id;
 
+    /*
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="coordinate_id")
     private Coordinate coordinate;
+     */
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="semiRoute_id")
+    private SemiRoute semiRoute;
 
     private Integer infoIndex;
     private String name;
@@ -31,8 +37,15 @@ public class SemiRouteRoadInfo {
 
     private String pointDescription;
 
+    public void setSemiRoute(SemiRoute semiRoute){
+        this.semiRoute = semiRoute;
+        semiRoute.setSemiRouteRoadInfo(this);
+    }
+
+    /*
     public void setCoordinate(Coordinate coordinate){
         this.coordinate = coordinate;
         coordinate.setSemiRouteRoadInfo(this);
     }
+    */
 }

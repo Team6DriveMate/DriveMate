@@ -16,8 +16,10 @@ public class Coordinate {
     @JoinColumn(name="semiRoute_id")
     private SemiRoute semiRoute;
 
+    /*
     @OneToOne(mappedBy="coordinate", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private SemiRouteRoadInfo semiRouteRoadInfo;
+     */
 
     private double first;   // Lon
     private double second;  // Lat

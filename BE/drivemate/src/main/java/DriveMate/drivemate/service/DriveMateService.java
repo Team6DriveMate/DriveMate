@@ -202,6 +202,17 @@ public class DriveMateService {
                     // LineString 파싱 로직
                     SemiRouteLineString lineString = new SemiRouteLineString();
 
+                    if (properties != null) {
+                        lineString.setNumIndex(getIntValue(properties, "index"));
+                        lineString.setLineIndex(getIntValue(properties, "lineIndex"));
+                        lineString.setName(getStringValue(properties, "name"));
+                        lineString.setDescription(getStringValue(properties, "description"));
+                        lineString.setDistance(getIntValue(properties, "distance"));
+                        lineString.setTime(getIntValue(properties, "time"));
+                        lineString.setRoadType(getIntValue(properties, "roadType"));
+                        lineString.setFacilityType(getIntValue(properties, "facilityType"));
+                    }
+
                     JsonNode coordinatesArray = feature.get("geometry").get("coordinates");
                     if (coordinatesArray.isArray()) {
                         boolean isFirstLineString = true;
@@ -213,7 +224,7 @@ public class DriveMateService {
                                     try {
                                         ObjectMapper objectMapper = new ObjectMapper();
                                         JsonNode jsonNode = objectMapper.readTree(trafficRespond);
-                                        parseTrafficInfo(jsonNode, coordinate);
+                                        parseTrafficInfo(jsonNode, lineString);
                                     }
                                     catch (Exception e) {
                                         e.printStackTrace();
@@ -235,16 +246,7 @@ public class DriveMateService {
                             }
                         }
                     }
-                    if (properties != null) {
-                        lineString.setNumIndex(getIntValue(properties, "index"));
-                        lineString.setLineIndex(getIntValue(properties, "lineIndex"));
-                        lineString.setName(getStringValue(properties, "name"));
-                        lineString.setDescription(getStringValue(properties, "description"));
-                        lineString.setDistance(getIntValue(properties, "distance"));
-                        lineString.setTime(getIntValue(properties, "time"));
-                        lineString.setRoadType(getIntValue(properties, "roadType"));
-                        lineString.setFacilityType(getIntValue(properties, "facilityType"));
-                    }
+
                     lineString.setRoute(route);
                 }
             }
@@ -291,7 +293,7 @@ public class DriveMateService {
      */
 
     // 도로 정보, 돌발 정보 api 받아오기
-    public Coordinate parseTrafficInfo(JsonNode responseNode, Coordinate coordinate){
+    public SemiRouteRoadInfo parseTrafficInfo(JsonNode responseNode, SemiRoute semiRoute){
         JsonNode featuresArray = responseNode.get("features");
 
         if (featuresArray != null && featuresArray.isArray()) {
@@ -309,11 +311,11 @@ public class DriveMateService {
                     info.setTime(getDoubleValue(properties, "time"));
                     info.setSpeed(getIntValue(properties, "speed"));
                 }
-                info.setCoordinate(coordinate);
+                info.setSemiRoute(semiRoute);
 
             }
         }
-        return coordinate;
+        return semiRoute.getSemiRouteRoadInfo();
     }
 
 
