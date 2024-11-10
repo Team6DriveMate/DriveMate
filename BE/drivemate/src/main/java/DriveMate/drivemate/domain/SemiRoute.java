@@ -30,7 +30,7 @@ public abstract class SemiRoute {
     @JoinColumn(name="section_id")
     private Section section;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private SemiRouteRoadInfo semiRouteRoadInfo;
 
     public void setRoute(Route route){

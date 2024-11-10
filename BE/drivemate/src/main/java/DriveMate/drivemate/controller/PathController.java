@@ -41,18 +41,10 @@ public class PathController {
 
     @PostMapping("/set")
     public RouteResponseDTO setRoute(@RequestBody RouteRequestDTO routeRequestDTO){
-        String start = routeRequestDTO.getStartLocation().getName();
-        String end = routeRequestDTO.getEndLocation().getName();
-
-        Location startLocation = driveMateService.addressToCoordinate(start);
-        Location endLocation = driveMateService.addressToCoordinate(end);
-
-        System.out.println(startLocation.getLatitude() + " " + startLocation.getLongitude());
-        System.out.println(endLocation.getLatitude() + " " + endLocation.getLongitude());
 
         String tmapResponse = driveMateService.getRoute(
-                startLocation.getLatitude(), startLocation.getLongitude(),
-                endLocation.getLatitude(), endLocation.getLongitude()
+                routeRequestDTO.getStart_location().getLat(), routeRequestDTO.getStart_location().getLng(),
+                routeRequestDTO.getEnd_location().getLat(), routeRequestDTO.getEnd_location().getLng()
         );
 
         try {
@@ -77,13 +69,11 @@ public class PathController {
                     PointDTO startPoint = new PointDTO();
                     startPoint.setLat(coordinateList.get(0).getFirst());
                     startPoint.setLng(coordinateList.get(0).getSecond());
-                    startPoint.setName("");
                     segmentDTO.setStartPoint(startPoint);
 
                     PointDTO endPoint = new PointDTO();
                     endPoint.setLat(coordinateList.get(coordinateList.size()-1).getFirst());
                     endPoint.setLng(coordinateList.get(coordinateList.size()-1).getSecond());
-                    endPoint.setName("");
                     segmentDTO.setEndPoint(endPoint);
 
                     for (Coordinate coordinate : coordinateList) {

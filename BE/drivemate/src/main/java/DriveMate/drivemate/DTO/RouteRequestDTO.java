@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter @Setter
 public class RouteRequestDTO {
     @JsonProperty("start_location")
-    private LocationDTO startLocation;
+    private CoordinateDTO start_location;
 
     @JsonProperty("end_location")
-    private LocationDTO endLocation;
+    private CoordinateDTO end_location;
 }

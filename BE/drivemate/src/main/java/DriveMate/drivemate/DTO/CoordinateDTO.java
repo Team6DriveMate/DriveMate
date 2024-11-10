@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class PointDTO {
+public class CoordinateDTO {
     @JsonProperty("lat")
     private double lat;
 

@@ -295,12 +295,12 @@ public class DriveMateService {
     // 도로 정보, 돌발 정보 api 받아오기
     public SemiRouteRoadInfo parseTrafficInfo(JsonNode responseNode, SemiRoute semiRoute){
         JsonNode featuresArray = responseNode.get("features");
-
+        SemiRouteRoadInfo info = new SemiRouteRoadInfo();
+        info.setCongestion("0");
         if (featuresArray != null && featuresArray.isArray()) {
             for (JsonNode feature : featuresArray) {
-                SemiRouteRoadInfo info = new SemiRouteRoadInfo();
                 JsonNode properties = feature.get("properties");
-                if (properties != null){
+                if (properties != null) {
                     info.setInfoIndex(getIntValue(properties, "index"));
                     info.setName(getStringValue(properties, "name"));
                     info.setDescription(getStringValue(properties, "description"));
@@ -311,10 +311,9 @@ public class DriveMateService {
                     info.setTime(getDoubleValue(properties, "time"));
                     info.setSpeed(getIntValue(properties, "speed"));
                 }
-                info.setSemiRoute(semiRoute);
-
             }
         }
+        info.setSemiRoute(semiRoute);
         return semiRoute.getSemiRouteRoadInfo();
     }
 
@@ -374,7 +373,7 @@ public class DriveMateService {
     @Transactional
     public void saveRoute(Route route){
         try{
-            int batchSize = 30;
+            int batchSize = 50;
 
             routeService.saveRoute(route);
             driveReportService.saveDriveReport(route.getDriveReport());
@@ -390,9 +389,11 @@ public class DriveMateService {
                     em.flush();
                     em.clear();
                 }
+                System.out.println("done done");
             }
             em.flush();
             em.clear();
+            System.out.println("yeah im done");
 
             for (int i=0; i<semiRouteList.size(); i++){
                 coordinateList.addAll(semiRouteList.get(i).getCoordinateList());
@@ -402,6 +403,7 @@ public class DriveMateService {
                     em.flush();
                     em.clear();
                 }
+                System.out.println("seriously im done");
             }
             em.flush();
             em.clear();
