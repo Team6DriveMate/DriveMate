@@ -14,6 +14,11 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        ndk {
+            abiFilters.add("armeabi-v7a")
+            abiFilters.add("arm64-v8a")
+        }
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -38,6 +43,7 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -61,6 +67,8 @@ dependencies {
 
     implementation("com.naver.maps:map-sdk:3.19.1")
     implementation("com.google.android.gms:play-services-location:21.0.1")
+
+    implementation("com.kakaomobility.knsdk:knsdk_ui:1.9.4")
 
     //http 통신 확인
     implementation("com.squareup.okhttp3:okhttp:4.10.0")

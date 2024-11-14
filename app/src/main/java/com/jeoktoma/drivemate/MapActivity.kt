@@ -2,8 +2,13 @@ package com.jeoktoma.drivemate
 
 import android.content.Intent
 import android.graphics.Color
+import android.icu.text.SimpleDateFormat
+import android.icu.util.Calendar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
+import androidx.compose.ui.unit.dp
 import com.jeoktoma.drivemate.R
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
@@ -22,12 +27,24 @@ import com.naver.maps.map.util.MarkerIcons
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback {
+
+    private lateinit var totalDistanceView: TextView
+    private lateinit var estimatedTimeView: TextView
+    private lateinit var estimatedArrivalView: TextView
+    private lateinit var startNavigationButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
+
+
+        totalDistanceView = findViewById(R.id.total_distance)
+        estimatedTimeView = findViewById(R.id.estimated_time)
+        estimatedArrivalView = findViewById(R.id.estimated_arrival)
+        startNavigationButton = findViewById(R.id.start_navigation)
 
         val fm = supportFragmentManager
         var mapFragment = fm.findFragmentById(R.id.map_fragment) as MapFragment?
@@ -39,6 +56,12 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment?.getMapAsync(this)
 
 
+        startNavigationButton.setOnClickListener {
+            // 길 안내 화면으로 전환
+//            val intent = Intent(this, NavigationActivity::class.java)
+//            // 필요한 경우 경로 정보를 intent에 추가
+//            startActivity(intent)
+        }
     }
 
     override fun onMapReady(naverMap: NaverMap) {
@@ -47,6 +70,9 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         naverMap.locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
         naverMap.locationTrackingMode = LocationTrackingMode.NoFollow
+
+        // 아래 정보창을 위한 패딩
+        naverMap.setContentPadding(0,0,0,200)
 
         val start_lat = intent.getDoubleExtra("start_lat", 0.0)
         val start_lng = intent.getDoubleExtra("start_lng", 0.0)
@@ -93,10 +119,10 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 multipartPath.map = naverMap
 
                 // 카메라 이동
-                naverMap.moveCamera(CameraUpdate.fitBounds(multipartPath.bounds, 100))
+                naverMap.moveCamera(CameraUpdate.fitBounds(multipartPath.bounds, 300))
 
                 // 총 거리와 시간 표시
-
+                updateRouteInfo(routeResponse)
             }
             else{   // 만약 response가 null이라면 전으로 돌아감
                 val intent = Intent(this@MapActivity, NavActivity::class.java)
@@ -110,6 +136,40 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
     }
+
+
+    private fun updateRouteInfo(routeResponse: RouteResponse) {
+        val totalDistance = routeResponse.totalDistance
+        val totalTime = routeResponse.totalTime
+
+        totalDistanceView.text = "${formatDistance(totalDistance)}"
+        estimatedTimeView.text = "${formatTime(totalTime)}"
+
+        // 예상 도착 시간 계산
+        val arrivalTime = Calendar.getInstance().apply {
+            add(Calendar.SECOND, totalTime)
+        }
+        val arrivalTimeString = SimpleDateFormat("HH:mm", Locale.getDefault()).format(arrivalTime.time)
+        estimatedArrivalView.text = "$arrivalTimeString 도착"
+    }
+
+    private fun formatDistance(meters: Int): String {
+        return if (meters >= 1000) {
+            String.format("%.1f km", meters / 1000.0)
+        } else {
+            "$meters m"
+        }
+    }
+
+    private fun formatTime(seconds: Int): String {
+        val hours = seconds / 3600
+        val minutes = (seconds % 3600) / 60
+        return when {
+            hours > 0 -> String.format("%d시간 %d분", hours, minutes)
+            else -> String.format("%d분", minutes)
+        }
+    }
+
 }
 
 // 교통 상황에 따른 색상 지정
@@ -122,3 +182,4 @@ fun getColorForTraffic(traffic: String): Int {
         else -> Color.GRAY  // 알 수 없음
     }
 }
+

@@ -2,11 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <queries>
+        <package android:name="com.skt.skaf.l001mtm091" />
+        <package android:name="com.skt.tmap.ku" />
+    </queries>
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
+        android:name=".KakaoNavi"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -18,6 +24,10 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".KakaoActivity"
+            android:configChanges="orientation"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".NavActivity"
             android:exported="false" />
@@ -39,6 +49,9 @@
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="o1vqt1521k" />
+        <meta-data
+            android:name="com.skt.TMAP_API_KEY"
+            android:value="pANn2nD9NfahYdvrZFaQV2oLpMov5xnV5GMfNIih" />
     </application>
 
 </manifest>

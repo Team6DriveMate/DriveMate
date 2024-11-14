@@ -149,7 +149,7 @@ class NavActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
 
-        // 길찾기 시작 버튼 클릭 시 MapActivity로 이동하는 로직 추가
+        // 길찾기 시작 버튼 클릭 시 MapActivity로 이동
         startNavigationButton.setOnClickListener {
             val cur_lat = locationSource.lastLocation?.latitude
             val cur_lng = locationSource.lastLocation?.longitude
@@ -185,9 +185,10 @@ class NavActivity : AppCompatActivity(), OnMapReadyCallback {
         naverMap.locationSource = locationSource
 
         val uiSettings = naverMap.uiSettings
-        uiSettings.isLocationButtonEnabled = true
+        //uiSettings.isLocationButtonEnabled = true
 
         naverMap.locationTrackingMode = LocationTrackingMode.Follow
+        naverMap.locationTrackingMode = LocationTrackingMode.NoFollow
     }
 
     // 장소 검색 함수 (네이버 검색 API 사용)
