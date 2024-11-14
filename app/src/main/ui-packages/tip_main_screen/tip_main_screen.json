@@ -1,0 +1,1774 @@
+{
+  "name": "tip_main_screen",
+  "version": 33,
+  "source-key": {
+    "type": "figma",
+    "file": "tRhla9kYBoxzbYaeerS0WQ",
+    "node": "84:541",
+    "version": "2149778603675729027",
+    "component-id": "ce77cc046366cd6fee7c486647a2096884a766bf"
+  },
+  "default": "tipMainScreen",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "group",
+        "id": "HeaderTip"
+      },
+      {
+        "type": "group",
+        "id": "Navbar"
+      },
+      {
+        "type": "group",
+        "id": "CardSection"
+      },
+      {
+        "type": "group",
+        "id": "BackNavs"
+      },
+      {
+        "type": "vector",
+        "id": "DetailNavs"
+      },
+      {
+        "type": "text",
+        "id": "TipText"
+      },
+      {
+        "type": "vector",
+        "id": "RecBackNav"
+      },
+      {
+        "type": "vector",
+        "id": "StrokeBackNavs"
+      },
+      {
+        "type": "vector",
+        "id": "Bg"
+      },
+      {
+        "type": "group",
+        "id": "Home"
+      },
+      {
+        "type": "group",
+        "id": "Tip"
+      },
+      {
+        "type": "group",
+        "id": "Report"
+      },
+      {
+        "type": "group",
+        "id": "Profile"
+      },
+      {
+        "type": "group",
+        "id": "Search"
+      },
+      {
+        "type": "vector",
+        "id": "HomeTip"
+      },
+      {
+        "type": "vector",
+        "id": "VectorTip"
+      },
+      {
+        "type": "vector",
+        "id": "VectorReport"
+      },
+      {
+        "type": "vector",
+        "id": "VectorProfile"
+      },
+      {
+        "type": "vector",
+        "id": "VectorSearch"
+      },
+      {
+        "type": "group",
+        "id": "ParkingCard"
+      },
+      {
+        "type": "group",
+        "id": "\bHighwayCard"
+      },
+      {
+        "type": "group",
+        "id": "CheckingCard"
+      },
+      {
+        "type": "group",
+        "id": "AccidentCard"
+      },
+      {
+        "type": "group",
+        "id": "MannerCard"
+      },
+      {
+        "type": "vector",
+        "id": "RecParkingCard"
+      },
+      {
+        "type": "vector",
+        "id": "VectorParkingText"
+      },
+      {
+        "type": "group",
+        "id": "ButtonViewmore"
+      },
+      {
+        "type": "vector",
+        "id": "Ellipse"
+      },
+      {
+        "type": "image",
+        "id": "imageParking"
+      },
+      {
+        "type": "vector",
+        "id": "RecViewmore"
+      },
+      {
+        "type": "text",
+        "id": "Viewmore"
+      },
+      {
+        "type": "vector",
+        "id": "RecHighwayCard"
+      },
+      {
+        "type": "vector",
+        "id": "VectorHighwayText"
+      },
+      {
+        "type": "vector",
+        "id": "Ellipse1"
+      },
+      {
+        "type": "group",
+        "id": "ButtonViewmore1"
+      },
+      {
+        "type": "image",
+        "id": "imageHighway"
+      },
+      {
+        "type": "vector",
+        "id": "RecViewmore1"
+      },
+      {
+        "type": "text",
+        "id": "Viewmore1"
+      },
+      {
+        "type": "vector",
+        "id": "RecCheckingCard"
+      },
+      {
+        "type": "vector",
+        "id": "VectorCheckingText"
+      },
+      {
+        "type": "vector",
+        "id": "Ellipse2"
+      },
+      {
+        "type": "group",
+        "id": "ButtonViewmore2"
+      },
+      {
+        "type": "image",
+        "id": "imageChecking"
+      },
+      {
+        "type": "vector",
+        "id": "RecViewmore2"
+      },
+      {
+        "type": "text",
+        "id": "Viewmore2"
+      },
+      {
+        "type": "vector",
+        "id": "RecAccidentCard"
+      },
+      {
+        "type": "vector",
+        "id": "VectorAccidentText"
+      },
+      {
+        "type": "vector",
+        "id": "Ellipse3"
+      },
+      {
+        "type": "group",
+        "id": "ButtonViewmore3"
+      },
+      {
+        "type": "image",
+        "id": "imageAccident"
+      },
+      {
+        "type": "vector",
+        "id": "RecViewmore3"
+      },
+      {
+        "type": "text",
+        "id": "Viewmore3"
+      },
+      {
+        "type": "vector",
+        "id": "RecMannerCard"
+      },
+      {
+        "type": "vector",
+        "id": "VectorMannerText"
+      },
+      {
+        "type": "vector",
+        "id": "Ellipse4"
+      },
+      {
+        "type": "group",
+        "id": "ButtonViewmore4"
+      },
+      {
+        "type": "image",
+        "id": "imageManner"
+      },
+      {
+        "type": "vector",
+        "id": "RecViewmore4"
+      },
+      {
+        "type": "text",
+        "id": "Viewmore4"
+      }
+    ],
+    "modes": {
+      "tipMainScreen": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": false,
+            "children": [
+              "HeaderTip",
+              "Navbar",
+              "CardSection"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            }
+          },
+          {
+            "id": "HeaderTip",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 40.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 60.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 334.93670654296875
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 33.28285217285156
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "BackNavs",
+              "DetailNavs",
+              "TipText"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Navbar",
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.06666666666666667,
+                "hue": 351.4285714285714,
+                "saturation": 0.2413793103448276,
+                "value": 0.11372549019607843
+              },
+              "blur": 40.0,
+              "offset-x": 0.0,
+              "offset-y": 10.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 822.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 412.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 95.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "Bg",
+              "Home",
+              "Tip",
+              "Report",
+              "Profile",
+              "Search"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "CardSection",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 57.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 114.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 300.60247802734375
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 689.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "ParkingCard",
+              "\bHighwayCard",
+              "CheckingCard",
+              "AccidentCard",
+              "MannerCard"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "BackNavs",
+            "tap-handler": "$BackNavsTap",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 34.02531814575195
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 33.28285217285156
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "RecBackNav",
+              "StrokeBackNavs"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "DetailNavs",
+            "margin": {
+              "left": 300.911376953125,
+              "right": 0.000011444091796875
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "detail_navs.svg"
+          },
+          {
+            "id": "TipText",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 153.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 4.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 27.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 25.0
+              }
+            },
+            "font-weight": 700.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.27586206896551724,
+              "value": 0.11372549019607843
+            },
+            "text-content": "Tip",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "text-size": 16.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "RecBackNav",
+            "border-radius": 8.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 34.02531814575195
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 33.28285217285156
+              }
+            },
+            "vector-content": "rec_back_nav.svg"
+          },
+          {
+            "id": "StrokeBackNavs",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 13.931640625
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 11.187744140625
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 4.9620256423950195
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 9.707499504089355
+              }
+            },
+            "vector-content": "stroke_back_navs.svg"
+          },
+          {
+            "id": "Bg",
+            "margin": {
+              "top": 10.5555419921875,
+              "bottom": 0.0000152587890625
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "bg.svg"
+          },
+          {
+            "id": "Home",
+            "margin": {
+              "left": 32.959991455078125,
+              "top": 40.111083984375,
+              "right": 352.6720085144043,
+              "bottom": 29.555583953857422
+            },
+            "tap-handler": "$HomeTap",
+            "is-structured": false,
+            "children": [
+              "HomeTip"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Tip",
+            "margin": {
+              "left": 284.0,
+              "top": 40.0,
+              "right": 103.0,
+              "bottom": 30.0
+            },
+            "tap-handler": "$TipTap",
+            "is-structured": false,
+            "children": [
+              "VectorTip"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Report",
+            "margin": {
+              "left": 104.0,
+              "top": 42.0,
+              "right": 283.0,
+              "bottom": 28.0
+            },
+            "tap-handler": "$ReportTap",
+            "is-structured": false,
+            "children": [
+              "VectorReport"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Profile",
+            "margin": {
+              "left": 353.0,
+              "top": 40.0,
+              "right": 32.44000244140625,
+              "bottom": 29.400001525878906
+            },
+            "tap-handler": "$ProfileTap",
+            "is-structured": false,
+            "children": [
+              "VectorProfile"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Search",
+            "margin": {
+              "left": 173.58935546875,
+              "right": 172.4906463623047,
+              "bottom": 31.666667938232422
+            },
+            "tap-handler": "$SearchTap",
+            "is-structured": false,
+            "children": [
+              "VectorSearch"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "HomeTip",
+            "margin": {
+              "left": 2.746673583984375,
+              "top": 2.111083984375,
+              "right": 2.7466583251953125,
+              "bottom": 2.1111373901367188
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.600006103515625
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.5999755859375
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "home_tip.svg"
+          },
+          {
+            "id": "VectorTip",
+            "margin": {
+              "left": 2.08343505859375,
+              "top": 2.083251953125,
+              "right": 2.0832290649414062
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_tip.svg"
+          },
+          {
+            "id": "VectorReport",
+            "margin": {
+              "left": 2.083343505859375,
+              "top": 2.0833740234375,
+              "right": 2.083324432373047,
+              "bottom": 2.083293914794922
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.75
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.75
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_report.svg"
+          },
+          {
+            "id": "VectorProfile",
+            "margin": {
+              "left": 5.32781982421875,
+              "top": 3.0020751953125,
+              "right": 5.362579345703125,
+              "bottom": 2.9648571014404297
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.5999755859375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.5999755859375
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_profile.svg"
+          },
+          {
+            "id": "VectorSearch",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.75
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.75
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_search.svg"
+          },
+          {
+            "id": "ParkingCard",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 300.60247802734375
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 125.96675872802734
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "RecParkingCard",
+              "VectorParkingText",
+              "ButtonViewmore",
+              "Ellipse",
+              "imageParking"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "\bHighwayCard",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 140.2811279296875
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 300.60247802734375
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 125.96675872802734
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "RecHighwayCard",
+              "VectorHighwayText",
+              "Ellipse1",
+              "ButtonViewmore1",
+              "imageHighway"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "CheckingCard",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 280.56231689453125
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 300.60247802734375
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 125.96675872802734
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "RecCheckingCard",
+              "VectorCheckingText",
+              "Ellipse2",
+              "ButtonViewmore2",
+              "imageChecking"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "AccidentCard",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 422.7520751953125
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 300.60247802734375
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 125.96675872802734
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "RecAccidentCard",
+              "VectorAccidentText",
+              "Ellipse3",
+              "ButtonViewmore3",
+              "imageAccident"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "MannerCard",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 563.033203125
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 300.60247802734375
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 125.96675872802734
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "RecMannerCard",
+              "VectorMannerText",
+              "Ellipse4",
+              "ButtonViewmore4",
+              "imageManner"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "RecParkingCard",
+            "border-radius": 20.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 300.60247802734375
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 125.96675872802734
+              }
+            },
+            "vector-content": "rec_parking_card.svg"
+          },
+          {
+            "id": "VectorParkingText",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 19.685882568359375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 22.5218505859375
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 110.86199951171875
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 35.323646545410156
+              }
+            },
+            "vector-content": "vector_parking_text.svg"
+          },
+          {
+            "id": "ButtonViewmore",
+            "border-radius": 50.0,
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 19.08587646484375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 75.38922119140625
+              }
+            },
+            "tap-handler": "$ButtonParkingViewmore",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 89.70359802246094
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 33.40027618408203
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "RecViewmore",
+              "Viewmore"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Ellipse",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 193.72161865234375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 19.08587646484375
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 87.79501342773438
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 87.79501342773438
+              }
+            },
+            "vector-content": "ellipse.svg"
+          },
+          {
+            "id": "imageParking",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 164.13848876953125
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 19.08587646484375
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 101.15512084960938
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 101.15512084960938
+              }
+            },
+            "image-content": "image_parking.png",
+            "scale": "cover"
+          },
+          {
+            "id": "RecViewmore",
+            "border-radius": 50.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 89.70359802246094
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 33.40027618408203
+              }
+            },
+            "vector-content": "rec_viewmore.svg"
+          },
+          {
+            "id": "Viewmore",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 30.537384033203125
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 9.54290771484375
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 28.376739501953125
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 14.06787109375
+              }
+            },
+            "font-weight": 500.0,
+            "color": {},
+            "text-content": "더보기",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "text-size": 10.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "RecHighwayCard",
+            "border-radius": 20.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 300.60247802734375
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 125.96675872802734
+              }
+            },
+            "vector-content": "rec_highway_card.svg"
+          },
+          {
+            "id": "VectorHighwayText",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 19.685882568359375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 22.71795654296875
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 143.97918701171875
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 36.09904861450195
+              }
+            },
+            "vector-content": "vector_highway_text.svg"
+          },
+          {
+            "id": "Ellipse1",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 193.72161865234375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 19.0859375
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 87.79501342773438
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 87.79501342773438
+              }
+            },
+            "vector-content": "ellipse1.svg"
+          },
+          {
+            "id": "ButtonViewmore1",
+            "border-radius": 50.0,
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 19.08587646484375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 75.38922119140625
+              }
+            },
+            "tap-handler": "$ButtonHighwayViewmore",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 89.70359802246094
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 33.40027618408203
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "RecViewmore1",
+              "Viewmore1"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "imageHighway",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 164.13848876953125
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 23.85736083984375
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 94.47506713867188
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 94.47506713867188
+              }
+            },
+            "image-content": "image_highway.png",
+            "scale": "cover"
+          },
+          {
+            "id": "RecViewmore1",
+            "border-radius": 50.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 89.70359802246094
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 33.40027618408203
+              }
+            },
+            "vector-content": "rec_viewmore1.svg"
+          },
+          {
+            "id": "Viewmore1",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 30.91412353515625
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 9.32965087890625
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 31.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 14.0
+              }
+            },
+            "font-weight": 500.0,
+            "color": {},
+            "text-content": "더보기",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "text-size": 10.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "RecCheckingCard",
+            "border-radius": 20.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 300.60247802734375
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 125.96675872802734
+              }
+            },
+            "vector-content": "rec_checking_card.svg"
+          },
+          {
+            "id": "VectorCheckingText",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 19.995880126953125
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 22.5218505859375
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 104.02887725830078
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 36.71989822387695
+              }
+            },
+            "vector-content": "vector_checking_text.svg"
+          },
+          {
+            "id": "Ellipse2",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 193.72161865234375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 19.08587646484375
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 87.79501342773438
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 87.79501342773438
+              }
+            },
+            "vector-content": "ellipse2.svg"
+          },
+          {
+            "id": "ButtonViewmore2",
+            "border-radius": 50.0,
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 19.08587646484375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 75.38922119140625
+              }
+            },
+            "tap-handler": "$ButtonCheckingViewmore",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 89.70359802246094
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 33.40027618408203
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "RecViewmore2",
+              "Viewmore2"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "imageChecking",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 182.27008056640625
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 34.35455322265625
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 76.34349060058594
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 76.34349060058594
+              }
+            },
+            "image-content": "image_checking.png",
+            "scale": "cover"
+          },
+          {
+            "id": "RecViewmore2",
+            "border-radius": 50.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 89.70359802246094
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 33.40027618408203
+              }
+            },
+            "vector-content": "rec_viewmore2.svg"
+          },
+          {
+            "id": "Viewmore2",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 30.537384033203125
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 9.54290771484375
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 35.376739501953125
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 15.50555419921875
+              }
+            },
+            "font-weight": 500.0,
+            "color": {},
+            "text-content": "더보기",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "text-size": 10.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "RecAccidentCard",
+            "border-radius": 20.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 300.60247802734375
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 125.96675872802734
+              }
+            },
+            "vector-content": "rec_accident_card.svg"
+          },
+          {
+            "id": "VectorAccidentText",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 19.529876708984375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 22.5078125
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 121.2204360961914
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 36.621803283691406
+              }
+            },
+            "vector-content": "vector_accident_text.svg"
+          },
+          {
+            "id": "Ellipse3",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 193.72161865234375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 19.0858154296875
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 87.79501342773438
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 87.79501342773438
+              }
+            },
+            "vector-content": "ellipse3.svg"
+          },
+          {
+            "id": "ButtonViewmore3",
+            "border-radius": 50.0,
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 19.08587646484375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 75.38916015625
+              }
+            },
+            "tap-handler": "$ButtonAccidentViewmore",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 89.70359802246094
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 33.40027618408203
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "RecViewmore3",
+              "Viewmore3"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "imageAccident",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 161.275634765625
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 18.131591796875
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 100.2008285522461
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 100.2008285522461
+              }
+            },
+            "image-content": "image_accident.png",
+            "scale": "cover"
+          },
+          {
+            "id": "RecViewmore3",
+            "border-radius": 50.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 89.70359802246094
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 33.40027618408203
+              }
+            },
+            "vector-content": "rec_viewmore3.svg"
+          },
+          {
+            "id": "Viewmore3",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 30.537384033203125
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 9.54296875
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 35.376739501953125
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 14.3157958984375
+              }
+            },
+            "font-weight": 500.0,
+            "color": {},
+            "text-content": "더보기",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "text-size": 10.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "RecMannerCard",
+            "border-radius": 20.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 300.60247802734375
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 125.96675872802734
+              }
+            },
+            "vector-content": "rec_manner_card.svg"
+          },
+          {
+            "id": "VectorMannerText",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 19.785888671875
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 22.52197265625
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 143.3065643310547
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 36.45361328125
+              }
+            },
+            "vector-content": "vector_manner_text.svg"
+          },
+          {
+            "id": "Ellipse4",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 193.72161865234375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 19.0859375
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 87.79501342773438
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 87.79501342773438
+              }
+            },
+            "vector-content": "ellipse4.svg"
+          },
+          {
+            "id": "ButtonViewmore4",
+            "border-radius": 50.0,
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 19.08587646484375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 75.3892822265625
+              }
+            },
+            "tap-handler": "$ButtonMannerViewmore",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 89.70359802246094
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 33.40027618408203
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "RecViewmore4",
+              "Viewmore4"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "imageManner",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 189.9044189453125
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 36.26318359375
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 70.61772918701172
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 70.61772918701172
+              }
+            },
+            "image-content": "image_manner.png",
+            "scale": "cover"
+          },
+          {
+            "id": "RecViewmore4",
+            "border-radius": 50.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 89.70359802246094
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 33.40027618408203
+              }
+            },
+            "vector-content": "rec_viewmore4.svg"
+          },
+          {
+            "id": "Viewmore4",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 30.91412353515625
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 9.5775146484375
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 31.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 15.0
+              }
+            },
+            "font-weight": 500.0,
+            "color": {},
+            "text-content": "더보기",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "text-size": 10.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "BackNavsTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "HomeTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "TipTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "ReportTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "ProfileTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "SearchTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "ButtonParkingViewmore": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "ButtonHighwayViewmore": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "ButtonCheckingViewmore": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "ButtonAccidentViewmore": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "ButtonMannerViewmore": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "tipMainScreen",
+      "size": {
+        "width": 412.0,
+        "height": 917.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

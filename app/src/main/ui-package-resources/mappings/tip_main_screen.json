@@ -1,0 +1,6 @@
+{
+    "target": "TipMainScreen",
+    "package": "com.jeoktoma.drivemate.tipmainscreen",
+    "generateImplementation": true,
+    "generatePreviews": true
+}

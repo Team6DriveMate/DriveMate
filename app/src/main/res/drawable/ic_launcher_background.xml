@@ -4,6 +4,13 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
+
+    <path
+        android:pathData="M14 0H301C308.732 0 315 6.26801 315 14V34C315 41.732 308.732 48 301 48H14C6.26801 48 0 41.732 0 34V14C0 6.26801 6.26801 0 14 0Z"
+        android:fillColor="#F7F8F8"
+        android:strokeWidth="2"
+        android:strokeColor="#F7F8F8" />
+
     <path
         android:fillColor="#3DDC84"
         android:pathData="M0,0h108v108h-108z" />

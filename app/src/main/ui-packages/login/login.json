@@ -1,0 +1,653 @@
+{
+  "name": "login",
+  "version": 33,
+  "source-key": {
+    "type": "figma",
+    "file": "tRhla9kYBoxzbYaeerS0WQ",
+    "node": "81:397",
+    "version": "2149801122196126005",
+    "component-id": "cf7eaf49e09da94f61fcf097979ccba2b686cc15"
+  },
+  "default": "login",
+  "documentation": "loginScreen",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "group",
+        "id": "TitleSection"
+      },
+      {
+        "type": "group",
+        "id": "LabelSectionLogin"
+      },
+      {
+        "type": "group",
+        "id": "goToRegsiter"
+      },
+      {
+        "type": "group",
+        "id": "LoginButton"
+      },
+      {
+        "type": "text",
+        "id": "login_titleText"
+      },
+      {
+        "type": "group",
+        "id": "LabelId"
+      },
+      {
+        "type": "group",
+        "id": "LabelPw"
+      },
+      {
+        "type": "vector",
+        "id": "RecId"
+      },
+      {
+        "type": "vector",
+        "id": "VectorUser"
+      },
+      {
+        "type": "text",
+        "id": "userid"
+      },
+      {
+        "type": "vector",
+        "id": "RecPw"
+      },
+      {
+        "type": "vector",
+        "id": "VectorHide_Password"
+      },
+      {
+        "type": "vector",
+        "id": "VectorPw"
+      },
+      {
+        "type": "text",
+        "id": "pw_text"
+      },
+      {
+        "type": "text",
+        "id": "goToReg"
+      },
+      {
+        "type": "vector",
+        "id": "RecLogin"
+      },
+      {
+        "type": "vector",
+        "id": "Login2"
+      },
+      {
+        "type": "text",
+        "id": "Login_Text"
+      }
+    ],
+    "modes": {
+      "login": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": false,
+            "children": [
+              "TitleSection",
+              "LabelSectionLogin",
+              "goToRegsiter",
+              "LoginButton"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            }
+          },
+          {
+            "id": "TitleSection",
+            "alignment": {
+              "horizontal": {
+                "attachment": "center",
+                "offset": -0.5
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 127.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 67.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 30.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "login_titleText"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "LabelSectionLogin",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 48.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 205.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 315.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 112.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "LabelId",
+              "LabelPw"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "goToRegsiter",
+            "alignment": {
+              "horizontal": {
+                "attachment": "center",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 794.0
+              }
+            },
+            "tap-handler": "$goToRegsiter",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 170.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 21.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "goToReg"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "LoginButton",
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.2980392156862745,
+                "hue": 226.28571428571428,
+                "saturation": 0.41338582677165353,
+                "value": 0.996078431372549
+              },
+              "blur": 22.0,
+              "offset-x": 0.0,
+              "offset-y": 10.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 48.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 608.0
+              }
+            },
+            "tap-handler": "$LoginButton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 315.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 60.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "RecLogin",
+              "Login2",
+              "Login_Text"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "login_titleText",
+            "alignment": {
+              "horizontal": {
+                "attachment": "center",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 0.0
+              }
+            },
+            "font-weight": 700.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.27586206896551724,
+              "value": 0.11372549019607843
+            },
+            "text-content": "로그인",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 24.0,
+            "line-height": 1.25,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "LabelId",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 315.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 48.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "RecId",
+              "VectorUser",
+              "userid"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "LabelPw",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 64.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 315.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 48.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "RecPw",
+              "VectorHide_Password",
+              "VectorPw",
+              "pw_text"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "RecId",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "rec_id.svg"
+          },
+          {
+            "id": "VectorUser",
+            "margin": {
+              "left": 17.99993896484375,
+              "top": 16.499755859375,
+              "right": 285.12006092071533,
+              "bottom": 16.597444534301758
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_user.svg"
+          },
+          {
+            "id": "userid",
+            "margin": {
+              "left": 43.0,
+              "top": 15.0,
+              "right": 238.0,
+              "bottom": 15.0
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "color": {
+              "alpha": 1.0,
+              "hue": 346.6666666666666,
+              "saturation": 0.05232558139534898,
+              "value": 0.6745098039215687
+            },
+            "text-content": "$user_id",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 12.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "RecPw",
+            "border-radius": 14.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "rec_pw.svg"
+          },
+          {
+            "id": "VectorHide_Password",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 283.46221923828125
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 17.587188720703125
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 13.874996185302734
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 11.830499649047852
+              }
+            },
+            "vector-content": "vector_hide_password.svg"
+          },
+          {
+            "id": "VectorPw",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 17.587646484375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 16.462310791015625
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 11.418750762939453
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 13.874885559082031
+              }
+            },
+            "vector-content": "vector_pw.svg"
+          },
+          {
+            "id": "pw_text",
+            "margin": {
+              "left": 43.0,
+              "top": 15.0,
+              "right": 227.0,
+              "bottom": 15.0
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "color": {
+              "alpha": 1.0,
+              "hue": 346.6666666666666,
+              "saturation": 0.05232558139534898,
+              "value": 0.6745098039215687
+            },
+            "text-content": "$user_pw",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 12.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "goToReg",
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.27586206896551724,
+              "value": 0.11372549019607843
+            },
+            "annotated-text-content": {
+              "text": "계정이 없으신가요? 회원가입",
+              "annotated-text-span-list": [
+                {
+                  "span-start": 0,
+                  "span-length": 9
+                },
+                {
+                  "span-start": 9,
+                  "span-length": 1,
+                  "annotated-text-style": {
+                    "font-weight": 400.0,
+                    "text-size": 14.0,
+                    "letter-spacing": 0.0,
+                    "line-height": 1.5,
+                    "typeface": "Poppins",
+                    "color": {
+                      "alpha": 1.0,
+                      "hue": 345.0,
+                      "saturation": 0.27586206896551724,
+                      "value": 0.11372549019607843
+                    }
+                  }
+                },
+                {
+                  "span-start": 10,
+                  "span-length": 1,
+                  "annotated-text-style": {
+                    "font-weight": 500.0,
+                    "line-height": 1.5,
+                    "typeface": "Poppins",
+                    "color": {
+                      "alpha": 1.0,
+                      "hue": 345.0,
+                      "saturation": 0.27586206896551724,
+                      "value": 0.11372549019607843
+                    }
+                  }
+                },
+                {
+                  "span-start": 11,
+                  "span-length": 4,
+                  "annotated-text-style": {
+                    "font-weight": 500.0,
+                    "text-size": 14.0,
+                    "letter-spacing": 0.0,
+                    "line-height": 1.5,
+                    "typeface": "Poppins",
+                    "color": {}
+                  }
+                }
+              ]
+            },
+            "overflow": "visible",
+            "text-align": "left",
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "RecLogin",
+            "border-radius": 99.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "rec_login.svg"
+          },
+          {
+            "id": "Login2",
+            "margin": {
+              "left": 120.5,
+              "top": 20.0,
+              "right": 175.5,
+              "bottom": 20.0
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "login2.svg"
+          },
+          {
+            "id": "Login_Text",
+            "margin": {
+              "left": 152.0,
+              "top": 18.0,
+              "right": 118.0,
+              "bottom": 18.0
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "font-weight": 700.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            },
+            "text-content": "로그인",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 16.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "goToRegsiter": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "LoginButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "user_id": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "user_pw": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "login",
+      "size": {
+        "width": 412.0,
+        "height": 917.0
+      },
+      "parameters": {
+        "user_id": "아이디",
+        "user_pw": "비밀번호"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

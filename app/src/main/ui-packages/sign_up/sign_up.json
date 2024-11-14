@@ -1,0 +1,1003 @@
+{
+  "name": "sign_up",
+  "version": 33,
+  "source-key": {
+    "type": "figma",
+    "file": "tRhla9kYBoxzbYaeerS0WQ",
+    "node": "77:313",
+    "version": "2149778603675729027",
+    "component-id": "01419247cdd7692c97302c267ab0b96963905f64"
+  },
+  "default": "signUp",
+  "documentation": "signUp",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "group",
+        "id": "Login"
+      },
+      {
+        "type": "group",
+        "id": "RegisterButton"
+      },
+      {
+        "type": "group",
+        "id": "LabelSection"
+      },
+      {
+        "type": "group",
+        "id": "TitleSection"
+      },
+      {
+        "type": "text",
+        "id": "alreadyUser"
+      },
+      {
+        "type": "vector",
+        "id": "Rectangle5480"
+      },
+      {
+        "type": "text",
+        "id": "Register"
+      },
+      {
+        "type": "group",
+        "id": "LabelUserName"
+      },
+      {
+        "type": "group",
+        "id": "LabelPw"
+      },
+      {
+        "type": "group",
+        "id": "LabelconPw"
+      },
+      {
+        "type": "group",
+        "id": "LabelId"
+      },
+      {
+        "type": "group",
+        "id": "LabelUserNameRec"
+      },
+      {
+        "type": "group",
+        "id": "P_UserName"
+      },
+      {
+        "type": "vector",
+        "id": "RecUserName"
+      },
+      {
+        "type": "vector",
+        "id": "Vector"
+      },
+      {
+        "type": "text",
+        "id": "userNameTextFiled"
+      },
+      {
+        "type": "group",
+        "id": "LabelPwRec"
+      },
+      {
+        "type": "vector",
+        "id": "VectorHidePw"
+      },
+      {
+        "type": "group",
+        "id": "P_Pw"
+      },
+      {
+        "type": "vector",
+        "id": "RecPw"
+      },
+      {
+        "type": "vector",
+        "id": "VectorPwIcon"
+      },
+      {
+        "type": "text",
+        "id": "pw_text"
+      },
+      {
+        "type": "vector",
+        "id": "RecConPw"
+      },
+      {
+        "type": "vector",
+        "id": "VectorHideConPw"
+      },
+      {
+        "type": "group",
+        "id": "P_conPw"
+      },
+      {
+        "type": "vector",
+        "id": "VectorConPwIcon"
+      },
+      {
+        "type": "text",
+        "id": "confirm_pw"
+      },
+      {
+        "type": "group",
+        "id": "LabelIdRec"
+      },
+      {
+        "type": "group",
+        "id": "P_id"
+      },
+      {
+        "type": "vector",
+        "id": "RecId"
+      },
+      {
+        "type": "vector",
+        "id": "VectorIdIcon"
+      },
+      {
+        "type": "text",
+        "id": "userid"
+      },
+      {
+        "type": "text",
+        "id": "Register_text"
+      }
+    ],
+    "modes": {
+      "signUp": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": false,
+            "children": [
+              "Login",
+              "RegisterButton",
+              "LabelSection",
+              "TitleSection"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            }
+          },
+          {
+            "id": "Login",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 113.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 794.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 186.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 21.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "alreadyUser"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "RegisterButton",
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.2980392156862745,
+                "hue": 226.28571428571428,
+                "saturation": 0.41338582677165353,
+                "value": 0.996078431372549
+              },
+              "blur": 22.0,
+              "offset-x": 0.0,
+              "offset-y": 10.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 49.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 612.0
+              }
+            },
+            "tap-handler": "$RegisterButton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 315.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 60.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "Rectangle5480",
+              "Register"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "LabelSection",
+            "alignment": {
+              "horizontal": {
+                "attachment": "center",
+                "offset": -1.5
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 205.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 315.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 240.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "LabelUserName",
+              "LabelPw",
+              "LabelconPw",
+              "LabelId"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "TitleSection",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 162.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 127.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 89.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 30.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "Register_text"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "alreadyUser",
+            "tap-handler": "$alreadyUser",
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.27586206896551724,
+              "value": 0.11372549019607843
+            },
+            "annotated-text-content": {
+              "text": "이미 계정이 있으신가요? 로그인",
+              "annotated-text-span-list": [
+                {
+                  "span-start": 0,
+                  "span-length": 12
+                },
+                {
+                  "span-start": 12,
+                  "span-length": 1,
+                  "annotated-text-style": {
+                    "font-weight": 400.0,
+                    "text-size": 14.0,
+                    "letter-spacing": 0.0,
+                    "line-height": 1.5,
+                    "typeface": "Poppins",
+                    "color": {
+                      "alpha": 1.0,
+                      "hue": 345.0,
+                      "saturation": 0.27586206896551724,
+                      "value": 0.11372549019607843
+                    }
+                  }
+                },
+                {
+                  "span-start": 13,
+                  "span-length": 1,
+                  "annotated-text-style": {
+                    "font-weight": 500.0,
+                    "line-height": 1.5,
+                    "typeface": "Poppins",
+                    "color": {
+                      "alpha": 1.0,
+                      "hue": 345.0,
+                      "saturation": 0.27586206896551724,
+                      "value": 0.11372549019607843
+                    }
+                  }
+                },
+                {
+                  "span-start": 14,
+                  "span-length": 3,
+                  "annotated-text-style": {
+                    "font-weight": 500.0,
+                    "text-size": 14.0,
+                    "letter-spacing": 0.0,
+                    "line-height": 1.5,
+                    "typeface": "Poppins",
+                    "color": {}
+                  }
+                }
+              ]
+            },
+            "overflow": "visible",
+            "text-align": "left",
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "Rectangle5480",
+            "border-radius": 99.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "rectangle5480.svg"
+          },
+          {
+            "id": "Register",
+            "margin": {
+              "left": 128.0,
+              "top": 18.0,
+              "right": 128.0,
+              "bottom": 18.0
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "font-weight": 700.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            },
+            "text-content": "회원가입",
+            "overflow": "visible",
+            "text-size": 16.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "LabelUserName",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 315.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 48.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "LabelUserNameRec",
+              "P_UserName"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "LabelPw",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 128.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 315.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 48.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "LabelPwRec",
+              "VectorHidePw",
+              "P_Pw"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "LabelconPw",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 192.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 315.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 48.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "RecConPw",
+              "VectorHideConPw",
+              "P_conPw"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "LabelId",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 64.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 315.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 48.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "LabelIdRec",
+              "P_id"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "LabelUserNameRec",
+            "border-radius": 14.0,
+            "is-structured": false,
+            "children": [
+              "RecUserName"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "P_UserName",
+            "margin": {
+              "left": 18.060043334960938,
+              "top": 15.0,
+              "right": 248.99999237060547,
+              "bottom": 15.0
+            },
+            "is-structured": false,
+            "children": [
+              "Vector",
+              "userNameTextFiled"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "RecUserName",
+            "border-radius": 14.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "rec_user_name.svg"
+          },
+          {
+            "id": "Vector",
+            "alignment": {
+              "horizontal": {
+                "attachment": "center",
+                "offset": -18.02998161315918
+              },
+              "vertical": {
+                "attachment": "center",
+                "offset": 0.00016736984252929688
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 11.880001068115234
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 14.902800559997559
+              }
+            },
+            "vector-content": "vector.svg"
+          },
+          {
+            "id": "userNameTextFiled",
+            "alignment": {
+              "horizontal": {
+                "attachment": "end",
+                "offset": -0.00000762939453125
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 0.0
+              }
+            },
+            "color": {
+              "alpha": 1.0,
+              "hue": 346.6666666666666,
+              "saturation": 0.05232558139534898,
+              "value": 0.6745098039215687
+            },
+            "text-content": "$user_name",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 12.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "LabelPwRec",
+            "border-radius": 14.0,
+            "is-structured": false,
+            "children": [
+              "RecPw"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "VectorHidePw",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 283.46219635009766
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 17.587188720703125
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 13.874996185302734
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 11.830499649047852
+              }
+            },
+            "vector-content": "vector_hide_pw.svg"
+          },
+          {
+            "id": "P_Pw",
+            "margin": {
+              "left": 18.187637329101562,
+              "top": 15.0,
+              "right": 227.0,
+              "bottom": 15.0
+            },
+            "is-structured": false,
+            "children": [
+              "VectorPwIcon",
+              "pw_text"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "RecPw",
+            "border-radius": 14.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "rec_pw.svg"
+          },
+          {
+            "id": "VectorPwIcon",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.600006103515625
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 1.462310791015625
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 11.418750762939453
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 13.874885559082031
+              }
+            },
+            "vector-content": "vector_pw_icon.svg"
+          },
+          {
+            "id": "pw_text",
+            "alignment": {
+              "horizontal": {
+                "attachment": "end",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 0.0
+              }
+            },
+            "color": {
+              "alpha": 1.0,
+              "hue": 346.6666666666666,
+              "saturation": 0.05232558139534898,
+              "value": 0.6745098039215687
+            },
+            "text-content": "$user_pw",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 12.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "RecConPw",
+            "alignment": {
+              "horizontal": {
+                "attachment": "end",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "end",
+                "offset": 0.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 315.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 48.0
+              }
+            },
+            "vector-content": "rec_con_pw.svg"
+          },
+          {
+            "id": "VectorHideConPw",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 283.46219635009766
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 17.587188720703125
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 13.874996185302734
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 11.830499649047852
+              }
+            },
+            "vector-content": "vector_hide_con_pw.svg"
+          },
+          {
+            "id": "P_conPw",
+            "margin": {
+              "left": 18.187637329101562,
+              "top": 15.0,
+              "right": 202.0,
+              "bottom": 15.0
+            },
+            "is-structured": false,
+            "children": [
+              "VectorConPwIcon",
+              "confirm_pw"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "VectorConPwIcon",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.600006103515625
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 1.462310791015625
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 11.418750762939453
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 13.874885559082031
+              }
+            },
+            "vector-content": "vector_con_pw_icon.svg"
+          },
+          {
+            "id": "confirm_pw",
+            "alignment": {
+              "horizontal": {
+                "attachment": "end",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 0.0
+              }
+            },
+            "color": {
+              "alpha": 1.0,
+              "hue": 346.6666666666666,
+              "saturation": 0.05232558139534898,
+              "value": 0.6745098039215687
+            },
+            "text-content": "$user_confirm_pw",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 12.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "LabelIdRec",
+            "border-radius": 14.0,
+            "is-structured": false,
+            "children": [
+              "RecId"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "P_id",
+            "margin": {
+              "left": 17.99993896484375,
+              "top": 15.0,
+              "right": 237.99999237060547,
+              "bottom": 15.0
+            },
+            "is-structured": false,
+            "children": [
+              "VectorIdIcon",
+              "userid"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "RecId",
+            "border-radius": 14.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "rec_id.svg"
+          },
+          {
+            "id": "VectorIdIcon",
+            "alignment": {
+              "horizontal": {
+                "attachment": "end",
+                "offset": -47.12006855010986
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 1.499786376953125
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 11.880000114440918
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 14.902799606323242
+              }
+            },
+            "vector-content": "vector_id_icon.svg"
+          },
+          {
+            "id": "userid",
+            "alignment": {
+              "horizontal": {
+                "attachment": "end",
+                "offset": -0.00000762939453125
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 0.0
+              }
+            },
+            "color": {
+              "alpha": 1.0,
+              "hue": 346.6666666666666,
+              "saturation": 0.05232558139534898,
+              "value": 0.6745098039215687
+            },
+            "text-content": "$user_id",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 12.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "Register_text",
+            "alignment": {
+              "horizontal": {
+                "attachment": "center",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 0.0
+              }
+            },
+            "font-weight": 700.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.27586206896551724,
+              "value": 0.11372549019607843
+            },
+            "text-content": "회원가입",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 24.0,
+            "line-height": 1.25,
+            "typeface": "Poppins"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "RegisterButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "alreadyUser": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "user_name": {
+      "data-type": "text",
+      "required": false,
+      "description": "user_name 입력"
+    },
+    "user_pw": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "user_confirm_pw": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "user_id": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "signUp",
+      "size": {
+        "width": 412.0,
+        "height": 917.0
+      },
+      "parameters": {
+        "user_name": "이름",
+        "user_pw": "비밀번호",
+        "user_confirm_pw": "비밀번호 확인",
+        "user_id": "아이디"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}
