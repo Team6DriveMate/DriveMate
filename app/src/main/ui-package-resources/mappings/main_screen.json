@@ -1,0 +1,6 @@
+{
+    "target": "MainScreen",
+    "package": "com.jeoktoma.drivemate.mainscreen",
+    "generateImplementation": true,
+    "generatePreviews": true
+}

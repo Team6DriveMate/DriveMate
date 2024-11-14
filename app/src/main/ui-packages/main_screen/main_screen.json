@@ -1,0 +1,1344 @@
+{
+  "name": "main_screen",
+  "version": 33,
+  "source-key": {
+    "type": "figma",
+    "file": "tRhla9kYBoxzbYaeerS0WQ",
+    "node": "120:304",
+    "version": "2149778603675729027",
+    "component-id": "9c4b34e0a025ef6dba7c503c93a048cdcf788013"
+  },
+  "default": "MainScreen",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "group",
+        "id": "Navbar"
+      },
+      {
+        "type": "group",
+        "id": "Navbar1"
+      },
+      {
+        "type": "group",
+        "id": "ReportSection"
+      },
+      {
+        "type": "group",
+        "id": "TipSection"
+      },
+      {
+        "type": "group",
+        "id": "TitleHome"
+      },
+      {
+        "type": "group",
+        "id": "Search"
+      },
+      {
+        "type": "group",
+        "id": "HomeActive"
+      },
+      {
+        "type": "group",
+        "id": "Profile"
+      },
+      {
+        "type": "group",
+        "id": "Report"
+      },
+      {
+        "type": "group",
+        "id": "Tip"
+      },
+      {
+        "type": "vector",
+        "id": "VectorSearch"
+      },
+      {
+        "type": "vector",
+        "id": "VectorHomeAct"
+      },
+      {
+        "type": "vector",
+        "id": "VectorProfile"
+      },
+      {
+        "type": "vector",
+        "id": "VectorReport"
+      },
+      {
+        "type": "vector",
+        "id": "VectorTip"
+      },
+      {
+        "type": "group",
+        "id": "Search1"
+      },
+      {
+        "type": "group",
+        "id": "HomeActive1"
+      },
+      {
+        "type": "group",
+        "id": "Profile1"
+      },
+      {
+        "type": "group",
+        "id": "Report1"
+      },
+      {
+        "type": "group",
+        "id": "Tip1"
+      },
+      {
+        "type": "vector",
+        "id": "VectorSearch1"
+      },
+      {
+        "type": "vector",
+        "id": "VectorHomeAct1"
+      },
+      {
+        "type": "vector",
+        "id": "VectorProfile1"
+      },
+      {
+        "type": "vector",
+        "id": "VectorReport1"
+      },
+      {
+        "type": "vector",
+        "id": "VectorTip1"
+      },
+      {
+        "type": "group",
+        "id": "ReportTitle"
+      },
+      {
+        "type": "group",
+        "id": "ReportBox"
+      },
+      {
+        "type": "text",
+        "id": "report_text"
+      },
+      {
+        "type": "vector",
+        "id": "ReportRec"
+      },
+      {
+        "type": "group",
+        "id": "TextBox"
+      },
+      {
+        "type": "text",
+        "id": "report_text1"
+      },
+      {
+        "type": "text",
+        "id": "reportDate_text"
+      },
+      {
+        "type": "group",
+        "id": "Banner"
+      },
+      {
+        "type": "group",
+        "id": "BannerBackground"
+      },
+      {
+        "type": "group",
+        "id": "BannerDots"
+      },
+      {
+        "type": "group",
+        "id": "Tip_text"
+      },
+      {
+        "type": "group",
+        "id": "ViewMoreButton"
+      },
+      {
+        "type": "vector",
+        "id": "bacRec"
+      },
+      {
+        "type": "vector",
+        "id": "VectorDots"
+      },
+      {
+        "type": "text",
+        "id": "todayTip_text"
+      },
+      {
+        "type": "text",
+        "id": "desc_tip_text"
+      },
+      {
+        "type": "text",
+        "id": "Button_text"
+      },
+      {
+        "type": "text",
+        "id": "achievementTitle_text"
+      },
+      {
+        "type": "text",
+        "id": "userName_text"
+      }
+    ],
+    "modes": {
+      "MainScreen": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": false,
+            "children": [
+              "Navbar",
+              "Navbar1",
+              "ReportSection",
+              "TipSection",
+              "TitleHome"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            }
+          },
+          {
+            "id": "Navbar",
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.06666666666666667,
+                "hue": 351.4285714285714,
+                "saturation": 0.2413793103448276,
+                "value": 0.11372549019607843
+              },
+              "blur": 40.0,
+              "offset-x": 0.0,
+              "offset-y": 10.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -3.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 821.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 415.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 96.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "Search",
+              "HomeActive",
+              "Profile",
+              "Report",
+              "Tip"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Navbar1",
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.06666666666666667,
+                "hue": 351.4285714285714,
+                "saturation": 0.2413793103448276,
+                "value": 0.11372549019607843
+              },
+              "blur": 40.0,
+              "offset-x": 0.0,
+              "offset-y": 10.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -3.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 821.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 415.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 96.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "Search1",
+              "HomeActive1",
+              "Profile1",
+              "Report1",
+              "Tip1"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "ReportSection",
+            "alignment": {
+              "horizontal": {
+                "attachment": "center",
+                "offset": 0.5
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 334.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 315.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 188.99990844726562
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "ReportTitle",
+              "ReportBox"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "TipSection",
+            "alignment": {
+              "horizontal": {
+                "attachment": "center",
+                "offset": 0.5
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 156.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 315.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 146.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "Banner"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "TitleHome",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 48.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 57.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 167.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 53.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "achievementTitle_text",
+              "userName_text"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Search",
+            "margin": {
+              "left": 174.853271484375,
+              "right": 173.74673461914062,
+              "bottom": 32.0
+            },
+            "tap-handler": "$SearchTap",
+            "is-structured": false,
+            "children": [
+              "VectorSearch"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "HomeActive",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 35.9666748046875
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 42.666664123535156
+              }
+            },
+            "tap-handler": "$HomeActiveTap",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 21.02666473388672
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 30.933332443237305
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "VectorHomeAct"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Profile",
+            "margin": {
+              "left": 355.239990234375,
+              "top": 40.53333282470703,
+              "right": 33.20001220703125,
+              "bottom": 29.866668701171875
+            },
+            "tap-handler": "$ProfileTap",
+            "is-structured": false,
+            "children": [
+              "VectorProfile"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Report",
+            "margin": {
+              "left": 114.0,
+              "top": 41.0,
+              "right": 276.0,
+              "bottom": 30.0
+            },
+            "tap-handler": "$ReportTap",
+            "is-structured": false,
+            "children": [
+              "VectorReport"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Tip",
+            "margin": {
+              "left": 284.0,
+              "top": 41.0,
+              "right": 106.0,
+              "bottom": 30.0
+            },
+            "tap-handler": "$TipTap",
+            "is-structured": false,
+            "children": [
+              "VectorTip"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "VectorSearch",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.75
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.75
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_search.svg"
+          },
+          {
+            "id": "VectorHomeAct",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_home_act.svg"
+          },
+          {
+            "id": "VectorProfile",
+            "margin": {
+              "left": 5.3277587890625,
+              "top": 3.002105712890625,
+              "right": 5.362640380859375,
+              "bottom": 2.9648265838623047
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.5999755859375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.5999984741210938
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_profile.svg"
+          },
+          {
+            "id": "VectorReport",
+            "margin": {
+              "left": 2.0833740234375,
+              "top": 2.0833358764648438,
+              "right": 2.083293914794922,
+              "bottom": 2.083332061767578
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.75
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.75
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_report.svg"
+          },
+          {
+            "id": "VectorTip",
+            "margin": {
+              "left": 2.86474609375,
+              "top": 2.8645858764648438,
+              "right": 2.864419937133789,
+              "bottom": 2.864582061767578
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.75
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.75
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_tip.svg"
+          },
+          {
+            "id": "Search1",
+            "margin": {
+              "left": 174.853271484375,
+              "right": 173.74673461914062,
+              "bottom": 32.0
+            },
+            "tap-handler": "$SearchTap",
+            "is-structured": false,
+            "children": [
+              "VectorSearch1"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "HomeActive1",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 35.9666748046875
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 42.666664123535156
+              }
+            },
+            "tap-handler": "$HomeActiveTap",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 21.02666473388672
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 30.933332443237305
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "VectorHomeAct1"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Profile1",
+            "margin": {
+              "left": 355.239990234375,
+              "top": 40.53333282470703,
+              "right": 33.20001220703125,
+              "bottom": 29.866668701171875
+            },
+            "tap-handler": "$ProfileTap",
+            "is-structured": false,
+            "children": [
+              "VectorProfile1"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Report1",
+            "margin": {
+              "left": 114.0,
+              "top": 41.0,
+              "right": 276.0,
+              "bottom": 30.0
+            },
+            "tap-handler": "$ReportTap",
+            "is-structured": false,
+            "children": [
+              "VectorReport1"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Tip1",
+            "margin": {
+              "left": 284.0,
+              "top": 41.0,
+              "right": 106.0,
+              "bottom": 30.0
+            },
+            "tap-handler": "$TipTap",
+            "is-structured": false,
+            "children": [
+              "VectorTip1"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "VectorSearch1",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.75
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.75
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_search1.svg"
+          },
+          {
+            "id": "VectorHomeAct1",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_home_act1.svg"
+          },
+          {
+            "id": "VectorProfile1",
+            "margin": {
+              "left": 5.3277587890625,
+              "top": 3.002105712890625,
+              "right": 5.362640380859375,
+              "bottom": 2.9648265838623047
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.5999755859375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.5999984741210938
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_profile1.svg"
+          },
+          {
+            "id": "VectorReport1",
+            "margin": {
+              "left": 2.0833740234375,
+              "top": 2.0833358764648438,
+              "right": 2.083293914794922,
+              "bottom": 2.083332061767578
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.75
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.75
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_report1.svg"
+          },
+          {
+            "id": "VectorTip1",
+            "margin": {
+              "left": 2.86474609375,
+              "top": 2.8645858764648438,
+              "right": 2.864419937133789,
+              "bottom": 2.864582061767578
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.75
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.75
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_tip1.svg"
+          },
+          {
+            "id": "ReportTitle",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 63.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 24.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "report_text"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "ReportBox",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 38.999908447265625
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 315.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 150.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "ReportRec",
+              "TextBox"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "report_text",
+            "font-weight": 600.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.27586206896551724,
+              "value": 0.11372549019607843
+            },
+            "text-content": "지난 운행",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 16.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "ReportRec",
+            "border-radius": 20.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.2980392156862745,
+                "hue": 226.28571428571428,
+                "saturation": 0.41338582677165353,
+                "value": 0.996078431372549
+              },
+              "blur": 22.0,
+              "offset-x": 0.0,
+              "offset-y": 10.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -22.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -12.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "report_rec.svg"
+          },
+          {
+            "id": "TextBox",
+            "margin": {
+              "left": 20.0,
+              "top": 20.0,
+              "right": 224.0,
+              "bottom": 86.0
+            },
+            "is-structured": false,
+            "children": [
+              "report_text1",
+              "reportDate_text"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "report_text1",
+            "margin": {
+              "right": 12.0,
+              "bottom": 26.0
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "font-weight": 500.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.27586206896551724,
+              "value": 0.11372549019607843
+            },
+            "text-content": "운행 리포트",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 12.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "reportDate_text",
+            "margin": {
+              "top": 23.0
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "font-weight": 600.0,
+            "color": {},
+            "text-content": "$reportDate_text",
+            "overflow": "visible",
+            "text-align": "left",
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "Banner",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 315.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 146.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "BannerBackground",
+              "BannerDots",
+              "Tip_text",
+              "ViewMoreButton"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "BannerBackground",
+            "border-radius": 22.0,
+            "is-structured": false,
+            "children": [
+              "bacRec"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "BannerDots",
+            "is-structured": false,
+            "children": [
+              "VectorDots"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Tip_text",
+            "margin": {
+              "left": 20.0,
+              "top": 26.0,
+              "right": 171.0,
+              "bottom": 76.0
+            },
+            "is-structured": false,
+            "children": [
+              "todayTip_text",
+              "desc_tip_text"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "ViewMoreButton",
+            "padding": {
+              "left": 30.0,
+              "top": 10.0,
+              "right": 30.0,
+              "bottom": 10.0
+            },
+            "margin": {
+              "left": 20.0,
+              "top": 85.0,
+              "right": 200.0,
+              "bottom": 26.0
+            },
+            "border-radius": 50.0,
+            "tap-handler": "$ViewMoreButton",
+            "arrangement": "row",
+            "main-axis-align": "space-between",
+            "children": [
+              "Button_text"
+            ],
+            "fills": [
+              {
+                "color": {},
+                "opacity": 1.0,
+                "fill-type": "lineargradient",
+                "blend-mode": "normal",
+                "color-stops": [
+                  {
+                    "color": {
+                      "alpha": 1.0,
+                      "hue": 273.78640776699035,
+                      "saturation": 0.4256198347107438,
+                      "value": 0.9490196078431372
+                    },
+                    "color-stop-position": 0.0
+                  },
+                  {
+                    "color": {
+                      "alpha": 1.0,
+                      "hue": 325.94594594594594,
+                      "saturation": 0.3109243697478991,
+                      "value": 0.9333333333333333
+                    },
+                    "color-stop-position": 1.0
+                  }
+                ],
+                "gradient-handle-positions": [
+                  {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  {
+                    "x": -0.24,
+                    "y": -0.31
+                  },
+                  {
+                    "x": 1.65,
+                    "y": -7.45
+                  }
+                ]
+              }
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "bacRec",
+            "border-radius": 22.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.2980392156862745,
+                "hue": 226.28571428571428,
+                "saturation": 0.41338582677165353,
+                "value": 0.996078431372549
+              },
+              "blur": 22.0,
+              "offset-x": 0.0,
+              "offset-y": 10.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -22.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -12.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "bac_rec.svg"
+          },
+          {
+            "id": "VectorDots",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_dots.svg"
+          },
+          {
+            "id": "todayTip_text",
+            "margin": {
+              "right": 56.0,
+              "bottom": 23.0
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "font-weight": 600.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            },
+            "text-content": "오늘의 꿀팁",
+            "overflow": "visible",
+            "text-align": "left",
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "desc_tip_text",
+            "margin": {
+              "top": 26.0
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            },
+            "text-content": "주차가 아직도 어렵다면?",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 12.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "Button_text",
+            "font-weight": 600.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            },
+            "text-content": "View More",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 10.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "achievementTitle_text",
+            "color": {
+              "alpha": 1.0,
+              "hue": 346.6666666666666,
+              "saturation": 0.05232558139534898,
+              "value": 0.6745098039215687
+            },
+            "text-content": "$achievementTitle_text",
+            "overflow": "visible",
+            "text-align": "left",
+            "line-height": 1.2857142639160157,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "userName_text",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 23.0
+              }
+            },
+            "font-weight": 700.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.27586206896551724,
+              "value": 0.11372549019607843
+            },
+            "text-content": "$userName_text",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 24.0,
+            "line-height": 1.25,
+            "typeface": "Poppins"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "SearchTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "HomeActiveTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "ProfileTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "ReportTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "TipTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "reportDate_text": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "ViewMoreButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "achievementTitle_text": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "userName_text": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "MainScreen",
+      "size": {
+        "width": 412.0,
+        "height": 917.0
+      },
+      "parameters": {
+        "reportDate_text": "2024-11-11",
+        "achievementTitle_text": "코너링이 훌륭하시네요,",
+        "userName_text": "Gildong Hong"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

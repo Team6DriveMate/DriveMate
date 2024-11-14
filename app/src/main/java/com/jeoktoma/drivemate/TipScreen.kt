@@ -1,19 +1,30 @@
 package com.jeoktoma.drivemate
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.google.relay.compose.BoxScopeInstance.columnWeight
+import com.google.relay.compose.BoxScopeInstance.rowWeight
+import com.jeoktoma.drivemate.tipmainscreen.TipMainScreen
 
 @Composable
 fun TipScreen(navController: NavController){
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text("설문 화면~~", fontSize = 24.sp)
-    }
+    TipMainScreen(
+        backNavsTap = {
+            navController.popBackStack()
+        },
+        homeTap = {},
+        tipTap = {},
+        reportTap = {},
+        profileTap = {},
+        searchTap = {},
+        buttonParkingViewmore = {
+                                //navController.navigate()
+        },
+        buttonHighwayViewmore = {},
+        buttonCheckingViewmore = {},
+        buttonAccidentViewmore = {},
+        buttonMannerViewmore = {},
+        modifier = Modifier.rowWeight(1.0f).columnWeight(1.0f)
+    )
 }

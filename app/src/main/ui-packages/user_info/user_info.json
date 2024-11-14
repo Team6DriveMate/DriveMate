@@ -1,0 +1,1901 @@
+{
+  "name": "user_info",
+  "version": 33,
+  "source-key": {
+    "type": "figma",
+    "file": "tRhla9kYBoxzbYaeerS0WQ",
+    "node": "123:165",
+    "version": "2149778603675729027",
+    "component-id": "51487afab30171d52861a7c795b22c941d3405d5"
+  },
+  "default": "userInfo",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "group",
+        "id": "HeaderProfile"
+      },
+      {
+        "type": "group",
+        "id": "ProfileSection"
+      },
+      {
+        "type": "group",
+        "id": "WeaknessCardSection"
+      },
+      {
+        "type": "group",
+        "id": "ProgressSection"
+      },
+      {
+        "type": "group",
+        "id": "Card3"
+      },
+      {
+        "type": "group",
+        "id": "Card2"
+      },
+      {
+        "type": "group",
+        "id": "Card1"
+      },
+      {
+        "type": "group",
+        "id": "Navbar"
+      },
+      {
+        "type": "group",
+        "id": "Navbar1"
+      },
+      {
+        "type": "group",
+        "id": "DetailNavs"
+      },
+      {
+        "type": "group",
+        "id": "Title"
+      },
+      {
+        "type": "group",
+        "id": "BackNavs"
+      },
+      {
+        "type": "vector",
+        "id": "VectorDetailNavs"
+      },
+      {
+        "type": "text",
+        "id": "profileText"
+      },
+      {
+        "type": "vector",
+        "id": "RecBackNav"
+      },
+      {
+        "type": "vector",
+        "id": "StrokeBackNavs"
+      },
+      {
+        "type": "group",
+        "id": "NameSection"
+      },
+      {
+        "type": "group",
+        "id": "profile_image"
+      },
+      {
+        "type": "group",
+        "id": "EditButton"
+      },
+      {
+        "type": "text",
+        "id": "userName_text"
+      },
+      {
+        "type": "text",
+        "id": "achievementTitle_text"
+      },
+      {
+        "type": "vector",
+        "id": "Ellipse90"
+      },
+      {
+        "type": "vector",
+        "id": "EditRec"
+      },
+      {
+        "type": "text",
+        "id": "editText"
+      },
+      {
+        "type": "vector",
+        "id": "BgRec"
+      },
+      {
+        "type": "text",
+        "id": "TitleWeakness"
+      },
+      {
+        "type": "group",
+        "id": "WeaknessTextField"
+      },
+      {
+        "type": "text",
+        "id": "Weakness_text"
+      },
+      {
+        "type": "text",
+        "id": "level_text"
+      },
+      {
+        "type": "group",
+        "id": "ProgressBar"
+      },
+      {
+        "type": "vector",
+        "id": "BgBar"
+      },
+      {
+        "type": "vector",
+        "id": "FillBar"
+      },
+      {
+        "type": "vector",
+        "id": "RecCard"
+      },
+      {
+        "type": "text",
+        "id": "Ach_text"
+      },
+      {
+        "type": "text",
+        "id": "getAchDate_text"
+      },
+      {
+        "type": "vector",
+        "id": "RecCard1"
+      },
+      {
+        "type": "text",
+        "id": "Ach_text1"
+      },
+      {
+        "type": "text",
+        "id": "getAchDate_text1"
+      },
+      {
+        "type": "vector",
+        "id": "RecCard2"
+      },
+      {
+        "type": "text",
+        "id": "Ach_text2"
+      },
+      {
+        "type": "text",
+        "id": "getAchDate_text2"
+      },
+      {
+        "type": "group",
+        "id": "Search"
+      },
+      {
+        "type": "group",
+        "id": "Home"
+      },
+      {
+        "type": "group",
+        "id": "ProfileActive"
+      },
+      {
+        "type": "group",
+        "id": "Tip"
+      },
+      {
+        "type": "group",
+        "id": "Report"
+      },
+      {
+        "type": "vector",
+        "id": "VectorSearch"
+      },
+      {
+        "type": "vector",
+        "id": "VectorHome"
+      },
+      {
+        "type": "vector",
+        "id": "VectorProfileAct"
+      },
+      {
+        "type": "vector",
+        "id": "VectorTip"
+      },
+      {
+        "type": "vector",
+        "id": "VectorReport"
+      },
+      {
+        "type": "group",
+        "id": "Search1"
+      },
+      {
+        "type": "group",
+        "id": "Home1"
+      },
+      {
+        "type": "group",
+        "id": "ProfileActive1"
+      },
+      {
+        "type": "group",
+        "id": "Tip1"
+      },
+      {
+        "type": "group",
+        "id": "Report1"
+      },
+      {
+        "type": "vector",
+        "id": "VectorSearch1"
+      },
+      {
+        "type": "vector",
+        "id": "VectorHome1"
+      },
+      {
+        "type": "vector",
+        "id": "VectorProfileAct1"
+      },
+      {
+        "type": "vector",
+        "id": "VectorTip1"
+      },
+      {
+        "type": "vector",
+        "id": "VectorReport1"
+      }
+    ],
+    "modes": {
+      "userInfo": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": false,
+            "children": [
+              "HeaderProfile",
+              "ProfileSection",
+              "WeaknessCardSection",
+              "ProgressSection",
+              "Card3",
+              "Card2",
+              "Card1",
+              "Navbar",
+              "Navbar1"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            }
+          },
+          {
+            "id": "HeaderProfile",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 40.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 60.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 334.93670654296875
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 33.28285217285156
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "DetailNavs",
+              "Title",
+              "BackNavs"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "ProfileSection",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 33.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 125.2828369140625
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 346.0799865722656
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 58.19858169555664
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "NameSection",
+              "profile_image",
+              "EditButton"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "WeaknessCardSection",
+            "border-radius": 16.0,
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 33.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 293.595703125
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 346.0799865722656
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 199.99148559570312
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "BgRec",
+              "TitleWeakness",
+              "WeaknessTextField"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "ProgressSection",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 41.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 203.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 315.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 59.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "level_text",
+              "ProgressBar"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Card3",
+            "border-radius": 16.0,
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 263.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 521.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 95.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 65.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "RecCard",
+              "Ach_text",
+              "getAchDate_text"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Card2",
+            "border-radius": 16.0,
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 153.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 521.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 95.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 65.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "RecCard1",
+              "Ach_text1",
+              "getAchDate_text1"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Card1",
+            "border-radius": 16.0,
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 43.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 521.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 95.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 65.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "RecCard2",
+              "Ach_text2",
+              "getAchDate_text2"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Navbar",
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.06666666666666667,
+                "hue": 351.4285714285714,
+                "saturation": 0.2413793103448276,
+                "value": 0.11372549019607843
+              },
+              "blur": 40.0,
+              "offset-x": 0.0,
+              "offset-y": 10.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 822.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 412.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 95.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "Search",
+              "Home",
+              "ProfileActive",
+              "Tip",
+              "Report"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Navbar1",
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.06666666666666667,
+                "hue": 351.4285714285714,
+                "saturation": 0.2413793103448276,
+                "value": 0.11372549019607843
+              },
+              "blur": 40.0,
+              "offset-x": 0.0,
+              "offset-y": 10.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 822.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 412.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 95.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "Search1",
+              "Home1",
+              "ProfileActive1",
+              "Tip1",
+              "Report1"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "DetailNavs",
+            "margin": {
+              "left": 300.911376953125,
+              "right": 0.000011444091796875
+            },
+            "is-structured": false,
+            "children": [
+              "VectorDetailNavs"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Title",
+            "margin": {
+              "left": 142.0,
+              "top": 4.0,
+              "right": 141.93670654296875,
+              "bottom": 8.282852172851562
+            },
+            "is-structured": false,
+            "children": [
+              "profileText"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "BackNavs",
+            "margin": {
+              "right": 300.9113883972168
+            },
+            "is-structured": false,
+            "children": [
+              "RecBackNav",
+              "StrokeBackNavs"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "VectorDetailNavs",
+            "tap-handler": "$DetailNavsTap",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_detail_navs.svg"
+          },
+          {
+            "id": "profileText",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "font-weight": 700.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.27586206896551724,
+              "value": 0.11372549019607843
+            },
+            "text-content": "프로필",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "text-size": 16.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "RecBackNav",
+            "tap-handler": "$RecBackNavTap",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "rec_back_nav.svg"
+          },
+          {
+            "id": "StrokeBackNavs",
+            "margin": {
+              "left": 14.53167724609375,
+              "top": 11.7877197265625,
+              "right": 14.531615257263184,
+              "bottom": 11.787632942199707
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.5999755859375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.5999755859375
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "stroke_back_navs.svg"
+          },
+          {
+            "id": "NameSection",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 76.90667724609375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 3.1744384765625
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 141.09332275390625
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 43.8255615234375
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "userName_text",
+              "achievementTitle_text"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "profile_image",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 60.426666259765625
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 58.19858169555664
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "Ellipse90"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "EditButton",
+            "border-radius": 99.0,
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 254.89065551757812
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 10.58154296875
+              }
+            },
+            "tap-handler": "$EditButton",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 91.1893310546875
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 31.744680404663086
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "EditRec",
+              "editText"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "userName_text",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 104.37333679199219
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 22.221277236938477
+              }
+            },
+            "font-weight": 500.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.27586206896551724,
+              "value": 0.11372549019607843
+            },
+            "text-content": "$userName_text",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "achievementTitle_text",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 0.09332275390625
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 27.8255615234375
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 141.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 16.0
+              }
+            },
+            "color": {
+              "alpha": 1.0,
+              "hue": 346.6666666666666,
+              "saturation": 0.05232558139534898,
+              "value": 0.6745098039215687
+            },
+            "text-content": "$achievementTitle_text",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "line-height": 1.2857142639160157,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "Ellipse90",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 60.426666259765625
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 58.19858169555664
+              }
+            },
+            "vector-content": "ellipse90.svg"
+          },
+          {
+            "id": "EditRec",
+            "border-radius": 99.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 91.1893310546875
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 31.744680404663086
+              }
+            },
+            "vector-content": "edit_rec.svg"
+          },
+          {
+            "id": "editText",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 35.109344482421875
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 7.41845703125
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 25.269332885742188
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 19.04680824279785
+              }
+            },
+            "font-weight": 500.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            },
+            "text-content": "수정",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "text-size": 12.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "BgRec",
+            "border-radius": 16.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.06666666666666667,
+                "hue": 351.4285714285714,
+                "saturation": 0.2413793103448276,
+                "value": 0.11372549019607843
+              },
+              "blur": 40.0,
+              "offset-x": 0.0,
+              "offset-y": 10.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -33.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -30.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 346.0799865722656
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 199.99148559570312
+              }
+            },
+            "vector-content": "bg_rec.svg"
+          },
+          {
+            "id": "TitleWeakness",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 22.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 21.404296875
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 91.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 25.0
+              }
+            },
+            "font-weight": 600.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.27586206896551724,
+              "value": 0.11372549019607843
+            },
+            "text-content": "나의 취약점",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "text-size": 16.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "WeaknessTextField",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 26.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 58.404296875
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 92.28800201416016
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 19.04680824279785
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "Weakness_text"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Weakness_text",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 92.28800201416016
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 19.04680824279785
+              }
+            },
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.0975609756097561,
+              "value": 0.4823529411764706
+            },
+            "text-content": "$Weakness_text",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "text-size": 12.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "level_text",
+            "font-weight": 600.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.27586206896551724,
+              "value": 0.11372549019607843
+            },
+            "text-content": "$level_text",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 16.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "ProgressBar",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 39.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 315.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 20.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "BgBar",
+              "FillBar"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "BgBar",
+            "border-radius": 99.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 315.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 20.0
+              }
+            },
+            "vector-content": "bg_bar.svg"
+          },
+          {
+            "id": "FillBar",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 210.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 20.0
+              }
+            },
+            "vector-content": "fill_bar.svg"
+          },
+          {
+            "id": "RecCard",
+            "border-radius": 16.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.06666666666666667,
+                "hue": 351.4285714285714,
+                "saturation": 0.2413793103448276,
+                "value": 0.11372549019607843
+              },
+              "blur": 40.0,
+              "offset-x": 0.0,
+              "offset-y": 10.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -40.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -30.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 95.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 65.0
+              }
+            },
+            "vector-content": "rec_card.svg"
+          },
+          {
+            "id": "Ach_text",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 30.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 11.0
+              }
+            },
+            "font-weight": 500.0,
+            "color": {},
+            "text-content": "고수 ...",
+            "overflow": "visible",
+            "text-align": "left",
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "getAchDate_text",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 24.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 37.0
+              }
+            },
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.0975609756097561,
+              "value": 0.4823529411764706
+            },
+            "text-content": "24/12/25",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 12.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "RecCard1",
+            "border-radius": 16.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.06666666666666667,
+                "hue": 351.4285714285714,
+                "saturation": 0.2413793103448276,
+                "value": 0.11372549019607843
+              },
+              "blur": 40.0,
+              "offset-x": 0.0,
+              "offset-y": 10.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -40.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -30.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 95.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 65.0
+              }
+            },
+            "vector-content": "rec_card1.svg"
+          },
+          {
+            "id": "Ach_text1",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 29.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 11.0
+              }
+            },
+            "font-weight": 500.0,
+            "color": {},
+            "text-content": "병아리",
+            "overflow": "visible",
+            "text-align": "left",
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "getAchDate_text1",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 24.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 37.0
+              }
+            },
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.0975609756097561,
+              "value": 0.4823529411764706
+            },
+            "text-content": "24/10/31",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 12.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "RecCard2",
+            "border-radius": 16.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.06666666666666667,
+                "hue": 351.4285714285714,
+                "saturation": 0.2413793103448276,
+                "value": 0.11372549019607843
+              },
+              "blur": 40.0,
+              "offset-x": 0.0,
+              "offset-y": 10.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -40.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -30.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 95.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 65.0
+              }
+            },
+            "vector-content": "rec_card2.svg"
+          },
+          {
+            "id": "Ach_text2",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 24.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 11.0
+              }
+            },
+            "font-weight": 500.0,
+            "color": {},
+            "text-content": "$Ach_text",
+            "overflow": "visible",
+            "text-align": "left",
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "getAchDate_text2",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 26.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 37.0
+              }
+            },
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.0975609756097561,
+              "value": 0.4823529411764706
+            },
+            "text-content": "$getAchDate_text",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 12.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "Search",
+            "margin": {
+              "left": 173.58935546875,
+              "right": 172.4906463623047,
+              "bottom": 31.666667938232422
+            },
+            "tap-handler": "$SearchTap",
+            "is-structured": false,
+            "children": [
+              "VectorSearch"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Home",
+            "margin": {
+              "left": 32.96002197265625,
+              "top": 40.111083984375,
+              "right": 352.6719779968262,
+              "bottom": 29.555583953857422
+            },
+            "tap-handler": "$HomeTap",
+            "is-structured": false,
+            "children": [
+              "VectorHome"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "ProfileActive",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 357.066650390625
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 42.2222900390625
+              }
+            },
+            "tap-handler": "$ProfileTap",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 17.57867431640625
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 30.611114501953125
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "VectorProfileAct"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Tip",
+            "margin": {
+              "left": 284.0,
+              "top": 40.0,
+              "right": 103.0,
+              "bottom": 30.0
+            },
+            "tap-handler": "$TipTap",
+            "is-structured": false,
+            "children": [
+              "VectorTip"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Report",
+            "margin": {
+              "left": 104.0,
+              "top": 42.0,
+              "right": 283.0,
+              "bottom": 28.0
+            },
+            "tap-handler": "$ReportTap",
+            "is-structured": false,
+            "children": [
+              "VectorReport"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "VectorSearch",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.75
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.75
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_search.svg"
+          },
+          {
+            "id": "VectorHome",
+            "margin": {
+              "left": 2.74664306640625,
+              "top": 2.1112060546875,
+              "right": 2.7466888427734375,
+              "bottom": 2.111013412475586
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.5999755859375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.5999755859375
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_home.svg"
+          },
+          {
+            "id": "VectorProfileAct",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_profile_act.svg"
+          },
+          {
+            "id": "VectorTip",
+            "margin": {
+              "left": 2.864776611328125,
+              "top": 2.8646240234375,
+              "right": 2.864389419555664,
+              "bottom": 2.864543914794922
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.75
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.75
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_tip.svg"
+          },
+          {
+            "id": "VectorReport",
+            "margin": {
+              "left": 2.08331298828125,
+              "top": 2.0833740234375,
+              "right": 2.083354949951172,
+              "bottom": 2.083293914794922
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.75
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.75
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_report.svg"
+          },
+          {
+            "id": "Search1",
+            "margin": {
+              "left": 173.58935546875,
+              "right": 172.4906463623047,
+              "bottom": 31.666667938232422
+            },
+            "tap-handler": "$SearchTap",
+            "is-structured": false,
+            "children": [
+              "VectorSearch1"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Home1",
+            "margin": {
+              "left": 32.96002197265625,
+              "top": 40.111083984375,
+              "right": 352.6719779968262,
+              "bottom": 29.555583953857422
+            },
+            "tap-handler": "$HomeTap",
+            "is-structured": false,
+            "children": [
+              "VectorHome1"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "ProfileActive1",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 357.066650390625
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 42.2222900390625
+              }
+            },
+            "tap-handler": "$ProfileTap",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 17.57867431640625
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 30.611114501953125
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "VectorProfileAct1"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Tip1",
+            "margin": {
+              "left": 284.0,
+              "top": 40.0,
+              "right": 103.0,
+              "bottom": 30.0
+            },
+            "tap-handler": "$TipTap",
+            "is-structured": false,
+            "children": [
+              "VectorTip1"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Report1",
+            "margin": {
+              "left": 104.0,
+              "top": 42.0,
+              "right": 283.0,
+              "bottom": 28.0
+            },
+            "tap-handler": "$ReportTap",
+            "is-structured": false,
+            "children": [
+              "VectorReport1"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "VectorSearch1",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.75
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.75
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_search1.svg"
+          },
+          {
+            "id": "VectorHome1",
+            "margin": {
+              "left": 2.74664306640625,
+              "top": 2.1112060546875,
+              "right": 2.7466888427734375,
+              "bottom": 2.111013412475586
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.5999755859375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.5999755859375
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_home1.svg"
+          },
+          {
+            "id": "VectorProfileAct1",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_profile_act1.svg"
+          },
+          {
+            "id": "VectorTip1",
+            "margin": {
+              "left": 2.864776611328125,
+              "top": 2.8646240234375,
+              "right": 2.864389419555664,
+              "bottom": 2.864543914794922
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.75
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.75
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_tip1.svg"
+          },
+          {
+            "id": "VectorReport1",
+            "margin": {
+              "left": 2.08331298828125,
+              "top": 2.0833740234375,
+              "right": 2.083354949951172,
+              "bottom": 2.083293914794922
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.75
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.75
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_report1.svg"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "DetailNavsTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "RecBackNavTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "EditButton": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "userName_text": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "achievementTitle_text": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "Weakness_text": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "level_text": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "Ach_text": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "getAchDate_text": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "SearchTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "HomeTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "ProfileTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "TipTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "ReportTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "userInfo",
+      "size": {
+        "width": 412.0,
+        "height": 917.0
+      },
+      "parameters": {
+        "userName_text": "Gildong Hong",
+        "achievementTitle_text": "코너링이 훌륭하시네요",
+        "Weakness_text": "취약점1",
+        "level_text": "Level 3",
+        "Ach_text": "코너링 ...",
+        "getAchDate_text": "24/11/11"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

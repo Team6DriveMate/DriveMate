@@ -1,0 +1,1455 @@
+{
+  "name": "user_info_edit",
+  "version": 33,
+  "source-key": {
+    "type": "figma",
+    "file": "tRhla9kYBoxzbYaeerS0WQ",
+    "node": "123:173",
+    "version": "2149778603675729027",
+    "component-id": "0a66fb3f92458a20e63271359de9dc3275bf6f9a"
+  },
+  "default": "userInfoEdit",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "text",
+        "id": "TitleAchText"
+      },
+      {
+        "type": "group",
+        "id": "ButtonEdit"
+      },
+      {
+        "type": "group",
+        "id": "Navbar"
+      },
+      {
+        "type": "group",
+        "id": "Card3"
+      },
+      {
+        "type": "group",
+        "id": "Card2"
+      },
+      {
+        "type": "group",
+        "id": "Card1"
+      },
+      {
+        "type": "group",
+        "id": "HeaderProfile"
+      },
+      {
+        "type": "group",
+        "id": "ProfileSection"
+      },
+      {
+        "type": "text",
+        "id": "Button"
+      },
+      {
+        "type": "group",
+        "id": "Search"
+      },
+      {
+        "type": "group",
+        "id": "Home"
+      },
+      {
+        "type": "group",
+        "id": "ProfileActive"
+      },
+      {
+        "type": "group",
+        "id": "Tip"
+      },
+      {
+        "type": "group",
+        "id": "Report"
+      },
+      {
+        "type": "vector",
+        "id": "VectorSearch"
+      },
+      {
+        "type": "vector",
+        "id": "VectorHome"
+      },
+      {
+        "type": "vector",
+        "id": "VectorProfileAct"
+      },
+      {
+        "type": "vector",
+        "id": "VectorTip"
+      },
+      {
+        "type": "vector",
+        "id": "VectorReport"
+      },
+      {
+        "type": "vector",
+        "id": "RecCard"
+      },
+      {
+        "type": "text",
+        "id": "Ach_text"
+      },
+      {
+        "type": "text",
+        "id": "getAchDate_text"
+      },
+      {
+        "type": "vector",
+        "id": "RecCard1"
+      },
+      {
+        "type": "text",
+        "id": "Ach_text1"
+      },
+      {
+        "type": "text",
+        "id": "getAchDate_text1"
+      },
+      {
+        "type": "vector",
+        "id": "RecCard2"
+      },
+      {
+        "type": "text",
+        "id": "Ach_text2"
+      },
+      {
+        "type": "text",
+        "id": "getAchDate_text2"
+      },
+      {
+        "type": "group",
+        "id": "DetailNavs"
+      },
+      {
+        "type": "group",
+        "id": "Title"
+      },
+      {
+        "type": "group",
+        "id": "BackNavs"
+      },
+      {
+        "type": "vector",
+        "id": "VectorDetailNavs"
+      },
+      {
+        "type": "text",
+        "id": "profileText"
+      },
+      {
+        "type": "vector",
+        "id": "RecBackNav"
+      },
+      {
+        "type": "vector",
+        "id": "StrokeBackNavs"
+      },
+      {
+        "type": "group",
+        "id": "NameSection"
+      },
+      {
+        "type": "group",
+        "id": "EditIcon"
+      },
+      {
+        "type": "group",
+        "id": "ProfileImage"
+      },
+      {
+        "type": "text",
+        "id": "userName_text"
+      },
+      {
+        "type": "text",
+        "id": "achievementTitle_text"
+      },
+      {
+        "type": "vector",
+        "id": "VectorEditIcon"
+      },
+      {
+        "type": "vector",
+        "id": "VectorProfileImage"
+      },
+      {
+        "type": "vector",
+        "id": "VectorCamera"
+      }
+    ],
+    "modes": {
+      "userInfoEdit": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": false,
+            "children": [
+              "TitleAchText",
+              "ButtonEdit",
+              "Navbar",
+              "Card3",
+              "Card2",
+              "Card1",
+              "HeaderProfile",
+              "ProfileSection"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            }
+          },
+          {
+            "id": "TitleAchText",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 46.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 215.4814453125
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 91.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 30.876314163208008
+              }
+            },
+            "font-weight": 600.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.27586206896551724,
+              "value": 0.11372549019607843
+            },
+            "text-content": "칭호 선택",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "text-size": 16.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "ButtonEdit",
+            "padding": {
+              "left": 129.0,
+              "top": 18.0,
+              "right": 129.0,
+              "bottom": 18.0
+            },
+            "border-radius": 99.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.2980392156862745,
+                "hue": 226.28571428571428,
+                "saturation": 0.41338582677165353,
+                "value": 0.996078431372549
+              },
+              "blur": 22.0,
+              "offset-x": 0.0,
+              "offset-y": 10.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "center",
+                "offset": 0.5
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 711.0
+              }
+            },
+            "tap-handler": "$ButtonEditTap",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 315.0
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "arrangement": "row",
+            "main-axis-align": "space-between",
+            "cross-axis-align": "start",
+            "children": [
+              "Button"
+            ],
+            "fills": [
+              {
+                "color": {},
+                "opacity": 1.0,
+                "fill-type": "lineargradient",
+                "blend-mode": "normal",
+                "color-stops": [
+                  {
+                    "color": {
+                      "alpha": 1.0,
+                      "hue": 230.46728971962617,
+                      "saturation": 0.4229249011857708,
+                      "value": 0.9921568627450981
+                    },
+                    "color-stop-position": 0.0
+                  },
+                  {
+                    "color": {
+                      "alpha": 1.0,
+                      "hue": 210.0,
+                      "saturation": 0.38431372549019605,
+                      "value": 1.0
+                    },
+                    "color-stop-position": 1.0
+                  }
+                ],
+                "gradient-handle-positions": [
+                  {
+                    "x": 1.0,
+                    "y": 1.0
+                  },
+                  {
+                    "x": -0.24,
+                    "y": -0.31
+                  },
+                  {
+                    "x": 1.65,
+                    "y": -7.45
+                  }
+                ]
+              }
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Navbar",
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.06666666666666667,
+                "hue": 351.4285714285714,
+                "saturation": 0.2413793103448276,
+                "value": 0.11372549019607843
+              },
+              "blur": 40.0,
+              "offset-x": 0.0,
+              "offset-y": 10.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "center",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "end",
+                "offset": 0.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 412.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 95.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "Search",
+              "Home",
+              "ProfileActive",
+              "Tip",
+              "Report"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Card3",
+            "border-radius": 16.0,
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 263.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 262.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 95.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 65.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "RecCard",
+              "Ach_text",
+              "getAchDate_text"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Card2",
+            "border-radius": 16.0,
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 153.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 262.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 95.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 65.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "RecCard1",
+              "Ach_text1",
+              "getAchDate_text1"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Card1",
+            "border-radius": 16.0,
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 43.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 262.3577880859375
+              }
+            },
+            "tap-handler": "$CardTap",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 95.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 65.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "RecCard2",
+              "Ach_text2",
+              "getAchDate_text2"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "HeaderProfile",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 40.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 60.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 334.93670654296875
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 33.28285217285156
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "DetailNavs",
+              "Title",
+              "BackNavs"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "ProfileSection",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 33.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 125.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 219.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 58.19858169555664
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "NameSection",
+              "EditIcon",
+              "ProfileImage"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Button",
+            "font-weight": 700.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            },
+            "text-content": "수정 완료",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 16.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "Search",
+            "margin": {
+              "left": 173.58934020996094,
+              "right": 172.49066162109375,
+              "bottom": 31.666667938232422
+            },
+            "tap-handler": "$SearchTap",
+            "is-structured": false,
+            "children": [
+              "VectorSearch"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Home",
+            "margin": {
+              "left": 32.959991455078125,
+              "top": 40.111083984375,
+              "right": 352.6720085144043,
+              "bottom": 29.555583953857422
+            },
+            "tap-handler": "$HomeTap",
+            "is-structured": false,
+            "children": [
+              "VectorHome"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "ProfileActive",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 357.066650390625
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 42.2222900390625
+              }
+            },
+            "tap-handler": "$ProfileTap",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 17.57867431640625
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 30.611114501953125
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "VectorProfileAct"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Tip",
+            "margin": {
+              "left": 284.0,
+              "top": 40.0,
+              "right": 103.0,
+              "bottom": 30.0
+            },
+            "tap-handler": "$TipTap",
+            "is-structured": false,
+            "children": [
+              "VectorTip"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Report",
+            "margin": {
+              "left": 104.0,
+              "top": 42.0,
+              "right": 283.0,
+              "bottom": 28.0
+            },
+            "tap-handler": "$ReportTap",
+            "is-structured": false,
+            "children": [
+              "VectorReport"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "VectorSearch",
+            "margin": {
+              "right": 0.0000152587890625
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.75
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.75
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_search.svg"
+          },
+          {
+            "id": "VectorHome",
+            "margin": {
+              "left": 2.7466278076171875,
+              "top": 2.1112060546875,
+              "right": 2.7467041015625,
+              "bottom": 2.111013412475586
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.600006103515625
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.5999755859375
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_home.svg"
+          },
+          {
+            "id": "VectorProfileAct",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_profile_act.svg"
+          },
+          {
+            "id": "VectorTip",
+            "margin": {
+              "left": 2.8647918701171875,
+              "top": 2.8646240234375,
+              "right": 2.8643741607666016,
+              "bottom": 2.864543914794922
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.75
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.75
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_tip.svg"
+          },
+          {
+            "id": "VectorReport",
+            "margin": {
+              "left": 2.0833282470703125,
+              "top": 2.0833740234375,
+              "right": 2.0833396911621094,
+              "bottom": 2.083293914794922
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.75
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.75
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_report.svg"
+          },
+          {
+            "id": "RecCard",
+            "border-radius": 16.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.06666666666666667,
+                "hue": 351.4285714285714,
+                "saturation": 0.2413793103448276,
+                "value": 0.11372549019607843
+              },
+              "blur": 40.0,
+              "offset-x": 0.0,
+              "offset-y": 10.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -40.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -30.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 95.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 65.0
+              }
+            },
+            "vector-content": "rec_card.svg"
+          },
+          {
+            "id": "Ach_text",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 30.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 11.0
+              }
+            },
+            "font-weight": 500.0,
+            "color": {},
+            "text-content": "고수 ...",
+            "overflow": "visible",
+            "text-align": "left",
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "getAchDate_text",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 24.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 37.0
+              }
+            },
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.0975609756097561,
+              "value": 0.4823529411764706
+            },
+            "text-content": "24/12/25",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 12.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "RecCard1",
+            "border-radius": 16.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.06666666666666667,
+                "hue": 351.4285714285714,
+                "saturation": 0.2413793103448276,
+                "value": 0.11372549019607843
+              },
+              "blur": 40.0,
+              "offset-x": 0.0,
+              "offset-y": 10.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -40.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -30.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 95.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 65.0
+              }
+            },
+            "vector-content": "rec_card1.svg"
+          },
+          {
+            "id": "Ach_text1",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 29.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 11.0
+              }
+            },
+            "font-weight": 500.0,
+            "color": {},
+            "text-content": "병아리",
+            "overflow": "visible",
+            "text-align": "left",
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "getAchDate_text1",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 24.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 37.0
+              }
+            },
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.0975609756097561,
+              "value": 0.4823529411764706
+            },
+            "text-content": "24/10/31",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 12.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "RecCard2",
+            "border-radius": 16.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.06666666666666667,
+                "hue": 351.4285714285714,
+                "saturation": 0.2413793103448276,
+                "value": 0.11372549019607843
+              },
+              "blur": 40.0,
+              "offset-x": 0.0,
+              "offset-y": 10.0,
+              "spread": 0.0,
+              "blend-mode": "normal"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -40.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -30.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 95.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 65.0
+              }
+            },
+            "vector-content": "rec_card2.svg"
+          },
+          {
+            "id": "Ach_text2",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 24.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 11.0
+              }
+            },
+            "font-weight": 500.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            },
+            "text-content": "$Ach_text",
+            "overflow": "visible",
+            "text-align": "left",
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "getAchDate_text2",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 26.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 37.0
+              }
+            },
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.0975609756097561,
+              "value": 0.4823529411764706
+            },
+            "text-content": "$getAchDate_text",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": 12.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "DetailNavs",
+            "margin": {
+              "left": 300.911376953125,
+              "right": 0.000011444091796875
+            },
+            "tap-handler": "$DetailNavsTap",
+            "is-structured": false,
+            "children": [
+              "VectorDetailNavs"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Title",
+            "margin": {
+              "left": 142.0,
+              "top": 4.0,
+              "right": 141.93670654296875,
+              "bottom": 8.282852172851562
+            },
+            "is-structured": false,
+            "children": [
+              "profileText"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "BackNavs",
+            "margin": {
+              "right": 300.9113883972168
+            },
+            "tap-handler": "$BackNavsTap",
+            "is-structured": false,
+            "children": [
+              "RecBackNav",
+              "StrokeBackNavs"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "VectorDetailNavs",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_detail_navs.svg"
+          },
+          {
+            "id": "profileText",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "font-weight": 700.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.27586206896551724,
+              "value": 0.11372549019607843
+            },
+            "text-content": "프로필",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "text-size": 16.0,
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "RecBackNav",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "rec_back_nav.svg"
+          },
+          {
+            "id": "StrokeBackNavs",
+            "margin": {
+              "left": 14.531661987304688,
+              "top": 11.7877197265625,
+              "right": 14.531630516052246,
+              "bottom": 11.787632942199707
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.600006103515625
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.5999755859375
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "stroke_back_navs.svg"
+          },
+          {
+            "id": "NameSection",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 77.90667724609375
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 3.1744384765625
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 141.09332275390625
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 43.8255615234375
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "userName_text",
+              "achievementTitle_text"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "EditIcon",
+            "margin": {
+              "left": 176.0,
+              "top": 3.0,
+              "right": 19.0,
+              "bottom": 31.19858169555664
+            },
+            "tap-handler": "$EditIconTap",
+            "is-structured": false,
+            "children": [
+              "VectorEditIcon"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "ProfileImage",
+            "tap-handler": "$ProfileImageTap",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 60.426666259765625
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 58.19858169555664
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "VectorProfileImage",
+              "VectorCamera"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "userName_text",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 104.37333679199219
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 22.221277236938477
+              }
+            },
+            "font-weight": 500.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 345.0,
+              "saturation": 0.27586206896551724,
+              "value": 0.11372549019607843
+            },
+            "text-content": "$userName_text",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "line-height": 1.5,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "achievementTitle_text",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 0.09332275390625
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 27.8255615234375
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 141.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 16.0
+              }
+            },
+            "color": {
+              "alpha": 1.0,
+              "hue": 346.6666666666666,
+              "saturation": 0.05232558139534898,
+              "value": 0.6745098039215687
+            },
+            "text-content": "$achievementTitle_text",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "line-height": 1.2857142639160157,
+            "typeface": "Poppins"
+          },
+          {
+            "id": "VectorEditIcon",
+            "margin": {
+              "left": 3.0,
+              "top": 3.0,
+              "right": 3.0,
+              "bottom": 3.5569839477539062
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.7500076293945312
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.75
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_edit_icon.svg"
+          },
+          {
+            "id": "VectorProfileImage",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 60.426666259765625
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 58.19858169555664
+              }
+            },
+            "vector-content": "vector_profile_image.svg"
+          },
+          {
+            "id": "VectorCamera",
+            "margin": {
+              "left": 21.0,
+              "top": 21.0,
+              "right": 20.926666259765625,
+              "bottom": 20.88108253479004
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": -0.75
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -0.75
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "vector_camera.svg"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "ButtonEditTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "CardTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "SearchTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "HomeTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "ProfileTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "TipTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "ReportTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "Ach_text": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "getAchDate_text": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "DetailNavsTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "BackNavsTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "EditIconTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "ProfileImageTap": {
+      "data-type": "void-callback",
+      "required": false,
+      "description": ""
+    },
+    "userName_text": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "achievementTitle_text": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "userInfoEdit",
+      "size": {
+        "width": 412.0,
+        "height": 917.0
+      },
+      "parameters": {
+        "Ach_text": "코너링 ...",
+        "getAchDate_text": "24/11/11",
+        "userName_text": "Gildong Hong",
+        "achievementTitle_text": "코너링이 훌륭하시네요"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}
