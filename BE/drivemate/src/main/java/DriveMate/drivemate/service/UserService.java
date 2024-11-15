@@ -17,13 +17,24 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User createUser(String username, String password){
-        return User.createUser(username, password);
+    public User createUser(String username, String password, String userNickname){
+        User user = User.createUser(username, password, userNickname);
+        user.setInitialTitle();
+        user.setInitialWeakPoint();
+        return user;
     }
+
+    public User findUserByUserName(String username) { return userRepository.findByUserName(username).get(0);}
 
     @Transactional
     public Long saveUser(User user){
         validateDuplicateUser(user);
+        userRepository.save(user);
+        return user.getId();
+    }
+
+    @Transactional
+    public Long updateUser(User user){
         userRepository.save(user);
         return user.getId();
     }

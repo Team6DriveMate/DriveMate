@@ -5,15 +5,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class LoginDTO {
+public class SignUpDTO {
+    @JsonProperty("nickname")
+    private String userNickname;
+
     @JsonProperty("username")
     private String userName;
 
     @JsonProperty("pw")
-    private String password;
+    private String userPW;
 
-    public LoginDTO(String userName, String password){
-        this.userName = userName;
-        this.password = password;
-    }
+    @JsonProperty("confirmPw")
+    private String confirmUserPW;
 }
