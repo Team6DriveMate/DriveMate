@@ -54,7 +54,7 @@ public class PathController {
 
             // 변환된 JsonNode를 parseRouteData에 전달
             Route route = driveMateService.parseRouteData(jsonNode);
-            driveMateService.setRouteTmp(route);
+            driveMateService.setPreRouteTmp(route);
 
             RouteResponseDTO routeResponseDTO = new RouteResponseDTO();
             routeResponseDTO.setTotalTime(route.getTotalTime());

@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter @Setter
 public class PointDTO {
     @JsonProperty("lat")
-    private double lat;
+    private Double lat;
 
     @JsonProperty("lng")
-    private double lng;
+    private Double lng;
 }

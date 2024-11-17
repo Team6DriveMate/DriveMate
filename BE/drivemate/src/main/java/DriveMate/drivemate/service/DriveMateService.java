@@ -50,15 +50,18 @@ public class DriveMateService {
         this.sectionService = sectionService;
     }
 
+    private Route preRouteTmp;
+    private Route postRouteTmp;
 
-    private Route routeTmp;
-
-    public void setRouteTmp(Route route){
-        routeTmp = route;
+    public void setPreRouteTmp(Route route){
+        preRouteTmp = route;
     }
-
-    public Route getRouteTmp(){
-        return routeTmp;
+    public Route getPreRouteTmp(){ return preRouteTmp; }
+    public void setPostRouteTmp(Route route){
+        postRouteTmp = route;
+    }
+    public Route getPostRouteTmp(){
+        return postRouteTmp;
     }
 
     /**
@@ -208,7 +211,7 @@ public class DriveMateService {
                         lineString.setName(getStringValue(properties, "name"));
                         lineString.setDescription(getStringValue(properties, "description"));
                         lineString.setDistance(getIntValue(properties, "distance"));
-                        lineString.setTime(getIntValue(properties, "time"));
+                        lineString.setTime(getDoubleValue(properties, "time"));
                         lineString.setRoadType(getIntValue(properties, "roadType"));
                         lineString.setFacilityType(getIntValue(properties, "facilityType"));
                     }
@@ -252,6 +255,39 @@ public class DriveMateService {
             }
         }
         return route;
+    }
+
+    public String getRouteWithPassList(double startY, double startX, double endY, double endX, String passList) {
+
+        // HTTP 헤더 설정
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("appKey", appKey);
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+        // 요청 본문 작성
+        String requestBody = String.format(
+                "{ \"startY\": %s, \"startX\": %s, \"endY\": %s, \"endX\": %s, \"passList\": \"%s\", \"tollgateFareOption\": 2, \"mainRoadInfo\": \"N\" }",
+                startY, startX, endY, endX, passList
+        );
+
+        // HttpEntity 생성. 본문과 헤더의 캡슐화.
+        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
+
+        /*
+            restTemplate: Spring의 RestTemplate 객체로, RESTful 서비스와의 HTTP 통신을 쉽게 처리하기 위한 도구입니다. 주로 HTTP 요청을 보내고 응답을 처리하는 역할을 합니다.
+            exchange: RestTemplate의 메서드 중 하나로, HTTP 요청을 보내고 응답을 받을 수 있는 기능을 제공합니다. exchange는 매우 유연하며, 다양한 HTTP 메서드(GET, POST, PUT, DELETE 등)를 지원합니다.
+            apiUrl: 요청을 보낼 대상의 URL입니다. 이 URL은 API 엔드포인트를 나타냅니다. 예를 들어, https://example.com/api/resource와 같은 형식으로, HTTP 요청이 이 주소로 전송됩니다.
+            HttpMethod.POST: 요청을 보낼 HTTP 메서드를 지정합니다. 여기서는 POST 메서드를 사용하고 있습니다. 즉, 클라이언트가 서버로 데이터를 전송할 때 사용됩니다. 다른 예로는 HttpMethod.GET, HttpMethod.PUT, HttpMethod.DELETE 등이 있습니다.
+            requestEntity: HTTP 요청 본문과 헤더를 포함하는 HttpEntity 객체입니다. 이 객체는 요청에 포함될 데이터를 캡슐화하고, 헤더 정보도 포함할 수 있습니다. 위에서 예시로 HttpEntity<String>으로 구성된 요청 데이터를 보내는 부분에 대해 설명드렸습니다.
+            String.class: 이 값은 응답 본문의 타입을 지정합니다. 여기서는 응답이 문자열 형식일 것이라는 것을 의미합니다. 즉, API에서 반환하는 응답이 String 형식으로 처리된다는 것을 나타냅니다. 만약 API 응답이 JSON이면, String 대신 MyResponseObject.class와 같이 특정 객체로 변환할 수도 있습니다.
+        */
+
+        // POST 요청 보내기
+        ResponseEntity<String> responseEntity = restTemplate.exchange(routeUrl, HttpMethod.POST, requestEntity, String.class);
+
+        // 응답 반환
+        return responseEntity.getBody();
     }
 
     /**
@@ -316,6 +352,7 @@ public class DriveMateService {
         info.setSemiRoute(semiRoute);
         return semiRoute.getSemiRouteRoadInfo();
     }
+
 
 
     /**

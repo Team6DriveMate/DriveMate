@@ -9,6 +9,9 @@ import java.util.List;
 
 @Getter @Setter
 public class SegmentDTO {
+    @JsonProperty("segmentIndex")
+    private Integer segmentIndex;
+
     @JsonProperty("distance")
     private int distance;
 

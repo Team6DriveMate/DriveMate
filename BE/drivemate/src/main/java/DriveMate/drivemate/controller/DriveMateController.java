@@ -66,7 +66,7 @@ public class DriveMateController {
             JsonNode jsonNode = objectMapper.readTree(tmapResponse);
             // 변환된 JsonNode를 parseRouteData에 전달
             Route route = driveMateService.parseRouteData(jsonNode);
-            driveMateService.setRouteTmp(route);
+            driveMateService.setPreRouteTmp(route);
             System.out.println(route.getTotalDistance());
             driveMateService.saveRoute(route);
 
