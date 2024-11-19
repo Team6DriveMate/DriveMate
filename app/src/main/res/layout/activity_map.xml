@@ -73,7 +73,7 @@
             android:id="@+id/start_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="길찾기 시작"
+            android:text="길안내 시작"
             android:textSize="24sp"
             android:textStyle="bold"
             android:background="@drawable/rounded_button"

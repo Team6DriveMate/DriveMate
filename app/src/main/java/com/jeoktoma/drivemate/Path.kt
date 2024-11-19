@@ -1,5 +1,7 @@
 package com.jeoktoma.drivemate
 
+import android.icu.util.TimeZone.SystemTimeZoneType
+
 data class RouteRequest(
     val start_location: Point,
     val end_location: Point
@@ -31,5 +33,10 @@ data class Point(
 
 data class CoordRequest(val road_address: String)
 data class CoordResponse(val lat: Double, val lng: Double)
+
+data class CompleteRequest(val start_location: Point, val end_location: Point,
+                           val stopover_location: List<Point>)
+
+data class CompleteResponse(val success:Boolean)
 
 

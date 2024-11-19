@@ -3,29 +3,27 @@ package com.jeoktoma.drivemate
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import com.google.relay.compose.BoxScopeInstance.columnWeight
-import com.google.relay.compose.BoxScopeInstance.rowWeight
 
 //길찾기(path), 운행(drive), 설문(survey), 리마인드(tip), 사용자 프로필(이름, 칭호, 레벨 등 유저 정보)
-@Composable
-fun MainScreen(navController: NavHostController) {
-    com.jeoktoma.drivemate.mainscreen.MainScreen(
-        searchTap = {
-                    navController.navigate("pathScreen")
-        },
-        homeActiveTap = {},
-        profileTap = {},
-        reportTap = {},
-        tipTap = {},
-        reportDateText = "2024-11-11",
-        viewMoreButton = {
-            navController.navigate("tipScreen")
-        },
-        achievementTitleText = "코너링이 훌륭하시네요,",
-        userNameText = "Gildong Hong",
-        modifier = Modifier.rowWeight(1.0f).columnWeight(1.0f)
-    )
-}
+//@Composable
+//fun MainScreen(navController: NavHostController) {
+//    com.jeoktoma.drivemate.mainscreen.MainScreen(
+//        searchTap = {
+//                    navController.navigate("pathScreen")
+//        },
+//        homeActiveTap = {},
+//        profileTap = {},
+//        reportTap = {},
+//        tipTap = {},
+//        reportDateText = "2024-11-11",
+//        viewMoreButton = {
+//            navController.navigate("tipScreen")
+//        },
+//        achievementTitleText = "코너링이 훌륭하시네요,",
+//        userNameText = "Gildong Hong",
+//        modifier = Modifier.rowWeight(1.0f).columnWeight(1.0f)
+//    )
+//}
 
 /*
     Column(

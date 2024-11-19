@@ -14,22 +14,11 @@ import java.security.MessageDigest
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        val intent = Intent(this, NavActivity::class.java)
-//        startActivity(intent)
-//        finish()
-        try {
-            val info = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
-            for (signature in info.signatures) {
-                val md = MessageDigest.getInstance("SHA")
-                md.update(signature.toByteArray())
-                val hashKey = String(Base64.encode(md.digest(), 0))
-                Log.d("HashKey", "Hash Key: $hashKey")
-            }
-        } catch (e: Exception) {
-            Log.e("HashKey", "Hash Key Error: ${e.toString()}")
-        }
+        val intent = Intent(this, NavActivity::class.java)
+        startActivity(intent)
+        finish()
 
-        checkPermission()
+        //checkPermission()
     }
 
     /**

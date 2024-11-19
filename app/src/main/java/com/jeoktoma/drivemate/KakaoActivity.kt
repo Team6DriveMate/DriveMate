@@ -1,6 +1,8 @@
 package com.jeoktoma.drivemate
 
 import android.graphics.Color
+import android.icu.util.TimeZone
+import android.location.Location
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -26,11 +28,28 @@ import com.kakaomobility.knsdk.guidance.knguidance.voiceguide.KNGuide_Voice
 import com.kakaomobility.knsdk.trip.kntrip.KNTrip
 import com.kakaomobility.knsdk.trip.kntrip.knroute.KNRoute
 import com.kakaomobility.knsdk.ui.view.KNNaviView
+import android.widget.Toast
+import android.os.Handler
+import android.os.Looper
+import com.kakaomobility.knsdk.common.gps.KATECToWGS84
+import com.kakaomobility.knsdk.common.gps.WGS84ToKATEC
+import com.kakaomobility.knsdk.common.util.DoublePoint
 
 class KakaoActivity : AppCompatActivity(), KNGuidance_GuideStateDelegate, KNGuidance_LocationGuideDelegate,
     KNGuidance_RouteGuideDelegate, KNGuidance_SafetyGuideDelegate, KNGuidance_VoiceGuideDelegate,
     KNGuidance_CitsGuideDelegate{
     lateinit var naviView: KNNaviView
+
+    private var changedLocations = mutableListOf<LocInfo>()
+    private val katecCoordinates = mutableListOf<DoublePoint>()
+    private val times = mutableListOf<Long>()
+
+    private var poidx = 1
+
+    data class LocInfo(
+        val lat: Double,
+        val lng: Double
+    )
 
 
 
@@ -40,12 +59,36 @@ class KakaoActivity : AppCompatActivity(), KNGuidance_GuideStateDelegate, KNGuid
 
         naviView = findViewById(R.id.navi_view)
 
+        // Intent에서 위도와 경도 리스트 받기
+        val latitudes = intent.getSerializableExtra("lat_list") as? ArrayList<Double>
+        val longitudes = intent.getSerializableExtra("lng_list") as? ArrayList<Double>
+
+        if (latitudes != null && longitudes != null) {
+
+            for (i in latitudes.indices) {
+                // 각 위도/경도 쌍에 대해 WGS84 -> KATEC 변환 수행
+                val wgsLat = latitudes[i]
+                val wgsLng = longitudes[i]
+
+                // WGS84 -> KATEC 변환
+                val katecCoord = WGS84ToKATEC(wgsLng, wgsLat)
+
+                // 변환된 KATEC 좌표를 리스트에 추가
+                katecCoordinates.add(katecCoord)
+                println("위도: ${katecCoordinates[i].x}, 경도: ${katecCoordinates[i].y}")
+            }
+
+            times.add(System.currentTimeMillis())
+
         // status bar 영역까지 사용하기 위한 옵션
         window?.apply {
             statusBarColor = Color.TRANSPARENT
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         }
         requestRoute()
+
+
+        }
     }
 
     /**
@@ -54,8 +97,8 @@ class KakaoActivity : AppCompatActivity(), KNGuidance_GuideStateDelegate, KNGuid
     fun requestRoute() {
         Thread {
             // 출발지와 목적지를 설정합니다.
-            val startPoi = KNPOI("현위치",309840,552483,"현위치")
-            val goalPoi = KNPOI("목적지",321497,532896,"목적지")
+            val startPoi = KNPOI("현위치", katecCoordinates.first().x.toInt(), katecCoordinates.first().y.toInt(),"현위치")
+            val goalPoi = KNPOI("목적지",katecCoordinates.last().x.toInt(),katecCoordinates.last().y.toInt(),"목적지")
 
             KakaoNavi.knsdk.makeTripWithStart(
                 aStart = startPoi,
@@ -96,6 +139,23 @@ class KakaoActivity : AppCompatActivity(), KNGuidance_GuideStateDelegate, KNGuid
 
     override fun guidanceDidUpdateRoutes(aGuidance: KNGuidance, aRoutes: List<KNRoute>, aMultiRouteInfo: KNMultiRouteInfo?) {
         naviView.guidanceDidUpdateRoutes(aGuidance, aRoutes, aMultiRouteInfo)
+        // 루트가 변했을 경우
+//        대안 경로 선택 또는 다른 경로를 선택하였을 경우
+//                자동 재탐색 시 경로가 변경된 경우
+//                수동 재탐색 시 경로가 변경된 경우
+        if(aGuidance.locationGuide?.location?.pos != null) {
+            val wgsloc = KATECToWGS84(
+                aGuidance.locationGuide?.location?.pos!!.x,
+                aGuidance.locationGuide?.location?.pos!!.y
+            )
+            changedLocations.add(LocInfo(wgsloc.x, wgsloc.y))
+
+            Toast.makeText(
+                this,
+                "경로 벗어남! 위도: ${changedLocations.last().lat}, 경도: ${changedLocations.last().lng}",
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
 
     override fun guidanceGuideEnded(aGuidance: KNGuidance) {
@@ -135,6 +195,21 @@ class KakaoActivity : AppCompatActivity(), KNGuidance_GuideStateDelegate, KNGuid
 
     override fun guidanceDidUpdateLocation(aGuidance: KNGuidance, aLocationGuide: KNGuide_Location) {
         naviView.guidanceDidUpdateLocation(aGuidance, aLocationGuide)
+
+        // 위치가 변경될 때 마다 호출
+        val wgspoi = KATECToWGS84(aLocationGuide.location?.pos!!.x, aLocationGuide.location?.pos!!.y)
+        val nextwgs = KATECToWGS84(katecCoordinates[poidx].x, katecCoordinates[poidx].y)
+        val distanceArray = FloatArray(1)
+        Location.distanceBetween(wgspoi.x, wgspoi.y, nextwgs.x, nextwgs.y, distanceArray)
+        // 포인트와의 거리가 50m 미만
+        if(distanceArray[0] < 50){
+            Toast.makeText(this, "$poidx 포인트 도착", Toast.LENGTH_LONG).show()
+            times.add(System.currentTimeMillis())
+            poidx += 1
+        }
+        else{
+            Toast.makeText(this, "$poidx 포인트까지 ${distanceArray[0]} 미터", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun guidanceDidUpdateRouteGuide(aGuidance: KNGuidance, aRouteGuide: KNGuide_Route) {
@@ -165,4 +240,7 @@ class KakaoActivity : AppCompatActivity(), KNGuidance_GuideStateDelegate, KNGuid
         naviView.didUpdateCitsGuide(aGuidance, aCitsGuide)
     }
 
+
 }
+
+
