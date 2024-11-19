@@ -16,6 +16,10 @@ class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        window.statusBarColor = android.graphics.Color.WHITE
+//
+//        // 상태바 아이콘 색상 설정 (흰색 배경에 어두운 아이콘)
+//        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
 
         setContent {
             DriveMateTheme {

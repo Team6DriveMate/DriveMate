@@ -62,6 +62,8 @@ dependencies {
     implementation(files("libs/vsm-tmap-sdk-v2-android-1.6.60.aar"))
     implementation("com.google.android.material:material:1.9.0")
 
+    implementation ("androidx.compose.material:material-icons-extended:<latest_version>")
+
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.6")
     implementation("androidx.activity:activity-compose:1.9.2")
