@@ -15,11 +15,11 @@ public class DriveReport {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long Id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name="survey_id")
     private Survey survey;
 
@@ -33,14 +33,19 @@ public class DriveReport {
     @OneToMany(mappedBy = "driveReport", fetch = FetchType.LAZY)
     private List<SemiRouteSurvey> semiRouteSurveyList = new ArrayList<>();
 
+    private String startLocation;
+    private String endLocation;
+    private String startTime;
+    private String endTime;
+
     public void setUser(User user){
         this.user = user;
         user.getDriveReportList().add(this);
     }
 
-    public void setSurvey(Survey survey){
-        this.survey = survey;
-        survey.setDriveReport(this);
+    public void addSemiRouteSurvey(SemiRouteSurvey semiRouteSurvey){
+        semiRouteSurvey.setDriveReport(this);
+        this.semiRouteSurveyList.add(semiRouteSurvey);
     }
 
 }

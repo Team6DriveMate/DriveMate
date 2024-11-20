@@ -17,6 +17,16 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    private User currentUser;
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
     public User createUser(String username, String password, String userNickname){
         User user = User.createUser(username, password, userNickname);
         user.setInitialTitle();
@@ -48,7 +58,10 @@ public class UserService {
     public boolean logIn(String userName, String userPW){
          List<User> findUser = userRepository.findByUserName(userName);
          if(!findUser.isEmpty()){
-             return findUser.get(0).getUserPW().equals(userPW);
+             if (findUser.get(0).getUserPW().equals(userPW)){
+                 currentUser = findUser.get(0);
+                 return true;
+             }
          }
          return false;
     }

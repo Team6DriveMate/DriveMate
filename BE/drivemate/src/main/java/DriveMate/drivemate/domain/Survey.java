@@ -18,7 +18,6 @@ public class Survey {
     private Integer tensionLevel;
     private Integer weather;
     private Integer laneStaying;
-
     private Integer sightDegree;
 
     private String memo;
@@ -26,7 +25,7 @@ public class Survey {
     @OneToOne(fetch = FetchType.LAZY)
     private DriveReport driveReport;
 
-    void setDriveReport(DriveReport driveReport){
+    public void setDriveReport(DriveReport driveReport){
         this.driveReport = driveReport;
         driveReport.setSurvey(this);
     }

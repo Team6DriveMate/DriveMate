@@ -31,6 +31,8 @@ public class DriveMateService {
     private EntityManager em;
     private final RouteService routeService;
 
+    private final UserService userService;
+
     private final SectionService sectionService;
 
     private final DriveReportService driveReportService;
@@ -43,11 +45,14 @@ public class DriveMateService {
     private String appKey;
 
     @Autowired
-    public DriveMateService(RestTemplateBuilder restTemplateBuilder, RouteService routeService, DriveReportService driveReportService, SectionService sectionService) {
+    public DriveMateService(RestTemplateBuilder restTemplateBuilder, RouteService routeService,
+                            DriveReportService driveReportService, SectionService sectionService
+                            ,UserService userService) {
         this.restTemplate = new RestTemplate();
         this.routeService = routeService;
         this.driveReportService = driveReportService;
         this.sectionService = sectionService;
+        this.userService = userService;
     }
 
     private Route preRouteTmp;
@@ -158,11 +163,11 @@ public class DriveMateService {
      */
 
 
+    @Transactional
     public Route parseRouteData(JsonNode responseNode) {
         Route route = new Route();
         DriveReport driveReport = new DriveReport();
         route.setDriveReport(driveReport);
-
         List<Section> sectionList = new ArrayList<>();
 
         // features 배열에서 순차적으로 경로 정보를 파싱
@@ -416,6 +421,7 @@ public class DriveMateService {
             driveReportService.saveDriveReport(route.getDriveReport());
 
             List<Section> sectionList = route.getDriveReport().getSectionList();
+            List<SemiRouteSurvey> semiRouteSurveyList = route.getDriveReport().getSemiRouteSurveyList();
             List<SemiRoute> semiRouteList = route.getSemiRouteList();
             List<Coordinate> coordinateList = new ArrayList<>();
 
@@ -426,11 +432,9 @@ public class DriveMateService {
                     em.flush();
                     em.clear();
                 }
-                System.out.println("done done");
             }
             em.flush();
             em.clear();
-            System.out.println("yeah im done");
 
             for (int i=0; i<semiRouteList.size(); i++){
                 coordinateList.addAll(semiRouteList.get(i).getCoordinateList());
@@ -440,7 +444,6 @@ public class DriveMateService {
                     em.flush();
                     em.clear();
                 }
-                System.out.println("seriously im done");
             }
             em.flush();
             em.clear();
@@ -451,10 +454,23 @@ public class DriveMateService {
                 if(i % batchSize == 0 && i>0){
                     em.flush();
                     em.clear();
-                    System.out.println("flush and clear");
                 }
             }
-            System.out.println("end");
+            em.flush();
+            em.clear();
+
+
+            /**
+             * 설문 저장
+             */
+
+            for (int i=0; i<semiRouteSurveyList.size(); i++){
+                em.persist((semiRouteSurveyList.get(i)));
+                if (i % batchSize == 0 && i>0){
+                    em.flush();
+                    em.clear();
+                }
+            }
             em.flush();
             em.clear();
 

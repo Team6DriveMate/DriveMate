@@ -31,14 +31,14 @@ public class User {
     // Title 아닌 String으로 Title의 name만 받아온다
     private String mainTitle = "";
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<DriveReport> driveReportList = new ArrayList<>();
 
     private Integer level = 1;
 
     private Integer experience = 0;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_weak_points", joinColumns = @JoinColumn(name = "user_id"))
     @MapKeyColumn(name = "weak_point")
     @Column(name = "value")
@@ -49,6 +49,8 @@ public class User {
         user.setUserName(userName);
         user.setUserPW(userPW);
         user.setUserNickname(userNickname);
+        user.setInitialWeakPoint();
+        user.setInitialTitle();
         return user;
     }
 
@@ -58,16 +60,17 @@ public class User {
     }
 
     public void setInitialWeakPoint(){
-        this.weakPoints.put("switchLight", 0);  // 방향등
-        this.weakPoints.put("sideMirror", 0);   // 사이드미러
-        this.weakPoints.put("tensionLevel", 0); // 긴장도
-        this.weakPoints.put("weather", 0);      // 날씨
-        this.weakPoints.put("laneStaying", 0);  // 차선 유지
-        this.weakPoints.put("laneSwitch", 0);   // 차선 변경
-        this.weakPoints.put("laneConfusion", 0);// 차선 혼동
-        this.weakPoints.put("trafficLaws", 0);  // 교통 법규 준수
-        this.weakPoints.put("situationDecision", 0);// 상황 판단
-        this.weakPoints.put("sightDegree", 0);  // 시야각
+        this.weakPoints.put("switchLight", 0);  // 방향등 (전체)
+        this.weakPoints.put("sideMirror", 0);   // 사이드미러 (전체)
+        this.weakPoints.put("tension", 0); // 긴장도 (구간) (전체)
+        this.weakPoints.put("weather", 0);      // 날씨 (전체)
+        this.weakPoints.put("laneStaying", 0);  // 차선 유지 (구간)
+        this.weakPoints.put("laneSwitch", 0);   // 차선 변경 (구간)
+        this.weakPoints.put("laneConfusion", 0);// 차선 혼동 (구간)
+        this.weakPoints.put("trafficLaws", 0);  // 교통 법규 준수 (구간)
+        this.weakPoints.put("situationDecision", 0);// 상황 판단 (구간)
+        this.weakPoints.put("sightDegree", 0);  // 시야각 (전체) - 평균 시야각을 저장해놓아야 할까?
+        this.weakPoints.put("trafficCongestion", 0); // 혼잡도 (구간)
     }
 
     public List<String> getTop3WeakPoints() {

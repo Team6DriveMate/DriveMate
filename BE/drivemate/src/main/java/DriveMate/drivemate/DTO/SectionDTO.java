@@ -15,6 +15,9 @@ public class SectionDTO {
     @JsonProperty("segments")
     private List<SegmentDTO> segments = new ArrayList<>();
 
+    @JsonProperty("sectionIndex")
+    private Integer sectionIndex;
+
     public void addSegment(SegmentDTO segmentDTO){
         this.segments.add(segmentDTO);
     }
