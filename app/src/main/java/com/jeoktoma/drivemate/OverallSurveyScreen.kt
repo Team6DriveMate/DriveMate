@@ -44,6 +44,8 @@ import androidx.compose.ui.input.pointer.consumeAllChanges
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -74,7 +76,8 @@ fun OverallSurveyScreen(
                 }
                 Text(
                     text = "설문",
-                    style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold)
+                    style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+                    fontFamily = FontFamily(Font(R.font.freesentation))
                 )
                 IconButton(onClick = { /* 점 세 개 버튼 로직 (미정) */ }) {
                     Icon(
@@ -110,7 +113,7 @@ fun OverallSurveyScreen(
                         ),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = "Next", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                    Text(text = "Next", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily(Font(R.font.freesentation)))
                 }
             }
         }
@@ -140,7 +143,8 @@ fun OverallSurveyScreen(
                 Text(
                     text = "Memo",
                     style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
-                    fontSize = 20.sp,
+                    fontSize = 22.sp,
+                    fontFamily = FontFamily(Font(R.font.freesentation)),
                     modifier = Modifier.padding(vertical = 8.dp)
                 )
                 Row(
@@ -154,6 +158,7 @@ fun OverallSurveyScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
+                        modifier = Modifier.size(30.dp),
                         imageVector = Icons.Default.EditNote, // 메모 아이콘
                         contentDescription = "Memo Icon",
                         tint = Color.Gray
@@ -162,7 +167,7 @@ fun OverallSurveyScreen(
                     TextField(
                         value = "",
                         onValueChange = {},
-                        placeholder = { Text("한줄 메모로 주행 기록을 정리해보세요", fontSize = 14.sp,) },
+                        placeholder = { Text("한줄 메모로 주행 기록을 정리해보세요", fontSize = 16.sp, fontFamily = FontFamily(Font(R.font.freesentation))) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(60.dp),
@@ -190,15 +195,17 @@ fun SurveySlider(question: String) {
     ) {
         Text(
             text = question,
-            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+            fontFamily = FontFamily(Font(R.font.freesentation)),
+            fontSize = 20.sp
         )
 
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = "전혀 아니다", style = MaterialTheme.typography.bodySmall, fontSize = 14.sp)
-            Text(text = "매우 그렇다", style = MaterialTheme.typography.bodySmall, fontSize = 14.sp)
+            Text(text = "전혀 아니다", style = MaterialTheme.typography.bodySmall, fontSize = 18.sp, fontFamily = FontFamily(Font(R.font.freesentation)))
+            Text(text = "매우 그렇다", style = MaterialTheme.typography.bodySmall, fontSize = 18.sp, fontFamily = FontFamily(Font(R.font.freesentation)))
         }
 
         Box(

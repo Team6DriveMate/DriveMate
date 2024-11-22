@@ -26,6 +26,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -35,19 +36,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun ProfileScreen(navController: NavController) {
+fun ProfileScreen(navController: NavController, selectedItem: MutableState<Int>) {
     val userName = remember { mutableStateOf("Gildong Hong") }
     val userTitle = remember { mutableStateOf("코너링이 훌룡하시네요") }
 
     Scaffold(
-        bottomBar = { BottomNavigationBar(navController, 4) }
+        bottomBar = { BottomNavigationBar(navController, selectedItem) }
     ) { padding ->
         Column(
             modifier = Modifier
@@ -180,9 +179,3 @@ fun ProfileScreen(navController: NavController) {
     }
 }
 
-@Preview(showBackground = true, widthDp = 412, heightDp = 917) // 기기 크기에 맞춘 프리뷰
-@Composable
-fun ProfileScreenPreview() {
-    val navController = rememberNavController() // 프리뷰용 NavController 생성
-    ProfileScreen(navController)
-}

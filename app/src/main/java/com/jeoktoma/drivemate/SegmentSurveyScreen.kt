@@ -33,7 +33,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -48,7 +51,7 @@ fun SegmentSurveyScreen(
     estimatedTime: String,
     actualTime: String,
     onNext: () -> Unit,
-    navController: NavController
+    navController: NavController? = null
 ) {
     Scaffold(
         topBar = {
@@ -59,7 +62,9 @@ fun SegmentSurveyScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                IconButton(onClick = { navController.popBackStack() }) {
+                IconButton(onClick = {
+                    //navController.popBackStack()
+                }) {
                     Icon(
                         imageVector = Icons.Default.ArrowBackIosNew,
                         contentDescription = "Back"
@@ -67,7 +72,8 @@ fun SegmentSurveyScreen(
                 }
                 Text(
                     text = "설문 (${segmentIndex + 1}/$totalSegments)",
-                    style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold)
+                    style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+                    fontFamily = FontFamily(Font(R.font.freesentation))
                 )
                 IconButton(onClick = { /* 점 세 개 버튼 로직 (미정) */ }) {
                     Icon(
@@ -78,21 +84,6 @@ fun SegmentSurveyScreen(
             }
         },
         bottomBar = {
-//            Button(
-//                onClick = { onNext() },
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(16.dp)
-//                    .height(48.dp),
-//                colors = ButtonDefaults.buttonColors(
-//                    containerColor = Color(0xFF92A3FD)
-//                ),
-//                shape = RoundedCornerShape(24.dp)
-//            ) {
-//                Text(text = "Next", color = Color.White)
-//            }
-
-
             Button(
                 onClick = { onNext() },
                 modifier = Modifier
@@ -115,7 +106,7 @@ fun SegmentSurveyScreen(
                         ),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = "Next", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                    Text(text = "Next", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily(Font(R.font.freesentation)))
                 }
             }
 
@@ -145,13 +136,14 @@ fun SegmentSurveyScreen(
                         )
                     }
                 }
-                //Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(16.dp))
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(text = "소요시간: $actualTime", style = MaterialTheme.typography.bodyLarge)
-                    Text(text = "예상시간: $estimatedTime", style = MaterialTheme.typography.bodyLarge)
+                    Text(text = "소요시간: $actualTime", style = MaterialTheme.typography.bodyLarge, fontFamily = FontFamily(Font(R.font.freesentation)), fontSize = 20.sp)
+                    Text(text = "예상시간: $estimatedTime", style = MaterialTheme.typography.bodyLarge, fontFamily = FontFamily(Font(R.font.freesentation)), fontSize = 20.sp)
                 }
             }
 
@@ -196,14 +188,16 @@ fun QuestionToggle(title: String, description: String) {
     ) {
         Text(
             text = title,
-            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+            fontFamily = FontFamily(Font(R.font.freesentation)),
+            fontSize = 19.sp
         )
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             //verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = description, style = MaterialTheme.typography.bodyMedium.copy(color = Color.Gray))
+            Text(text = description, style = MaterialTheme.typography.bodyMedium.copy(color = Color.Gray), fontFamily = FontFamily(Font(R.font.freesentation)), fontSize = 17.sp)
             Switch(
                 checked = isChecked.value,
                 onCheckedChange = { isChecked.value = it }, // 상태 업데이트
@@ -238,6 +232,20 @@ fun SurveyButton(label: String) {
             .padding(vertical = 8.dp, horizontal = 16.dp),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = label, color = if (selected.value) Color.White else Color.Black)
+        Text(text = label, color = if (selected.value) Color.White else Color.Black, fontFamily = FontFamily(Font(R.font.freesentation)), fontSize = 20.sp)
     }
+}
+
+@Preview(showBackground = true, widthDp = 412, heightDp = 917)
+@Composable
+fun PreviewSegmentSurveyScreen() {
+    SegmentSurveyScreen(
+        segmentIndex = 1, // 두 번째 구간 (예시)
+        totalSegments = 3, // 총 3개 구간 (예시)
+        segmentImage = null, // 이미지 없이 (회색 배경으로 대체)
+        estimatedTime = "10 min",
+        actualTime = "12 min",
+        onNext = {}, // 다음 버튼 클릭 시 동작 없음
+        navController = null // 가짜 NavController 사용
+    )
 }
