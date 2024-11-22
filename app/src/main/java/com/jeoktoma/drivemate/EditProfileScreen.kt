@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -34,10 +35,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+
 @Composable
 fun EditProfileScreen(navController: NavController) {
     val selectedTitle = remember { mutableStateOf("") }
@@ -70,7 +76,8 @@ fun EditProfileScreen(navController: NavController) {
                     text = "프로필 수정",
                     style = MaterialTheme.typography.headlineSmall.copy(
                         fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp
+                        fontSize = 23.sp,
+                        fontFamily = FontFamily(Font(R.font.freesentation))
                     )
                 )
                 IconButton(onClick = { /* 오른쪽 버튼: 아직 미정 */ }) {
@@ -92,27 +99,28 @@ fun EditProfileScreen(navController: NavController) {
                 Column {
                     Text(
                         text = userName.value,
-                        style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold, fontSize = 24.sp)
+                        style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold, fontSize = 27.sp)
                     )
                     Text(
                         text = "코너링이 훌룡하시네요", // 예시 칭호
-                        style = MaterialTheme.typography.bodyMedium.copy(color = Color.Gray, fontSize = 20.sp)
+                        style = MaterialTheme.typography.bodyMedium.copy(color = Color.Gray, fontSize = 22.sp, fontFamily = FontFamily(Font(R.font.freesentation)))
                     )
                 }
                 IconButton(onClick = { /* 이름 수정 로직 */ }) {
                     Icon(
+                        modifier = Modifier.size(30.dp),
                         imageVector = Icons.Default.Edit,
                         contentDescription = "Edit Name"
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(36.dp))
 
             // 칭호 선택
             Text(
                 text = "칭호 선택",
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold, fontSize = 24.sp, fontFamily = FontFamily(Font(R.font.freesentation)))
             )
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -153,8 +161,10 @@ fun EditProfileScreen(navController: NavController) {
                             Text(
                                 text = title,
                                 style = MaterialTheme.typography.bodyMedium.copy(
-                                    fontWeight = FontWeight.Bold,
-                                    color = if (selectedTitle.value == title) Color.White else Color.Gray
+                                    //fontWeight = FontWeight.Bold,
+                                    color = if (selectedTitle.value == title) Color.White else Color.Gray,
+                                    fontFamily = FontFamily(Font(R.font.freesentation)),
+                                    fontSize = 20.sp
                                 )
                             )
                         }
@@ -189,44 +199,16 @@ fun EditProfileScreen(navController: NavController) {
                         ),
                     contentAlignment = Alignment.Center // 버튼 텍스트를 중앙 정렬
                 ) {
-                    Text(text = "수정 완료", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                    Text(text = "수정 완료", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily(Font(R.font.freesentation)))
                 }
             }
-
-            /*
-            Button(
-            onClick = {
-                CoroutineScope(Dispatchers.Main).launch {
-                    val success = performLoginService(id, password, context)
-                    if (success) {
-                        navController.navigate("mainScreen")
-                    }
-                }
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent), // 버튼의 기본 색을 투명으로 설정
-            contentPadding = PaddingValues() // 내용물의 패딩을 없앰
-            ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        Brush.linearGradient(
-                            colors = listOf(
-                                Color(0xFF92A3FD), // 첫 번째 색 (Hex)
-                                Color(0xFF9DCEFF)  // 두 번째 색 (Hex)
-                            )
-                        )
-                    ),
-                contentAlignment = Alignment.Center // 버튼 텍스트를 중앙 정렬
-            ) {
-                Text(text = "로그인", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
-            }
-        }
-             */
-
         }
     }
+}
+
+@Preview(showBackground = true, widthDp = 412, heightDp = 917) // 기기 크기에 맞춘 프리뷰
+@Composable
+fun EditProfileScreenPreview() {
+    val navController = rememberNavController() // 프리뷰용 NavController 생성
+    EditProfileScreen(navController)
 }

@@ -75,7 +75,7 @@ fun LoginScreen(navController: NavController) {
         OutlinedTextField(
             value = id,
             onValueChange = { id = it },
-            label = { Text("아이디", fontFamily = FontFamily(Font(R.font.poppins)),) },
+            label = { Text("아이디", fontFamily = FontFamily(Font(R.font.freesentation)),) },
             leadingIcon = {
                 Icon(painter = painterResource(id = R.drawable.component_1_ic_user), contentDescription = "User Icon")
             },
@@ -93,7 +93,7 @@ fun LoginScreen(navController: NavController) {
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("비밀번호", fontFamily = FontFamily(Font(R.font.poppins)),) },
+            label = { Text("비밀번호", fontFamily = FontFamily(Font(R.font.freesentation))) },
             leadingIcon = {
                 Icon(painter = painterResource(id = R.drawable.component_1_ic_lock), contentDescription = "Password Icon")
             },
@@ -157,7 +157,7 @@ fun LoginScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         TextButton(onClick = { navController.navigate("signUpScreen")}) {
-            Text("계정이 없으신가요? 회원가입", color = Color.Gray)
+            Text("계정이 없으신가요? 회원가입", color = Color.Gray, fontFamily = FontFamily(Font(R.font.freesentation)), letterSpacing = 1.sp)
         }
     }
 }

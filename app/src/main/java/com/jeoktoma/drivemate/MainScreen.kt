@@ -59,14 +59,16 @@ fun MainScreen(navController: NavController, title: String, userName: String) {
             // 사용자 칭호와 이름
             Text(
                 text = title,
-                style = MaterialTheme.typography.bodyMedium.copy(fontSize = 18.sp)
+                style = MaterialTheme.typography.bodyMedium.copy(fontSize = 20.sp),
+                fontFamily = FontFamily(Font(R.font.freesentation))
             )
             Text(
                 text = userName,
                 style = MaterialTheme.typography.headlineLarge.copy(
                     fontWeight = FontWeight.Bold,
-                    fontSize = 28.sp
-                )
+                    fontSize = 32.sp
+                ),
+                fontFamily = FontFamily(Font(R.font.freesentation))
             )
 
             Spacer(modifier = Modifier.height(36.dp))
@@ -98,17 +100,18 @@ fun MainScreen(navController: NavController, title: String, userName: String) {
                     Text(
                         text = "오늘의 꿀팁",
                         style = MaterialTheme.typography.bodyMedium.copy(
-                            fontSize = 20.sp,
+                            fontSize = 24.sp,
                             color = Color.White,
                             fontWeight = FontWeight.Bold,
-                            fontFamily = FontFamily(Font(R.font.poppins)),
+                            fontFamily = FontFamily(Font(R.font.freesentation)),
                         )
                     )
                     Text(
                         text = "주차가 아직도 어렵다면?",
                         style = MaterialTheme.typography.bodyMedium.copy(
+                            fontSize = 18.sp,
                             color = Color.White,
-                            fontFamily = FontFamily(Font(R.font.poppins)),
+                            fontFamily = FontFamily(Font(R.font.freesentation)),
                         )
                     )
                     Button(
@@ -129,7 +132,7 @@ fun MainScreen(navController: NavController, title: String, userName: String) {
                                 )
                                 .padding(vertical = 8.dp, horizontal = 16.dp)
                         ) {
-                            Text(text = "더보기", color = Color.White)
+                            Text(text = "더보기", color = Color.White, fontFamily = FontFamily(Font(R.font.freesentation)))
                         }
                     }
                 }
@@ -141,7 +144,7 @@ fun MainScreen(navController: NavController, title: String, userName: String) {
             Column {
                 Text(
                     text = "지난 운행",
-                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 18.sp)
+                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 24.sp, fontFamily = FontFamily(Font(R.font.freesentation)))
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Box(

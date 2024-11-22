@@ -32,10 +32,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun ProfileScreen(navController: NavController) {
@@ -67,7 +71,7 @@ fun ProfileScreen(navController: NavController) {
                 }
                 Text(
                     text = "프로필",
-                    style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                    style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold, fontSize = 23.sp)
                 )
                 IconButton(onClick = { /* 오른쪽 버튼: 아직 미정 */ }) {
                     Icon(
@@ -88,11 +92,11 @@ fun ProfileScreen(navController: NavController) {
                 Column {
                     Text(
                         text = userName.value,
-                        style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold)
+                        style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold, fontSize = 27.sp, fontFamily = FontFamily(Font(R.font.freesentation)))
                     )
                     Text(
                         text = userTitle.value,
-                        style = MaterialTheme.typography.bodyMedium.copy(color = Color.Gray, fontSize = 20.sp)
+                        style = MaterialTheme.typography.bodyMedium.copy(color = Color.Gray, fontSize = 22.sp, fontFamily = FontFamily(Font(R.font.freesentation)))
                     )
                 }
                 Button(
@@ -101,16 +105,16 @@ fun ProfileScreen(navController: NavController) {
                         containerColor = Color(0xFF9DCEFF)
                     )
                 ) {
-                    Text(text = "수정", color = Color.White)
+                    Text(text = "수정", color = Color.White, fontSize = 20.sp, fontFamily = FontFamily(Font(R.font.freesentation)))
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             // 레벨 바
             Text(
                 text = "Level 3",
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold, fontSize = 23.sp, fontFamily = FontFamily(Font(R.font.freesentation)))
             )
             Box(
                 modifier = Modifier
@@ -134,12 +138,12 @@ fun ProfileScreen(navController: NavController) {
                 )
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(36.dp))
 
             // 나의 취약점
             Text(
                 text = "나의 취약점",
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold, fontSize = 24.sp, fontFamily = FontFamily(Font(R.font.freesentation)))
             )
             Box(
                 modifier = Modifier
@@ -174,4 +178,11 @@ fun ProfileScreen(navController: NavController) {
             }
         }
     }
+}
+
+@Preview(showBackground = true, widthDp = 412, heightDp = 917) // 기기 크기에 맞춘 프리뷰
+@Composable
+fun ProfileScreenPreview() {
+    val navController = rememberNavController() // 프리뷰용 NavController 생성
+    ProfileScreen(navController)
 }

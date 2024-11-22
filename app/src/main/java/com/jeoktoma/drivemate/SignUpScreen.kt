@@ -68,8 +68,8 @@ fun SignUpScreen(navController: NavController) {
     ) {
         Text(
             text = "회원가입",
-            fontSize = 24.sp,
-            fontFamily = FontFamily(Font(R.font.poppins)),
+            fontSize = 30.sp,
+            fontFamily = FontFamily(Font(R.font.freesentation)),
             fontWeight = FontWeight.Bold,
             color = Color.Black
         )
@@ -79,7 +79,7 @@ fun SignUpScreen(navController: NavController) {
         OutlinedTextField(
             value = name,
             onValueChange = { name = it },
-            label = { Text("이름", fontFamily = FontFamily(Font(R.font.poppins)),) },
+            label = { Text("이름", fontFamily = FontFamily(Font(R.font.freesentation)),) },
             leadingIcon = {
                 Icon(painter = painterResource(id = R.drawable.component_1_ic_user), contentDescription = "User Icon")
             },
@@ -97,7 +97,7 @@ fun SignUpScreen(navController: NavController) {
         OutlinedTextField(
             value = id,
             onValueChange = { id = it },
-            label = { Text("아이디", fontFamily = FontFamily(Font(R.font.poppins)),) },
+            label = { Text("아이디", fontFamily = FontFamily(Font(R.font.freesentation)),) },
             leadingIcon = {
                 Icon(painter = painterResource(id = R.drawable.component_1_ic_user), contentDescription = "User Icon")
             },
@@ -115,7 +115,7 @@ fun SignUpScreen(navController: NavController) {
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("비밀번호", fontFamily = FontFamily(Font(R.font.poppins)),) },
+            label = { Text("비밀번호", fontFamily = FontFamily(Font(R.font.freesentation)),) },
             leadingIcon = {
                 Icon(painter = painterResource(id = R.drawable.component_1_ic_lock), contentDescription = "Password Icon")
             },
@@ -147,7 +147,7 @@ fun SignUpScreen(navController: NavController) {
         OutlinedTextField(
             value = confirmPassword,
             onValueChange = { confirmPassword = it },
-            label = { Text("비밀번호 확인", fontFamily = FontFamily(Font(R.font.poppins)),) },
+            label = { Text("비밀번호 확인", fontFamily = FontFamily(Font(R.font.freesentation)),) },
             leadingIcon = {
                 Icon(painter = painterResource(id = R.drawable.component_1_ic_lock), contentDescription = "Confirm Password Icon")
             },
@@ -212,14 +212,14 @@ fun SignUpScreen(navController: NavController) {
                     ),
                 contentAlignment = Alignment.Center // 버튼 텍스트를 중앙 정렬
             ) {
-                Text(text = "회원가입", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Text(text = "회원가입", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily(Font(R.font.freesentation)))
             }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         TextButton(onClick = { navController.navigate("loginScreen")}) {
-            Text("이미 계정이 있으신가요? 로그인", color = Color.Gray)
+            Text("이미 계정이 있으신가요? 로그인", color = Color.Gray, fontFamily = FontFamily(Font(R.font.freesentation)), letterSpacing = 1.sp)
         }
     }
 }
