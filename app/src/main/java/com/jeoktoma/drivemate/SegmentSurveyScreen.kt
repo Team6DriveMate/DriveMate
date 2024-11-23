@@ -173,9 +173,23 @@ fun SegmentSurveyScreen(
 
             // 설문 질문
             Column {
-                QuestionToggle(title = "교통 혼잡도가 ‘정체’로 높았습니다", description = "높은 교통 혼잡도에 문제가 있었나요?")
+                QuestionToggle(
+                    title = "교통 혼잡도가 ‘’로 높았습니다",
+                    description = "교통 혼잡도에 문제가 있었나요?",
+                    isChecked = surveyRequest.value.trafficCongestion,
+                    onCheckedChange = { isChecked ->
+                        surveyRequest.value = surveyRequest.value.copy(trafficCongestion = isChecked)
+                    }
+                )
                 Spacer(modifier = Modifier.height(16.dp))
-                QuestionToggle(title = "해당 도로의 타입은 ‘‘ 이었습니다", description = "‘’가 익숙하지 않았나요?")
+                QuestionToggle(
+                    title = "해당 도로의 타입은 ‘‘ 이었습니다",
+                    description = "‘’가 익숙하지 않았나요?",
+                    isChecked = surveyRequest.value.roadType,
+                    onCheckedChange = { isChecked ->
+                        surveyRequest.value = surveyRequest.value.copy(roadType = isChecked)
+                    }
+                )
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // 버튼 설문
@@ -185,11 +199,41 @@ fun SegmentSurveyScreen(
                     crossAxisSpacing = 8.dp,
                     mainAxisAlignment = FlowMainAxisAlignment.Center
                 ) {
-                    SurveyButton("차선 변경")
-                    SurveyButton("판단 미숙")
-                    SurveyButton("차선 혼동")
-                    SurveyButton("도로 규범 준수")
-                    SurveyButton("긴장")
+                    SurveyButton(
+                        label = "차선 변경",
+                        isSelected = surveyRequest.value.laneSwitch,
+                        onSelectedChange = { isSelected ->
+                            surveyRequest.value = surveyRequest.value.copy(laneSwitch = isSelected)
+                        }
+                    )
+                    SurveyButton(
+                        label = "판단 미숙",
+                        isSelected = surveyRequest.value.situationDecision,
+                        onSelectedChange = { isSelected ->
+                            surveyRequest.value = surveyRequest.value.copy(situationDecision = isSelected)
+                        }
+                    )
+                    SurveyButton(
+                        label = "차선 혼동",
+                        isSelected = surveyRequest.value.laneConfusion,
+                        onSelectedChange = { isSelected ->
+                            surveyRequest.value = surveyRequest.value.copy(laneConfusion = isSelected)
+                        }
+                    )
+                    SurveyButton(
+                        label = "도로 규범 준수",
+                        isSelected = surveyRequest.value.trafficLaws,
+                        onSelectedChange = { isSelected ->
+                            surveyRequest.value = surveyRequest.value.copy(trafficLaws = isSelected)
+                        }
+                    )
+                    SurveyButton(
+                        label = "긴장",
+                        isSelected = surveyRequest.value.tension,
+                        onSelectedChange = { isSelected ->
+                            surveyRequest.value = surveyRequest.value.copy(tension = isSelected)
+                        }
+                    )
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -199,8 +243,7 @@ fun SegmentSurveyScreen(
 }
 
 @Composable
-fun QuestionToggle(title: String, description: String) {
-    val isChecked = remember { mutableStateOf(false) }
+fun QuestionToggle(title: String, description: String, isChecked: Boolean, onCheckedChange: (Boolean) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -219,12 +262,16 @@ fun QuestionToggle(title: String, description: String) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            //verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = description, style = MaterialTheme.typography.bodyMedium.copy(color = Color.Gray), fontFamily = FontFamily(Font(R.font.freesentation)), fontSize = 17.sp)
+            Text(
+                text = description,
+                style = MaterialTheme.typography.bodyMedium.copy(color = Color.Gray),
+                fontFamily = FontFamily(Font(R.font.freesentation)),
+                fontSize = 17.sp
+            )
             Switch(
-                checked = isChecked.value,
-                onCheckedChange = { isChecked.value = it }, // 상태 업데이트
+                checked = isChecked,
+                onCheckedChange = onCheckedChange,
                 colors = androidx.compose.material3.SwitchDefaults.colors(
                     checkedThumbColor = Color.White,
                     checkedTrackColor = Color(0xFFEEA4CE),
@@ -237,26 +284,28 @@ fun QuestionToggle(title: String, description: String) {
 }
 
 @Composable
-fun SurveyButton(label: String) {
-    val selected = remember { mutableStateOf(false) }
+fun SurveyButton(label: String, isSelected: Boolean, onSelectedChange: (Boolean) -> Unit) {
     Box(
         modifier = Modifier
             .padding(horizontal = 8.dp)
-            //.height(48.dp)
-            //.width(120.dp)
             .background(
-                brush = if (selected.value) Brush.linearGradient(
+                brush = if (isSelected) Brush.linearGradient(
                     colors = listOf(Color(0xFFC58BF2), Color(0xFFEEA4CE))
                 ) else Brush.linearGradient(
                     colors = listOf(Color(0xFFDDDADA), Color(0xFFDDDADA))
                 ),
                 shape = RoundedCornerShape(16.dp)
             )
-            .clickable { selected.value = !selected.value }
+            .clickable { onSelectedChange(!isSelected) }
             .padding(vertical = 8.dp, horizontal = 16.dp),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = label, color = if (selected.value) Color.White else Color.Black, fontFamily = FontFamily(Font(R.font.freesentation)), fontSize = 20.sp)
+        Text(
+            text = label,
+            color = if (isSelected) Color.White else Color.Black,
+            fontFamily = FontFamily(Font(R.font.freesentation)),
+            fontSize = 20.sp
+        )
     }
 }
 
