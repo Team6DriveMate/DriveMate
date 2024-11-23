@@ -86,6 +86,53 @@ public class PathController {
                     segmentDTO.setTime(((SemiRouteLineString) semiRoute).getTime());
                     segmentDTO.setDistance(((SemiRouteLineString) semiRoute).getDistance());
                     segmentDTO.setRoadName(((SemiRouteLineString) semiRoute).getName());
+                    switch (((SemiRouteLineString) semiRoute).getRoadType()){
+                        case 0:
+                            segmentDTO.setRoadType("고속국도");
+                            break;
+                        case 1:
+                            segmentDTO.setRoadType("자동차전용");
+                            break;
+                        case 2:
+                            segmentDTO.setRoadType("국도");
+                            break;
+                        case 3:
+                            segmentDTO.setRoadType("국가지원 지방도");
+                            break;
+                        case 4:
+                            segmentDTO.setRoadType("지방도");
+                            break;
+                        case 5:
+                            segmentDTO.setRoadType("5-6차선");
+                            break;
+                        case 6:
+                            segmentDTO.setRoadType("3-4차선");
+                            break;
+                        case 7:
+                            segmentDTO.setRoadType("2차선");
+                            break;
+                        case 8:
+                            segmentDTO.setRoadType("1차선");
+                            break;
+                        case 9:
+                            segmentDTO.setRoadType("이면도로");
+                            break;
+                        case 10:
+                            segmentDTO.setRoadType("페리항로");
+                            break;
+                        case 11:
+                            segmentDTO.setRoadType("아파트 단지 내 도로");
+                            break;
+                        case 12:
+                            segmentDTO.setRoadType("시장 내 도로");
+                            break;
+                        case 16:
+                            segmentDTO.setRoadType("일반도로");
+                            break;
+                        case 20:
+                            segmentDTO.setRoadType("번화가 링크");
+                            break;
+                    }
                     System.out.println(semiRoute.getNumIndex());
                     if (semiRoute.getSemiRouteRoadInfo() != null)
                         segmentDTO.setTraffic(semiRoute.getSemiRouteRoadInfo().getCongestion());

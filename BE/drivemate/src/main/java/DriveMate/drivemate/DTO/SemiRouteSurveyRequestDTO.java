@@ -13,7 +13,7 @@ public class SemiRouteSurveyRequestDTO {
     private Boolean trafficCongestion;
 
     @JsonProperty("roadType")
-    private String roadType;
+    private Boolean roadType;
 
     @JsonProperty("laneSwitch")
     private Boolean laneSwitch;

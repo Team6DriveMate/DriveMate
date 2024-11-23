@@ -26,4 +26,6 @@ public class DriveReportService {
         return semiRouteSurvey;
     }
 
+    public DriveReport getDriveReportById(Long driveReportId){return driveReportRepository.getReferenceById(driveReportId);}
+
 }

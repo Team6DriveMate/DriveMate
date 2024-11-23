@@ -3,6 +3,7 @@ package DriveMate.drivemate.controller;
 import DriveMate.drivemate.DTO.*;
 import DriveMate.drivemate.domain.*;
 import DriveMate.drivemate.service.DriveMateService;
+import DriveMate.drivemate.service.DriveReportService;
 import DriveMate.drivemate.service.RouteService;
 import DriveMate.drivemate.service.UserService;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -20,14 +21,16 @@ import java.util.List;
 public class ReportController {
     private final DriveMateService driveMateService;
     private final RouteService routeService;
+    private final DriveReportService driveReportService;
 
     private final UserService userService;
 
     @Autowired
-    public ReportController(DriveMateService driveMateService, RouteService routeService, UserService userService) {
+    public ReportController(DriveMateService driveMateService, RouteService routeService, UserService userService, DriveReportService driveReportService) {
         this.driveMateService = driveMateService;
         this.routeService = routeService;
         this.userService = userService;
+        this.driveReportService = driveReportService;
     }
 
 
@@ -46,10 +49,13 @@ public class ReportController {
             }
         }
 
+        System.out.println(passList);
         String tmapResponse;
+        System.out.println(passList);
 
         if (passList.equals("")){
-            tmapResponse = driveMateService.getRoute(postRouteRequestDTO.getStart_location().getLat(), postRouteRequestDTO.getStart_location().getLng(),
+            tmapResponse = driveMateService.getRoute(
+                    postRouteRequestDTO.getStart_location().getLat(), postRouteRequestDTO.getStart_location().getLng(),
                     postRouteRequestDTO.getEnd_location().getLat(), postRouteRequestDTO.getEnd_location().getLng());
         }
         else {
@@ -96,7 +102,7 @@ public class ReportController {
                 SectionDTO sectionDTO = new SectionDTO();
                 sectionDTO.setSectionIndex(i++);
                 sectionDTO.setSectionName(section.getSectionName());
-                for (SemiRoute semiRoute : route.getSemiRouteList()){
+                for (SemiRoute semiRoute : section.getSemiRouteList()){
                     if (semiRoute instanceof SemiRouteLineString){
                         SegmentDTO segmentDTO = new SegmentDTO();
                         List<Coordinate> coordinateList = semiRoute.getCoordinateList();
@@ -122,6 +128,71 @@ public class ReportController {
                         segmentDTO.setDistance(((SemiRouteLineString) semiRoute).getDistance());
                         segmentDTO.setRoadName(((SemiRouteLineString) semiRoute).getName());
                         segmentDTO.setSegmentIndex(((SemiRouteLineString) semiRoute).getNumIndex());
+
+                        /*
+                        0: 고속국도
+                        1: 자동차전용
+                        2: 국도
+                        3: 국가지원 지방도
+                        4: 지방도
+                        5: 주요도로1(일반도로 1 중 6,5차로)
+                        6: 주요도로2(일반도로 1 중 4,3차로)
+                        7: 주요도로3(일반도로 1 중 2차로)
+                        8: 기타도로1(일반도로 1 중 1차로)
+                        9: 기타도로2(이면도로)
+                        10: 페리항로
+                        11: 단지 내 도로(아파트 단지 내 도로)
+                        12: 단지 내 도로(시장내 도로)
+                        16: 일반도로
+                        20: 번화가 링크
+                         */
+                        switch (((SemiRouteLineString) semiRoute).getRoadType()){
+                            case 0:
+                                segmentDTO.setRoadType("고속국도");
+                                break;
+                            case 1:
+                                segmentDTO.setRoadType("자동차전용");
+                                break;
+                            case 2:
+                                segmentDTO.setRoadType("국도");
+                                break;
+                            case 3:
+                                segmentDTO.setRoadType("국가지원 지방도");
+                                break;
+                            case 4:
+                                segmentDTO.setRoadType("지방도");
+                                break;
+                            case 5:
+                                segmentDTO.setRoadType("5-6차선");
+                                break;
+                            case 6:
+                                segmentDTO.setRoadType("3-4차선");
+                                break;
+                            case 7:
+                                segmentDTO.setRoadType("2차선");
+                                break;
+                            case 8:
+                                segmentDTO.setRoadType("1차선");
+                                break;
+                            case 9:
+                                segmentDTO.setRoadType("이면도로");
+                                break;
+                            case 10:
+                                segmentDTO.setRoadType("페리항로");
+                                break;
+                            case 11:
+                                segmentDTO.setRoadType("아파트 단지 내 도로");
+                                break;
+                            case 12:
+                                segmentDTO.setRoadType("시장 내 도로");
+                                break;
+                            case 16:
+                                segmentDTO.setRoadType("일반도로");
+                                break;
+                            case 20:
+                                segmentDTO.setRoadType("번화가 링크");
+                                break;
+                        }
                         System.out.println(semiRoute.getNumIndex());
                         if (semiRoute.getSemiRouteRoadInfo() != null)
                             segmentDTO.setTraffic(semiRoute.getSemiRouteRoadInfo().getCongestion());
@@ -167,6 +238,11 @@ public class ReportController {
         if (semiRouteSurvey.getLaneSwitch()){
             userService.getCurrentUser().getWeakPoints().replace("laneSwitch", userService.getCurrentUser().getWeakPoints().get("laneSwitch") + 1);
         }
+        semiRouteSurvey.setRoadType(semiRouteSurveyRequestDTO.getRoadType());
+        if (semiRouteSurvey.getLaneSwitch()){
+            userService.getCurrentUser().getWeakPoints().replace("roadType", userService.getCurrentUser().getWeakPoints().get("roadType") + 1);
+        }
+
         semiRouteSurvey.setDriveReport(driveMateService.getPostRouteTmp().getDriveReport());
 
         System.out.println("\n\n\n\n\n\n");
@@ -210,4 +286,68 @@ public class ReportController {
         return submitRespondDTO;
     }
 
+    @GetMapping("/list")
+    public DriveReportListRespondDTO getDriveReportList(){
+        User user = userService.getCurrentUser();
+        List<DriveReport> driveReportList = user.getDriveReportList();
+        DriveReportListRespondDTO driveReportListRespondDTO = new DriveReportListRespondDTO();
+        for (DriveReport driveReport : driveReportList){
+            ReportDTO reportDTO = new ReportDTO();
+            String startDateTime = driveReport.getStartTime();
+            String endDateTime = driveReport.getEndTime();
+            String[] splitStartDateTime = startDateTime.split("[TZ]");
+            String[] splitEndDateTime = endDateTime.split("[TZ]");
+            reportDTO.setReportId(driveReport.getId());
+            reportDTO.setTitle(driveReport.getStartLocation() + " - " +driveReport.getEndLocation());
+            reportDTO.setDistance(driveReport.getRoute().getTotalDistance()); // 여기서 문제가 생기나봐
+            reportDTO.setTime(splitStartDateTime[1] + " - " + splitEndDateTime[1]);
+            reportDTO.setDate(splitStartDateTime[0] + " - " + splitEndDateTime[0]);
+            driveReportListRespondDTO.addReport(reportDTO);
+        }
+        return driveReportListRespondDTO;
+    }
+
+    @GetMapping("/{reportId}")
+    public DriveReportRespondDTO getDriveReport(@PathVariable Long reportId) {
+        DriveReportRespondDTO driveReportRespondDTO = new DriveReportRespondDTO();
+        DriveReport driveReport = driveReportService.getDriveReportById(reportId);
+        driveReportRespondDTO.setDriveId(driveReport.getId());
+        driveReportRespondDTO.setStartLocation(driveReport.getStartLocation());
+        driveReportRespondDTO.setEndLocation(driveReport.getEndLocation());
+        driveReportRespondDTO.setStartTime(driveReport.getStartTime());
+        driveReportRespondDTO.setEndTime(driveReport.getEndTime());
+        driveReportRespondDTO.setDistance(driveReport.getRoute().getTotalDistance());
+        driveReportRespondDTO.setTimeTaken(driveReport.getRoute().getTotalTime());
+
+        for (SemiRouteSurvey semiRouteSurvey : driveReport.getSemiRouteSurveyList()) {
+            SegmentSurveyDTO segmentSurveyDTO = new SegmentSurveyDTO();
+            segmentSurveyDTO.setSegmentName("");
+            segmentSurveyDTO.setTrafficCongestion(semiRouteSurvey.getTrafficCongestion());
+            segmentSurveyDTO.setRoadType(semiRouteSurvey.getRoadType());
+            segmentSurveyDTO.setLaneSwitch(semiRouteSurvey.getLaneSwitch());
+            segmentSurveyDTO.setSituationDecision(semiRouteSurvey.getSituationDecision());
+            segmentSurveyDTO.setTrafficLaws(semiRouteSurvey.getTrafficLaws());
+            segmentSurveyDTO.setTensions(semiRouteSurvey.getTension());
+            segmentSurveyDTO.setLaneConfusion(semiRouteSurvey.getLaneConfusion());
+            driveReportRespondDTO.addSegment(segmentSurveyDTO);
+        }
+
+        Survey survey = driveReport.getSurvey();
+
+        OverallSurveyDTO overallSurveyDTO = new OverallSurveyDTO();
+        overallSurveyDTO.setSwitchLight(survey.getSwitchLight());
+        overallSurveyDTO.setSideMirror(survey.getSideMirror());
+        overallSurveyDTO.setTension(survey.getTensionLevel());
+        overallSurveyDTO.setWeather(survey.getWeather());
+        overallSurveyDTO.setLaneStaying(survey.getLaneStaying());
+        overallSurveyDTO.setSightDegree(survey.getSightDegree());
+        overallSurveyDTO.setMemo(survey.getMemo());
+
+        driveReportRespondDTO.setOverallSurvey(overallSurveyDTO);
+
+        driveReportRespondDTO.setSightDegree(survey.getSightDegree());
+        driveReportRespondDTO.setWeakPoints(userService.getCurrentUser().getTop3WeakPoints());
+
+        return driveReportRespondDTO;
+    }
 }

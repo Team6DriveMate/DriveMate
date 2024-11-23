@@ -449,7 +449,12 @@ public class DriveMateService {
             em.clear();
 
             for (int i=0; i<coordinateList.size(); i++){
-                em.persist(coordinateList.get(i));
+                Coordinate coordinate = coordinateList.get(i);
+                if (coordinate.getId() == null) {
+                    em.persist(coordinate); // 새로운 엔티티 저장
+                } else {
+                    em.merge(coordinate);   // 기존 엔티티 업데이트
+                }
                 System.out.println(coordinateList.get(i).getId() + " " + coordinateList.size());
                 if(i % batchSize == 0 && i>0){
                     em.flush();

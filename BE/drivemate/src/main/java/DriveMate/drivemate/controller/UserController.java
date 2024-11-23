@@ -17,8 +17,16 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/login")
-    public boolean logIn(@RequestBody LoginDTO loginDTO){
-        return userService.logIn(loginDTO.getUserName(), loginDTO.getPassword());
+    public SuccessRespondDTO logIn(@RequestBody LoginDTO loginDTO){
+        SuccessRespondDTO successRespondDTO = new SuccessRespondDTO();
+        if (userService.logIn(loginDTO.getUserName(), loginDTO.getPassword())){
+            successRespondDTO.setSuccess(true);
+            return successRespondDTO;
+        }
+        else{
+            successRespondDTO.setSuccess(false);
+            return successRespondDTO;
+        }
     }
 
     @PostMapping("/signup")

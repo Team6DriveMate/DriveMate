@@ -71,6 +71,7 @@ public class User {
         this.weakPoints.put("situationDecision", 0);// 상황 판단 (구간)
         this.weakPoints.put("sightDegree", 0);  // 시야각 (전체) - 평균 시야각을 저장해놓아야 할까?
         this.weakPoints.put("trafficCongestion", 0); // 혼잡도 (구간)
+        this.weakPoints.put("roadType", 0); // 도로 유형
     }
 
     public List<String> getTop3WeakPoints() {

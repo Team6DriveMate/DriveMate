@@ -29,6 +29,7 @@ public class SemiRouteSurvey {
     private Boolean trafficLaws;
     private Boolean situationDecision;
     private Boolean trafficCongestion;
+    private Boolean roadType;
 
     public void setDriveReport(DriveReport driveReport){
         this.driveReport = driveReport;

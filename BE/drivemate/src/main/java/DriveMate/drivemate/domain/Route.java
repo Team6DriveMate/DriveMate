@@ -25,7 +25,7 @@ public class Route {
     private Integer totalDistance;
     private Integer totalTime;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private DriveReport driveReport;
 
     @OneToMany(mappedBy = "route", fetch = FetchType.LAZY, orphanRemoval = true)

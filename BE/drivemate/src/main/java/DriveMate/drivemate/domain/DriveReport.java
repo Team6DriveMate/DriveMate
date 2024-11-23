@@ -23,7 +23,7 @@ public class DriveReport {
     @JoinColumn(name="survey_id")
     private Survey survey;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "route_id")
     private Route route;
 

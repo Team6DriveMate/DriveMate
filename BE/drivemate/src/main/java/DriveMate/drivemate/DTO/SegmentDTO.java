@@ -24,6 +24,9 @@ public class SegmentDTO {
     @JsonProperty("traffic")
     private String traffic;
 
+    @JsonProperty("roadType")
+    private String roadType;
+
     private PointDTO startPoint;
     private PointDTO endPoint;
     private List<PathPointDTO> path = new ArrayList<>();
