@@ -32,7 +32,7 @@ fun ReportScreen(navController: NavController, selectedItem: MutableState<Int>) 
         }
 
         Column {
-            Button(onClick = { navController.navigate("segmentSurveyScreen/0/3/15 min/14 min") }) {
+            Button(onClick = { navController.navigate("segmentSurveyScreen/0/3") }) {
                 Text(text = "SegmentSurveyScreen")
             }
 

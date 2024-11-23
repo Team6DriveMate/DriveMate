@@ -1,6 +1,6 @@
 package com.jeoktoma.drivemate
 
-import androidx.compose.foundation.Image
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -32,11 +32,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -47,12 +45,25 @@ import com.google.accompanist.flowlayout.FlowRow
 fun SegmentSurveyScreen(
     segmentIndex: Int,
     totalSegments: Int,
-    segmentImage: Int?, // 이미지 리소스 ID
-    estimatedTime: String,
-    actualTime: String,
-    onNext: () -> Unit,
-    navController: NavController? = null
+    surveyViewModel: SurveyViewModel,
+    context: Context,
+    navController: NavController
 ) {
+    val surveyRequest = remember {
+        mutableStateOf(
+            SegmentSurveyRequest(
+                sectionName = "구간 ${segmentIndex + 1}",
+                trafficCongestion = false,
+                roadType = false,
+                laneSwitch = false,
+                situationDecision = false,
+                laneConfusion = false,
+                trafficLaws = false,
+                tension = false
+            )
+        )
+    }
+
     Scaffold(
         topBar = {
             Row(
@@ -63,7 +74,7 @@ fun SegmentSurveyScreen(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 IconButton(onClick = {
-                    //navController.popBackStack()
+                    navController.popBackStack()
                 }) {
                     Icon(
                         imageVector = Icons.Default.ArrowBackIosNew,
@@ -85,7 +96,20 @@ fun SegmentSurveyScreen(
         },
         bottomBar = {
             Button(
-                onClick = { onNext() },
+                onClick = {
+                    surveyViewModel.submitSegmentSurvey(
+                        segmentIndex,
+                        surveyRequest.value,
+                        context
+                    ) {
+                        if (segmentIndex < totalSegments - 1) {
+                            navController.navigate("segmentSurveyScreen/${segmentIndex + 1}/$totalSegments")
+                        } else {
+                            navController.navigate("overallSurveyScreen")
+                        }
+                    }
+
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 16.dp)
@@ -120,32 +144,32 @@ fun SegmentSurveyScreen(
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             // 구간 이미지 및 시간 정보
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(200.dp)
-                        .background(Color.Gray, shape = RoundedCornerShape(16.dp))
-                ) {
-                    // 이미지가 제공되었을 경우만 표시
-                    segmentImage?.let {
-                        Image(
-                            painter = painterResource(id = it),
-                            contentDescription = null,
-                            modifier = Modifier.fillMaxSize()
-                        )
-                    }
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(text = "소요시간: $actualTime", style = MaterialTheme.typography.bodyLarge, fontFamily = FontFamily(Font(R.font.freesentation)), fontSize = 20.sp)
-                    Text(text = "예상시간: $estimatedTime", style = MaterialTheme.typography.bodyLarge, fontFamily = FontFamily(Font(R.font.freesentation)), fontSize = 20.sp)
-                }
-            }
+//            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+//                Box(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .height(200.dp)
+//                        .background(Color.Gray, shape = RoundedCornerShape(16.dp))
+//                ) {
+//                    // 이미지가 제공되었을 경우만 표시
+//                    segmentImage?.let {
+//                        Image(
+//                            painter = painterResource(id = it),
+//                            contentDescription = null,
+//                            modifier = Modifier.fillMaxSize()
+//                        )
+//                    }
+//                }
+//                Spacer(modifier = Modifier.height(16.dp))
+//
+//                Row(
+//                    modifier = Modifier.fillMaxWidth(),
+//                    horizontalArrangement = Arrangement.SpaceBetween
+//                ) {
+//                    Text(text = "소요시간: $actualTime", style = MaterialTheme.typography.bodyLarge, fontFamily = FontFamily(Font(R.font.freesentation)), fontSize = 20.sp)
+//                    Text(text = "예상시간: $estimatedTime", style = MaterialTheme.typography.bodyLarge, fontFamily = FontFamily(Font(R.font.freesentation)), fontSize = 20.sp)
+//                }
+//            }
 
             // 설문 질문
             Column {
@@ -236,16 +260,16 @@ fun SurveyButton(label: String) {
     }
 }
 
-@Preview(showBackground = true, widthDp = 412, heightDp = 917)
-@Composable
-fun PreviewSegmentSurveyScreen() {
-    SegmentSurveyScreen(
-        segmentIndex = 1, // 두 번째 구간 (예시)
-        totalSegments = 3, // 총 3개 구간 (예시)
-        segmentImage = null, // 이미지 없이 (회색 배경으로 대체)
-        estimatedTime = "10 min",
-        actualTime = "12 min",
-        onNext = {}, // 다음 버튼 클릭 시 동작 없음
-        navController = null // 가짜 NavController 사용
-    )
-}
+//@Preview(showBackground = true, widthDp = 412, heightDp = 917)
+//@Composable
+//fun PreviewSegmentSurveyScreen() {
+//    SegmentSurveyScreen(
+//        segmentIndex = 1, // 두 번째 구간 (예시)
+//        totalSegments = 3, // 총 3개 구간 (예시)
+//        segmentImage = null, // 이미지 없이 (회색 배경으로 대체)
+//        estimatedTime = "10 min",
+//        actualTime = "12 min",
+//        onNext = {}, // 다음 버튼 클릭 시 동작 없음
+//        navController = null // 가짜 NavController 사용
+//    )
+//}

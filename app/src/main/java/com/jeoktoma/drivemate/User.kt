@@ -10,3 +10,4 @@ data class LoginResponse(val success: Boolean)
 data class SignUpRequest(val id: String, val pw: String)
 data class SignUpResponse(val success: Boolean)
 
+

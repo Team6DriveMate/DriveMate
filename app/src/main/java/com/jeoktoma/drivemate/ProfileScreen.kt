@@ -41,7 +41,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun ProfileScreen(navController: NavController, selectedItem: MutableState<Int>) {
+fun ProfileScreen(navController: NavController, selectedItem: MutableState<Int>, viewModel: UserViewModel, username: String) {
     val userName = remember { mutableStateOf("Gildong Hong") }
     val userTitle = remember { mutableStateOf("코너링이 훌룡하시네요") }
 

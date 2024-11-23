@@ -1,7 +1,8 @@
 package com.jeoktoma.drivemate
 
+import android.content.Context
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,12 +12,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -25,6 +25,7 @@ import androidx.compose.material.icons.filled.EditNote
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -40,10 +41,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.consumeAllChanges
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -51,14 +48,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OverallSurveyScreen(
-    onComplete: () -> Unit,
+    surveyViewModel: SurveyViewModel,
+    context: Context,
     navController: NavController
 ) {
+    val surveyRequest = remember { mutableStateOf(OverallSurveyRequest(0, 0, 0, 0, 0, 0, "")) }
+
     Scaffold(
         topBar = {
             Row(
@@ -89,10 +88,16 @@ fun OverallSurveyScreen(
         },
         bottomBar = {
             Button(
-                onClick = { onComplete()
-                    navController.navigate("reportScreen") {
-                        popUpTo("segmentSurveyScreen") { inclusive = true }
-                    } },
+                onClick = {
+                    surveyViewModel.submitOverallSurvey(
+                        surveyRequest.value,
+                        context
+                    ) {
+                        navController.navigate("reportScreen") {
+                            popUpTo("segmentSurveyScreen") { inclusive = true }
+                        }
+                    }
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 16.dp)
@@ -123,7 +128,7 @@ fun OverallSurveyScreen(
                 .fillMaxSize()
                 .padding(padding)
                 .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp),
         ) {
             // 질문 리스트
             val questions = listOf(
@@ -133,13 +138,29 @@ fun OverallSurveyScreen(
                 "날씨가 운전에 영향을 끼쳤나요?",
                 "차선을 잘 유지하며 운전하였나요?"
             )
-            items(questions) { question ->
-                SurveySlider(question)
+            itemsIndexed(questions) { index, question ->
+                SurveyCheckboxGroup(
+                    question = question,
+                    selectedValue = { value ->
+                        when (index) {
+                            0 -> surveyRequest.value =
+                                surveyRequest.value.copy(switchLight = value)
+                            1 -> surveyRequest.value =
+                                surveyRequest.value.copy(sideMirror = value)
+                            2 -> surveyRequest.value =
+                                surveyRequest.value.copy(tension = value)
+                            3 -> surveyRequest.value =
+                                surveyRequest.value.copy(weather = value)
+                            4 -> surveyRequest.value =
+                                surveyRequest.value.copy(laneStaying = value)
+                        }
+                    },
+                    showDivider = index != questions.lastIndex
+                )
             }
 
             // 메모 섹션
             item {
-                //Spacer(modifier = Modifier.height(16.dp))
                 Text(
                     text = "Memo",
                     style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
@@ -165,8 +186,10 @@ fun OverallSurveyScreen(
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     TextField(
-                        value = "",
-                        onValueChange = {},
+                        value = surveyRequest.value.memo,
+                        onValueChange = {
+                            surveyRequest.value = surveyRequest.value.copy(memo = it)
+                        },
                         placeholder = { Text("한줄 메모로 주행 기록을 정리해보세요", fontSize = 16.sp, fontFamily = FontFamily(Font(R.font.freesentation))) },
                         modifier = Modifier
                             .fillMaxWidth()
@@ -185,14 +208,17 @@ fun OverallSurveyScreen(
 
 
 @Composable
-fun SurveySlider(question: String) {
-    val sliderValue = remember { mutableStateOf(0.5f) }
+fun SurveyCheckboxGroup(question: String, selectedValue: (Int) -> Unit, showDivider: Boolean) {
+    val options = listOf(1, 2, 3, 4, 5) // 1 ~ 5 선택지
+    val selectedOption = remember { mutableStateOf(0) }
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            //.padding(vertical = 8.dp)
+            .padding(vertical = 8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        // 질문 텍스트
         Text(
             text = question,
             style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
@@ -200,60 +226,70 @@ fun SurveySlider(question: String) {
             fontSize = 20.sp
         )
 
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // 선택지와 "전혀 아니다" 및 "매우 그렇다" 텍스트
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "전혀 아니다", style = MaterialTheme.typography.bodySmall, fontSize = 18.sp, fontFamily = FontFamily(Font(R.font.freesentation)))
-            Text(text = "매우 그렇다", style = MaterialTheme.typography.bodySmall, fontSize = 18.sp, fontFamily = FontFamily(Font(R.font.freesentation)))
+            Text(
+                text = "전혀 아니다",
+                style = MaterialTheme.typography.bodySmall,
+                fontFamily = FontFamily(Font(R.font.freesentation)),
+                fontSize = 16.sp
+            )
+
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                options.forEach { option ->
+                    Box(
+                        modifier = Modifier
+                            .size(36.dp)
+                            .background(
+                                if (selectedOption.value == option) Color(0xFFC58BF2) else Color(
+                                    0xFFE0E0E0
+                                ),
+                                shape = CircleShape
+                            )
+                            .clickable {
+                                selectedOption.value = option
+                                selectedValue(option)
+                            }
+                            .padding(4.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "$option",
+                            color = if (selectedOption.value == option) Color.White else Color.Black,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 14.sp
+                        )
+                    }
+                }
+            }
+
+            Text(
+                text = "매우 그렇다",
+                style = MaterialTheme.typography.bodySmall,
+                fontFamily = FontFamily(Font(R.font.freesentation)),
+                fontSize = 16.sp
+            )
         }
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 4.dp)
-        ) {
-            Box(
+        Spacer(modifier = Modifier.height(24.dp))
+
+        // Divider 추가 (필요할 때만)
+        if (showDivider) {
+            Divider(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(4.dp)
-                    .background(Color(0xFFE0E0E0), RoundedCornerShape(2.dp))
-                    .align(Alignment.Center)
-            )
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth(sliderValue.value)
-                    .height(4.dp)
-                    .background(
-                        Brush.linearGradient(
-                            colors = listOf(Color(0xFFC58BF2), Color(0xFFEEA4CE))
-                        ),
-                        RoundedCornerShape(2.dp)
-                    )
-                    .align(Alignment.CenterStart)
-            )
-
-            Box(
-                modifier = Modifier
-                    .size(20.dp)
-                    .offset(x = (sliderValue.value * (LocalConfiguration.current.screenWidthDp - 40)).dp - 10.dp)
-                    .background(Color(0xFFC58BF2), CircleShape)
-                    .align(Alignment.CenterStart)
-            )
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(48.dp)
-                    .pointerInput(key1 = Unit) {
-                        detectDragGestures { change, _ ->
-                            change.consumeAllChanges()
-                            val newValue = (change.position.x / size.width).coerceIn(0f, 1f)
-                            val step = 0.25f
-                            sliderValue.value = (newValue / step).roundToInt() * step
-                        }
-                    }
+                    .padding(vertical = 8.dp),
+                color = Color(0xFFE0E0E0),
+                thickness = 1.dp
             )
         }
     }
@@ -263,13 +299,8 @@ fun SurveySlider(question: String) {
 @Composable
 fun PreviewOverallSurveyScreen() {
     OverallSurveyScreen(
-        onComplete = { },
-        navController = NavController(LocalContext.current)
+        surveyViewModel = SurveyViewModel(),
+        context = androidx.compose.ui.platform.LocalContext.current,
+        navController = androidx.navigation.compose.rememberNavController()
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewSurveySlider() {
-    SurveySlider(question = "운전 시 긴장도는 어느 정도였나요?")
 }
