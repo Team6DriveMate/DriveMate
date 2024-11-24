@@ -278,6 +278,11 @@ public class ReportController {
         driveMateService.getPostRouteTmp().getDriveReport().setStartTime(submitRequestDTO.getStartTime());
         driveMateService.getPostRouteTmp().getDriveReport().setEndTime(submitRequestDTO.getEndTime());
 
+        User user = userService.getCurrentUser();
+        user.updateExperienceByRoute();
+        user.expToLevel();
+        user.updateTitle(); // 타이틀이 업데이트 되었음을 어떻게 알려줄 것인가?
+
         userService.updateUser(userService.getCurrentUser());
         driveMateService.saveRoute(driveMateService.getPostRouteTmp());
 
