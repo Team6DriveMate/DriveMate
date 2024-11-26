@@ -353,6 +353,95 @@ public class ReportController {
         driveReportRespondDTO.setSightDegree(survey.getSightDegree());
         driveReportRespondDTO.setWeakPoints(userService.getCurrentUser().getTop3WeakPoints());
 
+        Route route = driveReport.getRoute();
+
+        RouteResponseDTO routeResponseDTO = new RouteResponseDTO();
+        routeResponseDTO.setTotalTime(route.getTotalTime());
+        routeResponseDTO.setTotalDistance(route.getTotalDistance());
+
+        RouteDTO routeDTO = new RouteDTO();
+        for (SemiRoute semiRoute : route.getSemiRouteList()){
+            if (semiRoute instanceof SemiRouteLineString){
+                SegmentDTO segmentDTO = new SegmentDTO();
+                List<Coordinate> coordinateList = semiRoute.getCoordinateList();
+
+                PointDTO startPoint = new PointDTO();
+                startPoint.setLat(coordinateList.get(0).getFirst());
+                startPoint.setLng(coordinateList.get(0).getSecond());
+                segmentDTO.setStartPoint(startPoint);
+
+                PointDTO endPoint = new PointDTO();
+                endPoint.setLat(coordinateList.get(coordinateList.size()-1).getFirst());
+                endPoint.setLng(coordinateList.get(coordinateList.size()-1).getSecond());
+                segmentDTO.setEndPoint(endPoint);
+
+                for (Coordinate coordinate : coordinateList) {
+                    PathPointDTO pathPoint = new PathPointDTO();
+                    pathPoint.setLat(coordinate.getFirst());
+                    pathPoint.setLng(coordinate.getSecond());
+                    segmentDTO.addPathPointDTO(pathPoint);
+                }
+
+                segmentDTO.setTime(((SemiRouteLineString) semiRoute).getTime());
+                segmentDTO.setDistance(((SemiRouteLineString) semiRoute).getDistance());
+                segmentDTO.setRoadName(((SemiRouteLineString) semiRoute).getName());
+                segmentDTO.setSegmentIndex(semiRoute.getNumIndex());
+                switch (((SemiRouteLineString) semiRoute).getRoadType()){
+                    case 0:
+                        segmentDTO.setRoadType("고속국도");
+                        break;
+                    case 1:
+                        segmentDTO.setRoadType("자동차전용");
+                        break;
+                    case 2:
+                        segmentDTO.setRoadType("국도");
+                        break;
+                    case 3:
+                        segmentDTO.setRoadType("국가지원 지방도");
+                        break;
+                    case 4:
+                        segmentDTO.setRoadType("지방도");
+                        break;
+                    case 5:
+                        segmentDTO.setRoadType("5-6차선");
+                        break;
+                    case 6:
+                        segmentDTO.setRoadType("3-4차선");
+                        break;
+                    case 7:
+                        segmentDTO.setRoadType("2차선");
+                        break;
+                    case 8:
+                        segmentDTO.setRoadType("1차선");
+                        break;
+                    case 9:
+                        segmentDTO.setRoadType("이면도로");
+                        break;
+                    case 10:
+                        segmentDTO.setRoadType("페리항로");
+                        break;
+                    case 11:
+                        segmentDTO.setRoadType("아파트 단지 내 도로");
+                        break;
+                    case 12:
+                        segmentDTO.setRoadType("시장 내 도로");
+                        break;
+                    case 16:
+                        segmentDTO.setRoadType("일반도로");
+                        break;
+                    case 20:
+                        segmentDTO.setRoadType("번화가 링크");
+                        break;
+                }
+                System.out.println(semiRoute.getNumIndex());
+                if (semiRoute.getSemiRouteRoadInfo() != null)
+                    segmentDTO.setTraffic(semiRoute.getSemiRouteRoadInfo().getCongestion());
+                routeDTO.addSegment(segmentDTO);
+            }
+        }
+        routeResponseDTO.setRoute(routeDTO);
+        driveReportRespondDTO.setPath(routeResponseDTO);
+
         return driveReportRespondDTO;
     }
 }

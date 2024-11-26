@@ -86,6 +86,7 @@ public class PathController {
                     segmentDTO.setTime(((SemiRouteLineString) semiRoute).getTime());
                     segmentDTO.setDistance(((SemiRouteLineString) semiRoute).getDistance());
                     segmentDTO.setRoadName(((SemiRouteLineString) semiRoute).getName());
+                    segmentDTO.setSegmentIndex(semiRoute.getNumIndex());
                     switch (((SemiRouteLineString) semiRoute).getRoadType()){
                         case 0:
                             segmentDTO.setRoadType("고속국도");

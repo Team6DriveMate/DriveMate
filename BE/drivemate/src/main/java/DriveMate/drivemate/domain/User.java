@@ -151,7 +151,7 @@ public class User {
             titleList.get(4).setObtained(true);
             titleList.get(4).setObtainedTime(""); // 현재 시간
         }
-        if (this.weakPoints.get("sightMirror") >= 5) {
+        if (this.weakPoints.get("sideMirror") >= 5) {
             titleList.get(5).setObtained(true);
             titleList.get(5).setObtainedTime(""); // 현재 시간
         }
