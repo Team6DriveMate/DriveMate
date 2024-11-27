@@ -48,11 +48,11 @@ import com.google.gson.Gson
 @Composable
 fun MainScreen(navController: NavController, title: String, nickname: String, selectedItem: MutableState<Int>) {
     val tips = listOf(
-        Triple("주차", "주차가 아직 어렵다면?", R.drawable.tip_main_screen_image_parking),
-        Triple("고속도로", "고속도로가 익숙하지 않다면?", R.drawable.tip_main_screen_image_highway),
-        Triple("필수 체크", "4개의 필수 체크 항목", R.drawable.tip_main_screen_image_checking),
-        Triple("사고 대처", "사고가 났을 때 대처 방법", R.drawable.tip_main_screen_image_accident),
-        Triple("도로 매너", "매너 있는 운전자가 되기 위해", R.drawable.tip_main_screen_image_manner)
+        Triple("주차", "주차가 아직 어렵다면?", R.drawable.image_parking),
+        Triple("고속도로", "고속도로가 익숙하지 않다면?", R.drawable.image_highway),
+        Triple("필수 체크", "4개의 필수 체크 항목", R.drawable.image_checking),
+        Triple("사고 대처", "사고가 났을 때 대처 방법", R.drawable.image_accident),
+        Triple("도로 매너", "매너 있는 운전자가 되기 위해", R.drawable.image_manner)
     )
 
     // 랜덤한 팁을 선택합니다.

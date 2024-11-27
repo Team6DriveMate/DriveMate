@@ -66,6 +66,10 @@ dependencies {
     implementation(files("libs/tmap-sdk-1.5.aar"))
     implementation(files("libs/vsm-tmap-sdk-v2-android-1.6.60.aar"))
     implementation("com.google.android.material:material:1.9.0")
+    implementation ("androidx.compose.material:material-icons-extended:<latest_version>")
+
+    implementation ("com.google.accompanist:accompanist-flowlayout:0.36.0")
+
 
     implementation("com.naver.maps:map-sdk:3.19.1")
     implementation("com.google.android.gms:play-services-location:21.0.1")
