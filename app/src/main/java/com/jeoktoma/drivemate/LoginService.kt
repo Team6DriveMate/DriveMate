@@ -21,10 +21,10 @@ interface LoginService {
     suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
 }
 
-suspend fun performLoginService(id: String, pw: String, context: Context): Boolean {
+suspend fun performLoginService(username: String, pw: String, context: Context): Boolean {
     return try {
         withContext(Dispatchers.IO) {
-            val response = loginService.login(LoginRequest(id, pw))
+            val response = loginService.login(LoginRequest(username, pw))
             if (response.isSuccessful && response.body()?.success == true) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show()

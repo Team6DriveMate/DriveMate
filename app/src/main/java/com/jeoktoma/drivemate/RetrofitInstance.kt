@@ -9,5 +9,6 @@ object RetrofitInstance {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    val userService: UserService = retrofit.create(UserService::class.java)
     val surveyService: SurveyService = retrofit.create(SurveyService::class.java)
 }

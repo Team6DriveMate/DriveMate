@@ -1,5 +1,6 @@
 package com.jeoktoma.drivemate
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -49,9 +50,9 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(navController: NavController) {
-    var id by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+fun LoginScreen(navController: NavController, viewModel: UserViewModel, context: Context) {
+    var username by remember { mutableStateOf("") }
+    var pw by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
@@ -73,8 +74,8 @@ fun LoginScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(24.dp))
 
         OutlinedTextField(
-            value = id,
-            onValueChange = { id = it },
+            value = username,
+            onValueChange = { username = it },
             label = { Text("아이디", fontFamily = FontFamily(Font(R.font.freesentation)),) },
             leadingIcon = {
                 Icon(painter = painterResource(id = R.drawable.component_1_ic_user), contentDescription = "User Icon")
@@ -91,8 +92,8 @@ fun LoginScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
+            value = pw,
+            onValueChange = { pw = it },
             label = { Text("비밀번호", fontFamily = FontFamily(Font(R.font.freesentation))) },
             leadingIcon = {
                 Icon(painter = painterResource(id = R.drawable.component_1_ic_lock), contentDescription = "Password Icon")
@@ -125,7 +126,7 @@ fun LoginScreen(navController: NavController) {
         Button(
             onClick = {
                 CoroutineScope(Dispatchers.Main).launch {
-                    val success = performLoginService(id, password, context)
+                    val success = performLoginService(username, pw, context)
                     if (success) {
                         navController.navigate("mainScreen")
                     }

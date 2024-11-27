@@ -19,40 +19,44 @@ fun AppNavigation(navController: NavHostController) {
     val selectedItem = remember { mutableStateOf(0) }
 
     NavHost(navController = navController, startDestination = "loginScreen") {
-        composable("loginScreen") { LoginScreen(navController) }
+        composable("loginScreen") {
+            val viewModel = UserViewModel()
+            LoginScreen(navController, viewModel, context = LocalContext.current)
+        }
         composable("signUpScreen") {
             val viewModel = UserViewModel()
             SignUpScreen(navController, viewModel, context = LocalContext.current)
         }
         composable("mainScreen") {
-            selectedItem.value = 0 // MainScreen을 선택 상태로 설정
+            selectedItem.value = 0
             MainScreen(navController, "코너링이 훌룡하시네요,", "Gildong Hong", selectedItem)
         }
         composable("pathScreen") {
-            selectedItem.value = 2 // PathScreen을 선택 상태로 설정
+            selectedItem.value = 2
             PathScreen(navController, selectedItem)
         }
         composable("reportScreen") {
-            selectedItem.value = 1 // ReportScreen을 선택 상태로 설정
+            selectedItem.value = 1
             ReportScreen(navController, selectedItem)
         }
         composable("tipScreen") {
-            selectedItem.value = 3 // TipScreen을 선택 상태로 설정
+            selectedItem.value = 3
             TipScreen(navController, selectedItem)
         }
 //        composable("profileScreen") {
-//            selectedItem.value = 4 // ProfileScreen을 선택 상태로 설정
+//            selectedItem.value = 4
 //            ProfileScreen(navController, selectedItem)
 //        }
         composable("profileScreen") {
             val viewModel = UserViewModel()
             selectedItem.value = 4
-            ProfileScreen(navController = navController, selectedItem, viewModel, username = "Gildong Hong")
+            ProfileScreen(navController = navController, selectedItem, viewModel, username = "123")
         }
 
         composable("editProfileScreen") {
+            val viewModel = UserViewModel()
             selectedItem.value = 4
-            EditProfileScreen(navController, selectedItem)
+            EditProfileScreen(navController, selectedItem, viewModel, username = "123")
         }
 
         composable(
@@ -101,7 +105,14 @@ fun AppNavigation(navController: NavHostController) {
             )
         }
 
-
+        composable("sightAdjustmentScreen") {
+            val context = LocalContext.current
+            SightAdjustmentScreen(
+                surveyViewModel = SurveyViewModel(), // 동일한 ViewModel 사용
+                context = context,
+                navController = navController
+            )
+        }
 
 
     }

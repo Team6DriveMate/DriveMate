@@ -1,6 +1,7 @@
 package com.jeoktoma.drivemate
 
 import android.content.Context
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -31,16 +32,24 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -48,6 +57,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -89,14 +99,15 @@ fun OverallSurveyScreen(
         bottomBar = {
             Button(
                 onClick = {
-                    surveyViewModel.submitOverallSurvey(
-                        surveyRequest.value,
-                        context
-                    ) {
-                        navController.navigate("reportScreen") {
-                            popUpTo("segmentSurveyScreen") { inclusive = true }
-                        }
-                    }
+//                    surveyViewModel.submitOverallSurvey(
+//                        surveyRequest.value,
+//                        context
+//                    ) {
+//                        navController.navigate("reportScreen") {
+//                            popUpTo("segmentSurveyScreen") { inclusive = true }
+//                        }
+//                    }
+                    navController.navigate("sightAdjustmentScreen")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -295,12 +306,224 @@ fun SurveyCheckboxGroup(question: String, selectedValue: (Int) -> Unit, showDivi
     }
 }
 
-@Preview(showBackground = true, widthDp = 412, heightDp = 917)
 @Composable
-fun PreviewOverallSurveyScreen() {
-    OverallSurveyScreen(
-        surveyViewModel = SurveyViewModel(),
-        context = androidx.compose.ui.platform.LocalContext.current,
-        navController = androidx.navigation.compose.rememberNavController()
+fun SightAdjustmentScreen(
+    surveyViewModel: SurveyViewModel,
+    context: Context,
+    navController: NavController
+) {
+    var sliderValue by remember { mutableStateOf(0f) }
+    var dragOffset by remember { mutableStateOf(0f) }
+
+    val maxDragValue = 1000f // 드래그 최대값
+    val blackBoxWidth = ((maxDragValue - dragOffset).coerceIn(0f, maxDragValue) / maxDragValue) * 100
+
+    val backgroundImage: Painter = painterResource(id = R.drawable.sightdegree_img)
+
+    Scaffold(
+        topBar = {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 16.dp, horizontal = 16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                IconButton(onClick = { navController.popBackStack() }) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBackIosNew,
+                        contentDescription = "Back"
+                    )
+                }
+                Text(
+                    text = "설문",
+                    style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+                    fontFamily = FontFamily(Font(R.font.freesentation))
+                )
+                IconButton(onClick = { /* 점 세 개 버튼 로직 (미정) */ }) {
+                    Icon(
+                        imageVector = Icons.Default.MoreVert,
+                        contentDescription = "More"
+                    )
+                }
+            }
+        },
+        bottomBar = {
+            Button(
+                onClick = {
+                    surveyViewModel.submitOverallSurvey(
+                        OverallSurveyRequest(0, 0, 0, 0, 0, 0, ""), // 예시 요청
+                        context
+                    ) {
+                        navController.navigate("reportScreen") {
+                            popUpTo("segmentSurveyScreen") { inclusive = true }
+                        }
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 16.dp)
+                    .height(56.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                contentPadding = PaddingValues()
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            Brush.linearGradient(
+                                colors = listOf(
+                                    Color(0xFF92A3FD),
+                                    Color(0xFF9DCEFF)
+                                )
+                            )
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = "Next", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily(Font(R.font.freesentation)))
+                }
+            }
+        }
+    ) { padding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(horizontal = 16.dp),
+            //verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "운행 시 평균 시야각은 어느 정도였나요?",
+                modifier = Modifier
+                    .padding(16.dp)
+                    .align(Alignment.CenterHorizontally),
+                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+                fontFamily = FontFamily(Font(R.font.freesentation)),
+                fontSize = 20.sp
+            )
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    //.weight(0.1f)
+                    .background(Color.Transparent)
+            ) {
+                // 배경 이미지
+                Image(
+                    painter = backgroundImage,
+                    contentDescription = null,
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+
+                // 왼쪽 검은색 박스
+                Box(
+                    modifier = Modifier
+                        .height(165.dp)
+                        .width(blackBoxWidth.dp)
+                        .background(Color.Black.copy(alpha = 0.7f))
+                        .align(Alignment.TopStart)
+                )
+
+                // 오른쪽 검은색 박스
+                Box(
+                    modifier = Modifier
+                        .height(165.dp)
+                        .width((blackBoxWidth*2).dp)
+                        .background(Color.Black.copy(alpha = 0.7f))
+                        .align(Alignment.TopEnd)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            Text(
+                text = "드래그하여 시야각을 조절해주세요",
+                fontSize = 18.sp,
+                modifier = Modifier
+                    .padding(8.dp) // 여백 줄임
+                    .align(Alignment.CenterHorizontally),
+                //style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+                fontFamily = FontFamily(Font(R.font.freesentation))
+            )
+
+            // 슬라이더
+            Slider(
+                value = sliderValue,
+                onValueChange = {
+                    sliderValue = it
+                    dragOffset = (it * maxDragValue).coerceIn(0f, maxDragValue) // 슬라이더 값과 드래그 오프셋 연동
+                },
+                modifier = Modifier.fillMaxWidth(),
+                colors = SliderDefaults.colors(
+                    thumbColor = Color(0xFFAA66CC),
+                    activeTrackColor = Color(0xFFAA66CC)
+                )
+            )
+
+//            // 드래그 가능한 박스
+//            Box(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(vertical = 16.dp)
+//            ) {
+//                // 배경 트랙
+//                Box(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .height(20.dp)
+//                        .background(Color(0xFFE0E0E0), RoundedCornerShape(2.dp))
+//                        .align(Alignment.Center)
+//                )
+//                // 드래그 가능한 상자
+//                Box(
+//                    modifier = Modifier
+//                        .width(40.dp)
+//                        .height(20.dp)
+//                        .background(
+//                            Brush.linearGradient(
+//                                colors = listOf(Color(0xFFC58BF2), Color(0xFFEEA4CE))
+//                            ),
+//                            RoundedCornerShape(2.dp)
+//                        )
+//                        .align(Alignment.CenterStart)
+//                        .offset(x = dragOffset.dp)
+//                        .draggable(
+//                            orientation = androidx.compose.foundation.gestures.Orientation.Horizontal,
+//                            state = rememberDraggableState { delta ->
+//                                dragOffset = (dragOffset + delta).coerceIn(0f, maxDragValue)
+//                                sliderValue = (dragOffset / maxDragValue).coerceIn(0f, 1f) // 드래그 오프셋과 슬라이더 값 연동
+//                            }
+//                        )
+//                )
+//            }
+
+        }
+    }
+}
+
+//@Preview(showBackground = true, widthDp = 412, heightDp = 917)
+//@Composable
+//fun PreviewOverallSurveyScreen() {
+//    OverallSurveyScreen(
+//        surveyViewModel = SurveyViewModel(),
+//        context = androidx.compose.ui.platform.LocalContext.current,
+//        navController = androidx.navigation.compose.rememberNavController()
+//    )
+//}
+
+@Preview(showBackground = true, widthDp = 400, heightDp = 800)
+@Composable
+fun PreviewSightAdjustmentScreen() {
+    val context = LocalContext.current
+    val dummySurveyViewModel = SurveyViewModel()
+    val dummyNavController = rememberNavController()
+
+    SightAdjustmentScreen(
+        surveyViewModel = dummySurveyViewModel,
+        context = context,
+        navController = dummyNavController
     )
 }

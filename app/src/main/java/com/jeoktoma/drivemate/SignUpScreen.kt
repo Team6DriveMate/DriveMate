@@ -181,7 +181,7 @@ fun SignUpScreen(navController: NavController, viewModel: UserViewModel, context
             onClick = {
                 CoroutineScope(Dispatchers.Main).launch {
                     if (pw == confirmPw) {
-                        val success = performSignUpService(id = username, pw = pw, context = context)
+                        val success = performSignUpService(username = username, pw = pw, context = context)
                         if (success) {
                             Toast.makeText(context, "계정 생성 성공", Toast.LENGTH_SHORT).show()
                             navController.popBackStack()

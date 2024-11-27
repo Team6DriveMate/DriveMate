@@ -1,5 +1,7 @@
 package com.jeoktoma.drivemate
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -36,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -44,9 +47,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun EditProfileScreen(navController: NavController, selectedItem: MutableState<Int>) {
+fun EditProfileScreen(navController: NavController, selectedItem: MutableState<Int>, viewModel: UserViewModel, username: String) {
     val selectedTitle = remember { mutableStateOf("") }
-    val userName = remember { mutableStateOf("Gildong Hong") }
+    val nickname = remember { mutableStateOf("Gildong Hong") }
+    val isEditingName = remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     Scaffold(
         bottomBar = { BottomNavigationBar(navController, selectedItem) }
@@ -95,17 +100,34 @@ fun EditProfileScreen(navController: NavController, selectedItem: MutableState<I
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Column {
-                    Text(
-                        text = userName.value,
-                        style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold, fontSize = 27.sp)
+                if (isEditingName.value) {
+                    // 이름 입력 필드
+                    androidx.compose.material3.OutlinedTextField(
+                        value = nickname.value,
+                        onValueChange = { nickname.value = it },
+                        label = { Text("닉네임") },
+                        modifier = Modifier.fillMaxWidth(0.8f)
                     )
-                    Text(
-                        text = "코너링이 훌룡하시네요", // 예시 칭호
-                        style = MaterialTheme.typography.bodyMedium.copy(color = Color.Gray, fontSize = 22.sp, fontFamily = FontFamily(Font(R.font.freesentation)))
-                    )
+                } else {
+                    Column {
+                        Text(
+                            text = nickname.value,
+                            style = MaterialTheme.typography.headlineSmall.copy(
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 27.sp
+                            )
+                        )
+                        Text(
+                            text = "${selectedTitle.value.ifEmpty{ "칭호를 선택하세요" }}", // 예시 칭호
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                color = Color.Gray,
+                                fontSize = 22.sp,
+                                fontFamily = FontFamily(Font(R.font.freesentation))
+                            )
+                        )
+                    }
                 }
-                IconButton(onClick = { /* 이름 수정 로직 */ }) {
+                IconButton(onClick = { isEditingName.value = !isEditingName.value }) {
                     Icon(
                         modifier = Modifier.size(30.dp),
                         imageVector = Icons.Default.Edit,
@@ -129,7 +151,7 @@ fun EditProfileScreen(navController: NavController, selectedItem: MutableState<I
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                val titles = listOf("코너링 마스터", "안전 운전자", "고수", "초보 탈출", "방어 운전", "전문 드라이버")
+                val titles = listOf("병아리 운전자", "도로 위 무법자", "평정심", "날씨의 아이", "눈이 두개지요", "사팔뜨기", "준법 시민", "드리블의 귀재", "그대 참치마요")
                 items(titles.size) { index ->
                     val title = titles[index]
                     Box(
@@ -171,13 +193,46 @@ fun EditProfileScreen(navController: NavController, selectedItem: MutableState<I
                 }
             }
 
-            Spacer(modifier = Modifier.height(200.dp))
+            Spacer(modifier = Modifier.weight(1f))
 
             // 수정 완료 버튼
             Button(
                 onClick = {
-                    // 수정 완료 로직 (선택된 칭호 저장)
-                    navController.popBackStack()
+                    val updateRequest = UserUpdateRequest(
+                        nickname = nickname.value,
+                        title = selectedTitle.value
+                    )
+                    viewModel.updateUserInfo(
+                        username = username,
+                        userUpdateRequest = updateRequest,
+                        context = context,
+                        onSuccess = {
+                            Log.d("EditProfileScreen", "수정 성공: ${updateRequest.nickname}, ${updateRequest.title}")
+                            Toast.makeText(context, "수정 완료", Toast.LENGTH_SHORT).show()
+
+                            viewModel.userInfo = viewModel.userInfo?.let {
+                                UserInfoResponse(
+                                    nickname = nickname.value,
+                                    username = username,
+                                    title = selectedTitle.value,
+                                    level = it.level,
+                                    experience = it.experience,
+                                    nextLevelExperience = it.nextLevelExperience,
+                                    weakPoints = it.weakPoints,
+                                    titles = it.titles
+                                )
+                            }
+
+
+                            navController.navigate("profileScreen") {
+                                popUpTo("profileScreen") { inclusive = true } // 기존 화면 제거 후 다시 생성
+                            }
+                        },
+                        onError = {
+                            Toast.makeText(context, "수정 실패", Toast.LENGTH_SHORT).show()
+                        }
+                    )
+
                 },
                 modifier = Modifier
                     .fillMaxWidth()

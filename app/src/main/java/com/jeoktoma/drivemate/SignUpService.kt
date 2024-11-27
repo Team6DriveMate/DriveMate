@@ -21,10 +21,10 @@ interface SignUpService {
     suspend fun signUp(@Body signUpRequest: SignUpRequest): Response<SignUpResponse>
 }
 
-suspend fun performSignUpService(id: String, pw: String, context: Context): Boolean {
+suspend fun performSignUpService(username: String, pw: String, context: Context): Boolean {
     return try {
         withContext(Dispatchers.IO) {
-            val response = signUpService.signUp(SignUpRequest(id, pw))
+            val response = signUpService.signUp(SignUpRequest(username, pw))
             if (response.isSuccessful && response.body()?.success == true) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(context, "회원가입 성공", Toast.LENGTH_SHORT).show()

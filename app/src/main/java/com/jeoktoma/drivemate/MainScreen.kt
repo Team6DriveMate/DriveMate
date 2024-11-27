@@ -46,7 +46,7 @@ import com.google.gson.Gson
 
 //길찾기(path), 운행(drive), 설문(survey), 리마인드(tip), 사용자 프로필(이름, 칭호, 레벨 등 유저 정보)
 @Composable
-fun MainScreen(navController: NavController, title: String, userName: String, selectedItem: MutableState<Int>) {
+fun MainScreen(navController: NavController, title: String, nickname: String, selectedItem: MutableState<Int>) {
     val tips = listOf(
         Triple("주차", "주차가 아직 어렵다면?", R.drawable.tip_main_screen_image_parking),
         Triple("고속도로", "고속도로가 익숙하지 않다면?", R.drawable.tip_main_screen_image_highway),
@@ -76,7 +76,7 @@ fun MainScreen(navController: NavController, title: String, userName: String, se
                 fontFamily = FontFamily(Font(R.font.freesentation))
             )
             Text(
-                text = userName,
+                text = nickname,
                 style = MaterialTheme.typography.headlineLarge.copy(
                     fontWeight = FontWeight.Bold,
                     fontSize = 32.sp
