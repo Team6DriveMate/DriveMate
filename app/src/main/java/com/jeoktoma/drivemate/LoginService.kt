@@ -4,41 +4,28 @@ import android.content.Context
 import android.widget.Toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-// 통신 내용 확인
-private val okHttpClient: OkHttpClient by lazy {
-    val httpLoggingInterceptor = HttpLoggingInterceptor()
-        .setLevel(HttpLoggingInterceptor.Level.BODY)
-    OkHttpClient.Builder()
-        .addInterceptor(httpLoggingInterceptor)
-        .build()
-}
-
-
-private val retrofit = Retrofit.Builder().baseUrl("http://10.0.2.2:8080/user/")
+private val retrofit = Retrofit.Builder().baseUrl("https://3f7e2b24-1cc2-47ea-992c-ea0009e1538c.mock.pstmn.io/user/")
     .addConverterFactory(GsonConverterFactory.create())
-    .client(okHttpClient) // 통신 확인
     .build()
 
 val loginService = retrofit.create(LoginService::class.java)
 
 interface LoginService {
     @POST("login")
-    suspend fun login(@Body loginRequest: LoginRequest): Boolean
+    suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
 }
 
-suspend fun performLoginService(id: String, pw: String, context: Context): Boolean {
+suspend fun performLoginService(username: String, pw: String, context: Context): Boolean {
     return try {
         withContext(Dispatchers.IO) {
-            val response = loginService.login(LoginRequest(id, pw))
-            if (response) {
+            val response = loginService.login(LoginRequest(username, pw))
+            if (response.isSuccessful && response.body()?.success == true) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show()
                 }

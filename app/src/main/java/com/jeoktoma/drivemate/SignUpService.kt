@@ -10,29 +10,29 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-private val retrofit = Retrofit.Builder().baseUrl("http://10.0.2.2:8080/user/")
+private val retrofit = Retrofit.Builder().baseUrl("https://3f7e2b24-1cc2-47ea-992c-ea0009e1538c.mock.pstmn.io/user/")
     .addConverterFactory(GsonConverterFactory.create())
     .build()
 
 val signUpService = retrofit.create(SignUpService::class.java)
 
 interface SignUpService {
-    @POST("register")
-    suspend fun signUp(@Body signUpRequest: SignUpRequest): Boolean
+    @POST("signup")
+    suspend fun signUp(@Body signUpRequest: SignUpRequest): Response<SignUpResponse>
 }
 
-suspend fun performSignUpService(id: String, pw: String, context: Context): Boolean {
+suspend fun performSignUpService(username: String, pw: String, context: Context): Boolean {
     return try {
         withContext(Dispatchers.IO) {
-            val response = signUpService.signUp(SignUpRequest(id, pw))
-            if (response) {
+            val response = signUpService.signUp(SignUpRequest(username, pw))
+            if (response.isSuccessful && response.body()?.success == true) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(context, "회원가입 성공", Toast.LENGTH_SHORT).show()
                 }
                 true
             } else {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(context, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "회원가입 실패: ${response.code()}", Toast.LENGTH_SHORT).show()
                 }
                 false
             }
