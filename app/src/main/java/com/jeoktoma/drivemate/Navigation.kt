@@ -1,7 +1,9 @@
 package com.jeoktoma.drivemate
 
+import android.content.Intent
 import android.net.Uri
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
@@ -32,8 +34,13 @@ fun AppNavigation(navController: NavHostController) {
             MainScreen(navController, "코너링이 훌룡하시네요,", "Gildong Hong", selectedItem)
         }
         composable("pathScreen") {
-            selectedItem.value = 2
-            PathScreen(navController, selectedItem)
+            val context = LocalContext.current
+                    LaunchedEffect(Unit) {
+                        val intent = Intent(context, NavActivity::class.java)
+                        // 필요한 데이터를 전달
+                        intent.putExtra("key", "value")
+                        context.startActivity(intent)
+                    }
         }
         composable("reportScreen") {
             selectedItem.value = 1

@@ -78,7 +78,7 @@ fun LoginScreen(navController: NavController, viewModel: UserViewModel, context:
             onValueChange = { username = it },
             label = { Text("아이디", fontFamily = FontFamily(Font(R.font.freesentation)),) },
             leadingIcon = {
-                Icon(painter = painterResource(id = R.drawable.component_1_ic_user), contentDescription = "User Icon")
+                Icon(painter = painterResource(id = R.drawable.ic_user), contentDescription = "User Icon")
             },
             shape = RoundedCornerShape(14.dp), // 모서리를 둥글게 설정
             colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -96,12 +96,12 @@ fun LoginScreen(navController: NavController, viewModel: UserViewModel, context:
             onValueChange = { pw = it },
             label = { Text("비밀번호", fontFamily = FontFamily(Font(R.font.freesentation))) },
             leadingIcon = {
-                Icon(painter = painterResource(id = R.drawable.component_1_ic_lock), contentDescription = "Password Icon")
+                Icon(painter = painterResource(id = R.drawable.ic_lock), contentDescription = "Password Icon")
             },
             trailingIcon = {
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
                     Icon(
-                        painter = painterResource(id = if (passwordVisible) R.drawable.component_1_ic_visibility else R.drawable.component_1_ic_visibility_off),
+                        painter = painterResource(id = if (passwordVisible) R.drawable.ic_visibility else R.drawable.ic_visibility_off),
                         contentDescription = "Toggle Password Visibility"
                     )
                 }
