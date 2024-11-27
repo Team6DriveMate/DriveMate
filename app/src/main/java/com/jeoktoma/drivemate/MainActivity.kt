@@ -9,12 +9,22 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.core.app.ActivityCompat
 import com.kakaomobility.knsdk.KNLanguageType
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.security.MessageDigest
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val intent = Intent(this, NavActivity::class.java)
+        // 테스트용 complete 호출
+        CoroutineScope(Dispatchers.Main).launch {
+            val response = performCompleteService(
+                Point(37.5046, 126.9569), Point(37.5666, 126.9782), null,
+                baseContext
+            )
+        }
+        val intent = Intent(this, SurveyActivity::class.java)
         startActivity(intent)
         finish()
 
@@ -33,7 +43,7 @@ class MainActivity : ComponentActivity() {
 
             else -> {
                 // 길찾기 SDK 인증
-                knsdkAuth()
+
             }
         }
     }
@@ -56,7 +66,8 @@ class MainActivity : ComponentActivity() {
         when (requestCode) {
             1234 -> {
                 if (grantResults.isNotEmpty() &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED
+                ) {
 
                     // 다시 권한 요청하는 곳으로 돌아갑니다.
                     checkPermission()
@@ -64,37 +75,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-
-    /**
-     * 길찾기 SDK 인증을 진행합니다.
-     */
-    fun knsdkAuth() {
-        KakaoNavi.knsdk.apply {
-            initializeWithAppKey(
-                aAppKey = "704f94e0ccd82aa85319a646ada05bcf",       // 카카오디벨로퍼스에서 부여 받은 앱 키
-                aClientVersion = "1.9.4",                                               // 현재 앱의 클라이언트 버전
-                aUserKey = "1157097",                                                  // 사용자 id
-                aLangType = KNLanguageType.KNLanguageType_KOREAN,   // 언어 타입
-                aCompletion = {
-
-                    // Toast는 UI를 갱신하는 작업이기 때문에 UIThread에서 동작되도록 해야 합니다.
-                    runOnUiThread {
-                        if (it != null) {
-                            Toast.makeText(applicationContext, "인증에 실패하였습니다", Toast.LENGTH_LONG).show()
-
-                        } else {
-                            Toast.makeText(applicationContext, "인증 성공하였습니다", Toast.LENGTH_LONG).show()
-
-                            var intent = Intent(this@MainActivity, KakaoActivity::class.java)
-                            this@MainActivity.startActivity(intent)
-                        }
-                    }
-                })
-        }
-    }
-
 }
-
 
 
 
