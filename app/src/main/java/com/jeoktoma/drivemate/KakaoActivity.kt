@@ -31,13 +31,16 @@ import com.kakaomobility.knsdk.ui.view.KNNaviView
 import android.widget.Toast
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import com.kakaomobility.knsdk.common.gps.KATECToWGS84
 import com.kakaomobility.knsdk.common.gps.WGS84ToKATEC
 import com.kakaomobility.knsdk.common.util.DoublePoint
+import com.kakaomobility.knsdk.guidance.knguidance.KNGuideState
+import com.kakaomobility.knsdk.ui.view.KNNaviView_GuideStateDelegate
 
 class KakaoActivity : AppCompatActivity(), KNGuidance_GuideStateDelegate, KNGuidance_LocationGuideDelegate,
     KNGuidance_RouteGuideDelegate, KNGuidance_SafetyGuideDelegate, KNGuidance_VoiceGuideDelegate,
-    KNGuidance_CitsGuideDelegate{
+    KNGuidance_CitsGuideDelegate, KNNaviView_GuideStateDelegate{
     lateinit var naviView: KNNaviView
 
     private var changedLocations = mutableListOf<LocInfo>()
@@ -124,6 +127,7 @@ class KakaoActivity : AppCompatActivity(), KNGuidance_GuideStateDelegate, KNGuid
             voiceGuideDelegate = this@KakaoActivity
             citsGuideDelegate = this@KakaoActivity
 
+
             naviView.initWithGuidance(
                 this,
                 trip,
@@ -160,6 +164,10 @@ class KakaoActivity : AppCompatActivity(), KNGuidance_GuideStateDelegate, KNGuid
 
     override fun guidanceGuideEnded(aGuidance: KNGuidance) {
         naviView.guidanceGuideEnded(aGuidance)
+
+        naviViewGuideEnded()
+
+        finish()
     }
 
     override fun guidanceGuideStarted(aGuidance: KNGuidance) {
@@ -240,7 +248,14 @@ class KakaoActivity : AppCompatActivity(), KNGuidance_GuideStateDelegate, KNGuid
         naviView.didUpdateCitsGuide(aGuidance, aCitsGuide)
     }
 
+    override fun naviViewGuideEnded() {
+        Log.d("a", "a")
+        finish()
+    }
 
+    override fun naviViewGuideState(state: KNGuideState) {
+        TODO("Not yet implemented")
+    }
 }
 
 

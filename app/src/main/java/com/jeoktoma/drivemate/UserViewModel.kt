@@ -3,6 +3,10 @@ package com.jeoktoma.drivemate
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
@@ -12,11 +16,19 @@ import kotlinx.coroutines.withContext
 class UserViewModel : ViewModel() {
     var userInfo: UserInfoResponse? = null
 
+    var username by mutableStateOf("")
+        private set
+    var nickname by mutableStateOf("")
+    private set
+    var title by mutableStateOf("")
+    private set
+
+
     // 유저 정보 조회
     fun getUserInfo(username: String, context: Context, onResult: (UserInfoResponse?) -> Unit) {
         viewModelScope.launch {
             try {
-                val url = "https://3f7e2b24-1cc2-47ea-992c-ea0009e1538c.mock.pstmn.io/user/info/$username"
+                val url = "http://10.0.2.2/user/info/$username"
                 Log.d("UserViewModel", "API 호출 URL: $url")
 
                 val response = withContext(Dispatchers.IO) {
@@ -24,6 +36,8 @@ class UserViewModel : ViewModel() {
                 }
                 if (response.isSuccessful) {
                     userInfo = response.body()
+                    nickname = userInfo?.nickname ?: ""
+                    title = userInfo?.mainTitle?: ""
                     onResult(userInfo)
                 } else {
                     Toast.makeText(context, "유저 정보 조회 실패: ${response.message()}", Toast.LENGTH_SHORT).show()
@@ -82,7 +96,7 @@ class UserViewModel : ViewModel() {
             // 새로운 UserUpdateRequest 생성
             val updateRequest = UserUpdateRequest(
                 nickname = user.nickname,
-                title = user.title
+                mainTitle = user.mainTitle
             )
 
             // 백엔드로 업데이트 요청
@@ -99,5 +113,7 @@ class UserViewModel : ViewModel() {
             })
         }
     }
+
+
 
 }

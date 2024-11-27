@@ -44,10 +44,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun ProfileScreen(navController: NavController, selectedItem: MutableState<Int>, viewModel: UserViewModel, username: String) {
+fun ProfileScreen(navController: NavController, selectedItem: MutableState<Int>, viewModel: UserViewModel) {
     val nickname = remember { mutableStateOf("Gildong Hong") }
     val userTitle = remember { mutableStateOf("코너링이 훌룡하시네요") }
     val userInfo = remember { mutableStateOf<UserInfoResponse?>(null) }
+    val username = viewModel.userInfo?.username?: ""
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
@@ -120,7 +121,7 @@ fun ProfileScreen(navController: NavController, selectedItem: MutableState<Int>,
                             )
                         )
                         Text(
-                            text = user.title,
+                            text = user.mainTitle,
                             style = MaterialTheme.typography.bodyMedium.copy(
                                 color = Color.Gray,
                                 fontSize = 22.sp,
@@ -194,15 +195,17 @@ fun ProfileScreen(navController: NavController, selectedItem: MutableState<Int>,
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Column {
-                    user.weakPoints.forEach { weakPoint ->
-                        Text(
-                            text = weakPoint,
-                            style = MaterialTheme.typography.bodyMedium.copy(
-                                color = Color.Gray,
-                                fontSize = 20.sp,
-                                fontFamily = FontFamily(Font(R.font.freesentation))
+                    if(user.weakPoints != null) {
+                        user.weakPoints.forEach { weakPoint ->
+                            Text(
+                                text = weakPoint,
+                                style = MaterialTheme.typography.bodyMedium.copy(
+                                    color = Color.Gray,
+                                    fontSize = 20.sp,
+                                    fontFamily = FontFamily(Font(R.font.freesentation))
+                                )
                             )
-                        )
+                        }
                     }
                 }
 

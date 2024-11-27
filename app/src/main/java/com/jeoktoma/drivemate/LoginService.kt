@@ -1,6 +1,7 @@
 package com.jeoktoma.drivemate
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -10,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-private val retrofit = Retrofit.Builder().baseUrl("https://3f7e2b24-1cc2-47ea-992c-ea0009e1538c.mock.pstmn.io/user/")
+private val retrofit = Retrofit.Builder().baseUrl("http://10.0.2.2:8080/user/")
     .addConverterFactory(GsonConverterFactory.create())
     .build()
 
@@ -18,14 +19,14 @@ val loginService = retrofit.create(LoginService::class.java)
 
 interface LoginService {
     @POST("login")
-    suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
+    suspend fun login(@Body loginRequest: LoginRequest): Boolean
 }
 
 suspend fun performLoginService(username: String, pw: String, context: Context): Boolean {
     return try {
         withContext(Dispatchers.IO) {
             val response = loginService.login(LoginRequest(username, pw))
-            if (response.isSuccessful && response.body()?.success == true) {
+            if (response) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show()
                 }
@@ -39,7 +40,8 @@ suspend fun performLoginService(username: String, pw: String, context: Context):
         }
     } catch (e: Exception) {
         withContext(Dispatchers.Main) {
-            Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_LONG).show()
+            Log.e("e", "${e.message}")
         }
         false
     }

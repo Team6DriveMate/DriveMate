@@ -19,28 +19,27 @@ import com.google.gson.reflect.TypeToken
 @Composable
 fun AppNavigation(navController: NavHostController) {
     val selectedItem = remember { mutableStateOf(0) }
+    val sharedViewModel: UserViewModel = remember { UserViewModel() }
 
     NavHost(navController = navController, startDestination = "loginScreen") {
         composable("loginScreen") {
-            val viewModel = UserViewModel()
-            LoginScreen(navController, viewModel, context = LocalContext.current)
+            LoginScreen(navController, sharedViewModel, context = LocalContext.current)
         }
         composable("signUpScreen") {
-            val viewModel = UserViewModel()
-            SignUpScreen(navController, viewModel, context = LocalContext.current)
+            SignUpScreen(navController, sharedViewModel, context = LocalContext.current)
         }
         composable("mainScreen") {
             selectedItem.value = 0
-            MainScreen(navController, "코너링이 훌룡하시네요,", "Gildong Hong", selectedItem)
+            MainScreen(navController, sharedViewModel, selectedItem)
         }
         composable("pathScreen") {
             val context = LocalContext.current
-                    LaunchedEffect(Unit) {
-                        val intent = Intent(context, NavActivity::class.java)
-                        // 필요한 데이터를 전달
-                        intent.putExtra("key", "value")
-                        context.startActivity(intent)
-                    }
+            LaunchedEffect(Unit) {
+                val intent = Intent(context, NavActivity::class.java)
+                // 필요한 데이터를 전달
+                intent.putExtra("key", "value")
+                context.startActivity(intent)
+            }
         }
         composable("reportScreen") {
             selectedItem.value = 1
@@ -55,15 +54,13 @@ fun AppNavigation(navController: NavHostController) {
 //            ProfileScreen(navController, selectedItem)
 //        }
         composable("profileScreen") {
-            val viewModel = UserViewModel()
             selectedItem.value = 4
-            ProfileScreen(navController = navController, selectedItem, viewModel, username = "123")
+            ProfileScreen(navController = navController, selectedItem, sharedViewModel)
         }
 
         composable("editProfileScreen") {
-            val viewModel = UserViewModel()
             selectedItem.value = 4
-            EditProfileScreen(navController, selectedItem, viewModel, username = "123")
+            EditProfileScreen(navController, selectedItem, sharedViewModel)
         }
 
         composable(

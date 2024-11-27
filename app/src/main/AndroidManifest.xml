@@ -25,7 +25,7 @@
         <activity
             android:name=".KakaoActivity"
             android:configChanges="orientation"
-            android:theme="@style/Theme.DriveMate" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".NavActivity"
             android:exported="false" />

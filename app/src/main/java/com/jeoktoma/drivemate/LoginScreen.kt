@@ -1,6 +1,7 @@
 package com.jeoktoma.drivemate
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -127,7 +128,16 @@ fun LoginScreen(navController: NavController, viewModel: UserViewModel, context:
             onClick = {
                 CoroutineScope(Dispatchers.Main).launch {
                     val success = performLoginService(username, pw, context)
+
                     if (success) {
+                        viewModel.getUserInfo(username, context){ response ->
+                            if (response == null) {
+                                Log.d("LoginScreen", "갱신된 데이터: $response")
+                                Log.e("LoginScreen", "API 응답이 null입니다.")
+                            } else {
+                                Log.d("LoginScreen", "API 응답: $response")
+                            }
+                        }
                         navController.navigate("mainScreen")
                     }
                 }

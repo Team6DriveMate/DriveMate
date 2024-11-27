@@ -47,11 +47,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun EditProfileScreen(navController: NavController, selectedItem: MutableState<Int>, viewModel: UserViewModel, username: String) {
+fun EditProfileScreen(navController: NavController, selectedItem: MutableState<Int>, viewModel: UserViewModel) {
     val selectedTitle = remember { mutableStateOf("") }
-    val nickname = remember { mutableStateOf("Gildong Hong") }
+    val nickname = remember { mutableStateOf(viewModel.nickname) }
     val isEditingName = remember { mutableStateOf(false) }
     val context = LocalContext.current
+    val username = viewModel.username
 
     Scaffold(
         bottomBar = { BottomNavigationBar(navController, selectedItem) }
@@ -200,21 +201,21 @@ fun EditProfileScreen(navController: NavController, selectedItem: MutableState<I
                 onClick = {
                     val updateRequest = UserUpdateRequest(
                         nickname = nickname.value,
-                        title = selectedTitle.value
+                        mainTitle = selectedTitle.value
                     )
                     viewModel.updateUserInfo(
                         username = username,
                         userUpdateRequest = updateRequest,
                         context = context,
                         onSuccess = {
-                            Log.d("EditProfileScreen", "수정 성공: ${updateRequest.nickname}, ${updateRequest.title}")
+                            Log.d("EditProfileScreen", "수정 성공: ${updateRequest.nickname}, ${updateRequest.mainTitle}")
                             Toast.makeText(context, "수정 완료", Toast.LENGTH_SHORT).show()
 
                             viewModel.userInfo = viewModel.userInfo?.let {
                                 UserInfoResponse(
                                     nickname = nickname.value,
                                     username = username,
-                                    title = selectedTitle.value,
+                                    mainTitle = selectedTitle.value,
                                     level = it.level,
                                     experience = it.experience,
                                     nextLevelExperience = it.nextLevelExperience,
