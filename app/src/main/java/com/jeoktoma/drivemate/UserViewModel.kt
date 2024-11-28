@@ -17,11 +17,12 @@ class UserViewModel : ViewModel() {
     var userInfo: UserInfoResponse? = null
 
     var username by mutableStateOf("")
-        private set
+    private set
     var nickname by mutableStateOf("")
     private set
     var title by mutableStateOf("")
     private set
+
 
 
     // 유저 정보 조회
@@ -36,6 +37,7 @@ class UserViewModel : ViewModel() {
                 }
                 if (response.isSuccessful) {
                     userInfo = response.body()
+                    this@UserViewModel.username = username
                     nickname = userInfo?.nickname ?: ""
                     title = userInfo?.mainTitle?: ""
                     onResult(userInfo)
@@ -44,6 +46,7 @@ class UserViewModel : ViewModel() {
                     onResult(null)
                 }
             } catch (e: Exception) {
+                Log.e("EditProfile", "${e.message}")
                 Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_SHORT).show()
                 onResult(null)
             }

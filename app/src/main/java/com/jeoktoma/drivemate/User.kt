@@ -25,7 +25,7 @@ data class SuccessResponse(val success: Boolean)
 
 data class LoginRequest(val username: String, val pw: String)
 data class LoginResponse(val success: Boolean)
-data class SignUpRequest(val username: String, val pw: String)
+data class SignUpRequest(val nickname: String, val username: String, val pw: String, val confirmPw: String)
 data class SignUpResponse(val success: Boolean)
 
 

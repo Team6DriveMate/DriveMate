@@ -30,6 +30,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,6 +46,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Composable
 fun EditProfileScreen(navController: NavController, selectedItem: MutableState<Int>, viewModel: UserViewModel) {
@@ -203,36 +207,47 @@ fun EditProfileScreen(navController: NavController, selectedItem: MutableState<I
                         nickname = nickname.value,
                         mainTitle = selectedTitle.value
                     )
-                    viewModel.updateUserInfo(
-                        username = username,
-                        userUpdateRequest = updateRequest,
-                        context = context,
-                        onSuccess = {
-                            Log.d("EditProfileScreen", "수정 성공: ${updateRequest.nickname}, ${updateRequest.mainTitle}")
-                            Toast.makeText(context, "수정 완료", Toast.LENGTH_SHORT).show()
-
-                            viewModel.userInfo = viewModel.userInfo?.let {
-                                UserInfoResponse(
-                                    nickname = nickname.value,
-                                    username = username,
-                                    mainTitle = selectedTitle.value,
-                                    level = it.level,
-                                    experience = it.experience,
-                                    nextLevelExperience = it.nextLevelExperience,
-                                    weakPoints = it.weakPoints,
-                                    titles = it.titles
+                    CoroutineScope(Dispatchers.Main).launch {
+                        viewModel.updateUserInfo(
+                            username = username,
+                            userUpdateRequest = updateRequest,
+                            context = context,
+                            onSuccess = {
+                                Log.d(
+                                    "EditProfileScreen",
+                                    "수정 성공: ${updateRequest.nickname}, ${updateRequest.mainTitle}"
                                 )
-                            }
+                                Toast.makeText(context, "수정 완료", Toast.LENGTH_SHORT).show()
+
+//                                viewModel.userInfo = viewModel.userInfo?.let {
+//                                    UserInfoResponse(
+//                                        nickname = nickname.value,
+//                                        username = username,
+//                                        mainTitle = selectedTitle.value,
+//                                        level = it.level,
+//                                        experience = it.experience,
+//                                        nextLevelExperience = it.nextLevelExperience,
+//                                        weakPoints = it.weakPoints,
+//                                        titles = it.titles
+//                                    )
+//                                }
 
 
-                            navController.navigate("profileScreen") {
-                                popUpTo("profileScreen") { inclusive = true } // 기존 화면 제거 후 다시 생성
+                                navController.navigate("profileScreen") {
+                                    popUpTo("profileScreen") {
+                                        inclusive = true
+                                    } // 기존 화면 제거 후 다시 생성
+                                }
+                            },
+                            onError = {
+                                Log.d(
+                                    "EditProfileScreen",
+                                    "수정 실패: ${username}, ${updateRequest.nickname}, ${updateRequest.mainTitle}"
+                                )
+                                Toast.makeText(context, "수정 실패", Toast.LENGTH_SHORT).show()
                             }
-                        },
-                        onError = {
-                            Toast.makeText(context, "수정 실패", Toast.LENGTH_SHORT).show()
-                        }
-                    )
+                        )
+                    }
 
                 },
                 modifier = Modifier

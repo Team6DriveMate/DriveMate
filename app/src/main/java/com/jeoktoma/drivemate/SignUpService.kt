@@ -1,6 +1,7 @@
 package com.jeoktoma.drivemate
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -10,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-private val retrofit = Retrofit.Builder().baseUrl("http://10.0.2.2/user/")
+private val retrofit = Retrofit.Builder().baseUrl("http://10.0.2.2:8080/user/")
     .addConverterFactory(GsonConverterFactory.create())
     .build()
 
@@ -21,10 +22,10 @@ interface SignUpService {
     suspend fun signUp(@Body signUpRequest: SignUpRequest): Response<SignUpResponse>
 }
 
-suspend fun performSignUpService(username: String, pw: String, context: Context): Boolean {
+suspend fun performSignUpService(nickname:String, username: String, pw: String, context: Context): Boolean {
     return try {
         withContext(Dispatchers.IO) {
-            val response = signUpService.signUp(SignUpRequest(username, pw))
+            val response = signUpService.signUp(SignUpRequest(nickname, username, pw, pw))
             if (response.isSuccessful && response.body()?.success == true) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(context, "회원가입 성공", Toast.LENGTH_SHORT).show()
@@ -39,6 +40,7 @@ suspend fun performSignUpService(username: String, pw: String, context: Context)
         }
     } catch (e: Exception) {
         withContext(Dispatchers.Main) {
+            Log.e("signup", "${e.message}")
             Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_SHORT).show()
         }
         false

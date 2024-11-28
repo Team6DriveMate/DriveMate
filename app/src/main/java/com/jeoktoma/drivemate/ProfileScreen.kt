@@ -113,7 +113,7 @@ fun ProfileScreen(navController: NavController, selectedItem: MutableState<Int>,
                 ) {
                     Column {
                         Text(
-                            text = user.nickname,
+                            text = viewModel.nickname,
                             style = MaterialTheme.typography.headlineSmall.copy(
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 27.sp,
@@ -121,7 +121,7 @@ fun ProfileScreen(navController: NavController, selectedItem: MutableState<Int>,
                             )
                         )
                         Text(
-                            text = user.mainTitle,
+                            text = viewModel.title,
                             style = MaterialTheme.typography.bodyMedium.copy(
                                 color = Color.Gray,
                                 fontSize = 22.sp,
