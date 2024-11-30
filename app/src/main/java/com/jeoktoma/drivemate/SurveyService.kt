@@ -17,4 +17,10 @@ interface SurveyService {
     suspend fun submitOverallSurvey(
         @Body request: OverallSurveyRequest
     ): Response<SuccessResponse>
+
+    @POST("report/submit")
+    suspend fun submitDriveReport(
+        @Body reportRequest: DriveReportRequest
+    ): Response<DriveReportResponse>
+
 }

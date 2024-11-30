@@ -9,6 +9,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+data class DriveReportRequest(
+    val startLocation: String,
+    val endLocation: String,
+    val startTime: String,
+    val endTime: String
+)
+
+data class DriveReportResponse(
+    val success: Boolean,
+    val driveId: String
+)
 class SurveyViewModel : ViewModel() {
     private val surveyService = RetrofitInstance.surveyService
 
@@ -60,4 +71,30 @@ class SurveyViewModel : ViewModel() {
             }
         }
     }
+
+    fun submitDriveReport(
+        reportRequest: DriveReportRequest,
+        context: Context,
+        onSuccess: (String) -> Unit
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = surveyService.submitDriveReport(reportRequest)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful && response.body()?.success == true) {
+                        val driveId = response.body()?.driveId ?: ""
+                        Toast.makeText(context, "운행 기록 제출 성공: ID $driveId", Toast.LENGTH_SHORT).show()
+                        onSuccess(driveId)
+                    } else {
+                        Toast.makeText(context, "운행 기록 제출 실패", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
 }

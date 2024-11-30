@@ -1,11 +1,10 @@
 package com.jeoktoma.drivemate
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -48,6 +47,7 @@ suspend fun performPathService(roadaddress: String, context: Context): CoordResp
         // 네트워크 오류 발생 시 예외 처리 및 토스트 메시지 표시
         withContext(Dispatchers.Main) {
             Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_SHORT).show()
+            Log.e("Network Error", "Error: ${e.message}")
         }
         null  // 오류 발생 시 null 반환
     }
@@ -74,6 +74,7 @@ suspend fun setPathService(startLat:Double, startLng:Double, endLat:Double, endL
         // 네트워크 오류 발생 시 예외 처리 및 토스트 메시지 표시
         withContext(Dispatchers.Main) {
             Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_SHORT).show()
+            Log.e("Network Error", "Error: ${e.message}")
         }
         null  // 오류 발생 시 null 반환
     }

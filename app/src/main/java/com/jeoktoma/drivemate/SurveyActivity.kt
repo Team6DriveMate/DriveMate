@@ -1,36 +1,50 @@
 package com.jeoktoma.drivemate
 
+import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.FrameLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBackIosNew
+import androidx.compose.material.icons.filled.ArrowForwardIos
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.geometry.LatLngBounds
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.MapView
 import com.naver.maps.map.NaverMap
-import com.naver.maps.map.NaverMapOptions
 import com.naver.maps.map.OnMapReadyCallback
-import com.naver.maps.map.overlay.Align
 import com.naver.maps.map.overlay.CircleOverlay
 import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
-import com.naver.maps.map.overlay.MultipartPathOverlay
-import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.overlay.PathOverlay
-import com.naver.maps.map.util.MarkerIcons
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.math.max
+import androidx.compose.ui.graphics.Color as uicolor
 
 class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapView: MapView
     private lateinit var naverMap: NaverMap
-    private lateinit var btnBack: Button
-    private lateinit var btnNext: Button
 
     private val markers = mutableListOf<Marker>()
     private val pathOverlays = mutableListOf<PathOverlay>()
@@ -43,6 +57,13 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private var currentSectionIndex = -1
     private var currentSegmentIndex = -1
+
+    lateinit var getRouteResponse: GetRouteResponse
+
+    private val showBack = mutableStateOf(true)
+    private val showNext = mutableStateOf(true)
+
+
 
     val pathOutlineWidth = 5
 
@@ -60,6 +81,33 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
+        // TopBar를 Compose로 추가
+        val composeContainer = findViewById<FrameLayout>(R.id.compose_container_topbar)
+        composeContainer.addView(ComposeView(this).apply {
+            setContent {
+                TopBar(
+                    onBackPressed = {
+                        when (currentState) {
+                            MapState.SECTION -> showFullRoute(getRouteResponse)
+                            MapState.SEGMENT -> {
+                                showSection(currentSection!!)
+                            }
+                            else -> Unit
+                        }
+                        // 이전 화면으로 돌아가기
+                    },
+                    onNextPressed = {
+                        when (currentState) {
+                            MapState.FULL_ROUTE -> currentSection?.let { showSection(it) }
+                            MapState.SECTION -> currentSegment?.let { showSegment(it) }
+                            else -> Unit
+                        }
+                    }, showBack.value, showNext.value
+                )
+            }
+        })
+
+
     }
 
     override fun onMapReady(map: NaverMap) {
@@ -76,34 +124,30 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
             val getRouteResponse = performGetRouteService(baseContext)
 
             if (getRouteResponse != null) {
-                // 여기서 btnBack 초기화 및 설정
-                btnBack = findViewById(R.id.btn_back)
-                btnBack.visibility = View.GONE
-                btnBack.setOnClickListener {
-                    when (currentState) {
-                        MapState.SECTION -> showFullRoute(getRouteResponse)
-                        MapState.SEGMENT -> showSection(currentSection!!)
-                        else -> null
-                    }
+                showFullRoute(getRouteResponse)
+
+                // PASS 버튼 추가
+                val btnPass = findViewById<Button>(R.id.btn_pass)
+                btnPass.visibility = View.VISIBLE
+                btnPass.setOnClickListener {
+                    val intent = Intent(this@SurveyActivity, OverallSurveyActivity::class.java)
+                    startActivity(intent)
                 }
-                btnNext = findViewById(R.id.btn_next)
-                btnNext.setOnClickListener {
-                    when (currentState) {
-                        MapState.FULL_ROUTE -> showSection(currentSection!!)
-                        MapState.SECTION -> showSegment(currentSegment!!)
-                        else -> null
-                    }
-                }
-                btnNext.visibility = View.GONE
+
+
+                // 초기 상태에서 버튼 보이기
+                btnPass.visibility = View.VISIBLE
+
                 showFullRoute(getRouteResponse)
             }
         }
     }
 
 
-    private fun showFullRoute(getRouteResponse: GetRouteResponse) {
+     internal fun showFullRoute(getRouteResponse: GetRouteResponse) {
         currentState = MapState.FULL_ROUTE
-        btnBack.visibility = View.GONE
+        showBack.value = false
+         showNext.value = false
         clearMap()
 
         getRouteResponse.route.sections.forEach { section ->
@@ -178,7 +222,7 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
             }
             infoWindows.find{it.tag == index}?.alpha = 0.7f
             currentSectionIndex = -1
-            btnNext.visibility = View.GONE
+            showNext.value = false
         } else {
             // 새로운 섹션 선택
             pathOverlays.forEach { it.outlineWidth = 0 } // 모든 섹션의 하이라이트 제거
@@ -188,14 +232,16 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
             infoWindows.forEach { it.alpha = 0.7f }
             infoWindows.find{it.tag == index}?.alpha = 1f
             currentSectionIndex = index
-            btnNext.visibility = View.VISIBLE
+            showNext.value = true
+            // add
         }
     }
 
     private fun showSection(section: GetSection) {
         currentState = MapState.SECTION
         currentSection = section
-        btnBack.visibility = View.VISIBLE
+        showBack.value = true
+        showNext.value = false
         clearMap()
 
         val sectionCoordinates = section.segments.flatMap { it.path }
@@ -262,7 +308,7 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
             }
             infoWindows.find{it.tag == index}?.alpha = 0.7f
             currentSegmentIndex = -1
-            btnNext.visibility = View.GONE
+            showNext.value = false
         } else {
             // 새로운 섹션 선택
             pathOverlays.forEach { it.outlineWidth = 0 } // 모든 섹션의 하이라이트 제거
@@ -272,15 +318,15 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
             infoWindows.forEach { it.alpha = 0.7f }
             infoWindows.find{it.tag == index}?.alpha = 1f
             currentSegmentIndex = index
-            btnNext.visibility = View.VISIBLE
+            showNext.value = true
         }
     }
 
     private fun showSegment(segment: GetSegment) {
         currentState = MapState.SEGMENT
         currentSegment = segment
-        btnBack.visibility = View.VISIBLE
-        btnNext.visibility = View.GONE
+        showBack.value = true
+        showNext.value = false
         clearMap()
 
         val path = PathOverlay()
@@ -298,6 +344,37 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
 //        addCircleOverlay(segment.startPoint, Color.RED, "S")
 //        addCircleOverlay(segment.endPoint, Color.BLUE, "E")
         // TODO: 여기에 Segment 상세 정보를 표시하는 로직 추가
+//            when (currentState) {
+//                MapState.SEGMENT -> {
+//                    // ComposeView로 SegmentSurveyScreen 렌더링
+//                    val composeContainer = findViewById<FrameLayout>(R.id.compose_container)
+//                    composeContainer.visibility = View.VISIBLE
+//
+//                    // 기존 View를 삭제하고 새로운 ComposeView 렌더링
+//                    composeContainer.removeAllViews()
+//                    val composeView = ComposeView(this)
+//                    composeView.setContent {
+//                        SegmentSurveyScreen(
+//                            roadName = segment.roadName ?: "Unnamed Road",
+//                            segmentIndex = segment.segmentIndex!!.toInt() ?: 0,
+//                            totalSegments = 3, // 총 세그먼트 수를 전달합니다.
+//                            surveyViewModel = SurveyViewModel(),
+//                            segmentCoords = path.coords, // 지도 경로 전달
+//                            context = this,
+//                            onExitSurvey = {
+//                                composeContainer.removeAllViews()
+//                                composeContainer.visibility = View.GONE
+//                                mapView.getMapAsync(this)
+////                                showFullRoute(getRouteResponse)
+//                            }
+//                        )
+//                    }
+//                    composeContainer.addView(composeView)
+//                }
+//                else -> null
+//            }
+//        }
+
     }
 
 
@@ -375,5 +452,50 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onLowMemory() {
         super.onLowMemory()
         mapView.onLowMemory()
+    }
+}
+
+@Composable
+fun TopBar(
+    onBackPressed: () -> Unit,
+    onNextPressed: () -> Unit,
+    showBack: Boolean,
+    showNext: Boolean
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(uicolor.White)
+            .padding(8.dp)
+    ) {
+        if (showBack) {
+            // 왼쪽 뒤로가기 버튼
+            IconButton(onClick = onBackPressed,
+                modifier = Modifier.align(Alignment.CenterStart)) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBackIosNew,
+                    contentDescription = "뒤로가기"
+                )
+            }
+        }
+
+        // 중앙 제목
+        Text(
+            text = "전체 경로",
+            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+            fontSize = 18.sp,
+            modifier = Modifier.align(Alignment.Center).padding(10.dp)
+        )
+
+        if(showNext) {
+            // 오른쪽 다음 버튼
+            IconButton(onClick = onNextPressed,
+                modifier = Modifier.align(Alignment.CenterEnd) ) {
+                Icon(
+                    imageVector = Icons.Default.ArrowForwardIos,
+                    contentDescription = "다음"
+                )
+            }
+        }
     }
 }

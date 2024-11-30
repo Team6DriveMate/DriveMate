@@ -19,14 +19,14 @@ val loginService = retrofit.create(LoginService::class.java)
 
 interface LoginService {
     @POST("login")
-    suspend fun login(@Body loginRequest: LoginRequest): Boolean
+    suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
 }
 
 suspend fun performLoginService(username: String, pw: String, context: Context): Boolean {
     return try {
         withContext(Dispatchers.IO) {
             val response = loginService.login(LoginRequest(username, pw))
-            if (response) {
+            if (response.isSuccessful && response.body()?.success == true) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show()
                 }

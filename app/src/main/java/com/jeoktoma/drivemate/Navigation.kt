@@ -45,6 +45,32 @@ fun AppNavigation(navController: NavHostController) {
             selectedItem.value = 1
             ReportScreen(navController, selectedItem)
         }
+
+        composable(
+            route = "segmentReportScreen/{reportId}",
+            arguments = listOf(
+                navArgument("reportId") { type = NavType.IntType },
+//                navArgument("totalSegments") { type = NavType.IntType }
+            )
+        ) { backStackEntry ->
+            val reportId = backStackEntry.arguments?.getInt("reportId") ?: 0
+//            val totalSegments = backStackEntry.arguments?.getInt("totalSegments") ?: 1
+
+            val reportViewModel: ReportViewModel = viewModel()
+//            val surveyRequest = reportViewModel.getSurveyRequestForSegment(segmentIndex)
+
+            SegmentReportScreen(
+                reportId = reportId,
+//                totalSegments = totalSegments,
+//                surveyRequest = surveyRequest,
+                navController = navController
+            )
+        }
+
+        composable("overallReportScreen") {
+            OverallReportScreen(navController = navController)
+        }
+
         composable("tipScreen") {
             selectedItem.value = 3
             TipScreen(navController, selectedItem)
@@ -77,27 +103,31 @@ fun AppNavigation(navController: NavHostController) {
             TipDetailsScreen(navController = navController, tipTitle = tipTitle, tips = tipDetails, selectedItem)
         }
 
-        composable(
-            route = "segmentSurveyScreen/{segmentIndex}/{totalSegments}",
-            arguments = listOf(
-                navArgument("segmentIndex") { type = NavType.IntType },
-                navArgument("totalSegments") { type = NavType.IntType }
-            )
-        ) { backStackEntry ->
-            val segmentIndex = backStackEntry.arguments?.getInt("segmentIndex") ?: 0
-            val totalSegments = backStackEntry.arguments?.getInt("totalSegments") ?: 1
-            val context = LocalContext.current
-
-            val surveyViewModel: SurveyViewModel = viewModel()
-
-            SegmentSurveyScreen(
-                segmentIndex = segmentIndex,
-                totalSegments = totalSegments,
-                surveyViewModel = surveyViewModel, // ViewModel 주입
-                context = context,
-                navController = navController
-            )
-        }
+//        composable(
+//            route = "segmentSurveyScreen/{roadName}/{segmentIndex}/{totalSegments}",
+//            arguments = listOf(
+//                navArgument("roadName") { type = NavType.StringType },
+//                navArgument("segmentIndex") { type = NavType.IntType },
+//                navArgument("totalSegments") { type = NavType.IntType }
+//            )
+//        ) { backStackEntry ->
+//            val roadName = backStackEntry.arguments?.getString("roadName") ?: "Unknown Road"
+//            val segmentIndex = backStackEntry.arguments?.getInt("segmentIndex") ?: 0
+//            val totalSegments = backStackEntry.arguments?.getInt("totalSegments") ?: 1
+//            val context = LocalContext.current
+//
+//            val surveyViewModel: SurveyViewModel = viewModel()
+//
+//            SegmentSurveyScreen(
+//                roadName = roadName,
+//                segmentIndex = segmentIndex,
+//                totalSegments = totalSegments,
+//                surveyViewModel = surveyViewModel, // ViewModel 주입
+//                context = context,
+//
+//                navController = navController
+//            )
+//        }
 
 
         composable("overallSurveyScreen") {

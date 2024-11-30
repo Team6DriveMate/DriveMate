@@ -64,7 +64,7 @@ import androidx.navigation.compose.rememberNavController
 fun OverallSurveyScreen(
     surveyViewModel: SurveyViewModel,
     context: Context,
-    navController: NavController
+    navController: NavController? = null
 ) {
     val surveyRequest = remember { mutableStateOf(OverallSurveyRequest(0, 0, 0, 0, 0, 0, "")) }
 
@@ -77,7 +77,11 @@ fun OverallSurveyScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                IconButton(onClick = { navController.popBackStack() }) {
+                IconButton(onClick = {
+                    if (navController != null) {
+                        navController.popBackStack()
+                    }
+                }) {
                     Icon(
                         imageVector = Icons.Default.ArrowBackIosNew,
                         contentDescription = "Back"
@@ -107,7 +111,9 @@ fun OverallSurveyScreen(
 //                            popUpTo("segmentSurveyScreen") { inclusive = true }
 //                        }
 //                    }
-                    navController.navigate("sightAdjustmentScreen")
+                    if (navController != null) {
+                        navController.navigate("sightAdjustmentScreen")
+                    }
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -314,6 +320,7 @@ fun SightAdjustmentScreen(
 ) {
     var sliderValue by remember { mutableStateOf(0f) }
     var dragOffset by remember { mutableStateOf(0f) }
+    var sightDegree by remember { mutableStateOf(0) } // 시야각 정수값
 
     val maxDragValue = 1000f // 드래그 최대값
     val blackBoxWidth = ((maxDragValue - dragOffset).coerceIn(0f, maxDragValue) / maxDragValue) * 100
@@ -355,9 +362,9 @@ fun SightAdjustmentScreen(
                         OverallSurveyRequest(0, 0, 0, 0, 0, 0, ""), // 예시 요청
                         context
                     ) {
-                        navController.navigate("reportScreen") {
-                            popUpTo("segmentSurveyScreen") { inclusive = true }
-                        }
+                        //navController.navigate("reportScreen") {
+                        //    popUpTo("segmentSurveyScreen") { inclusive = true }
+                        //}
                     }
                 },
                 modifier = Modifier
@@ -455,13 +462,59 @@ fun SightAdjustmentScreen(
                 onValueChange = {
                     sliderValue = it
                     dragOffset = (it * maxDragValue).coerceIn(0f, maxDragValue) // 슬라이더 값과 드래그 오프셋 연동
-                },
+                    sightDegree = (it * 100).toInt() // 슬라이더 값(0.0~1.0)을 0~100 정수로 변환
+                                },
                 modifier = Modifier.fillMaxWidth(),
                 colors = SliderDefaults.colors(
                     thumbColor = Color(0xFFAA66CC),
                     activeTrackColor = Color(0xFFAA66CC)
                 )
             )
+
+            //submit
+            Button(
+                onClick = {
+                    val reportRequest = DriveReportRequest(
+                        startLocation = "출발지 예시",
+                        endLocation = "도착지 예시",
+                        startTime = "2024-11-15T13:00:00Z",
+                        endTime = "2024-11-15T13:30:00Z"
+                    )
+                    surveyViewModel.submitDriveReport(reportRequest, context) { driveId ->
+                        //navController.navigate("reportScreen/$driveId") {
+                          //  popUpTo("segmentSurveyScreen") { inclusive = true }
+                        //}
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 16.dp)
+                    .height(56.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                contentPadding = PaddingValues()
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            Brush.linearGradient(
+                                colors = listOf(
+                                    Color(0xFF92A3FD),
+                                    Color(0xFF9DCEFF)
+                                )
+                            )
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "Submit",
+                        color = Color.White,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily(Font(R.font.freesentation))
+                    )
+                }
+            }
 
 //            // 드래그 가능한 박스
 //            Box(

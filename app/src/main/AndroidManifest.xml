@@ -44,6 +44,10 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".SegmentSurveyActivity" />
+        <activity android:name=".OverallSurveyActivity" />
+
+
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="o1vqt1521k" />

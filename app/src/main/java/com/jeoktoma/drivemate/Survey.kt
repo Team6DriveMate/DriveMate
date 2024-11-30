@@ -11,6 +11,20 @@ data class SegmentSurveyRequest(
     val tension: Boolean
 )
 
+/*
+public class SegmentSurveyDTO {
+    private String segmentName;
+    private Boolean trafficCongestion;
+    private Boolean roadType;
+    private Boolean laneSwitch;
+    private Boolean situationDecision;
+    private Boolean trafficLaws;
+    private Boolean tensions;
+    private Boolean laneConfusion;
+}
+
+ */
+
 data class OverallSurveyRequest(
     val switchLight: Int,
     val sideMirror: Int,

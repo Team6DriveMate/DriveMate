@@ -31,6 +31,7 @@ data class Point(
     val lng: Double
 )
 
+
 data class CoordRequest(val road_address: String)
 data class CoordResponse(val lat: Double, val lng: Double)
 

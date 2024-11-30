@@ -37,22 +37,32 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.geometry.LatLngBounds
+import com.naver.maps.map.CameraUpdate
+import com.naver.maps.map.MapView
+import com.naver.maps.map.overlay.PathOverlay
+import android.graphics.Color as PathColor
 
 @Composable
 fun SegmentSurveyScreen(
+    roadName: String,
     segmentIndex: Int,
     totalSegments: Int,
     surveyViewModel: SurveyViewModel,
     context: Context,
-    navController: NavController
+    navController: NavController? = null,
+    segmentCoords: List<LatLng>,
+    onExitSurvey: () -> Unit // 추가
 ) {
     val surveyRequest = remember {
         mutableStateOf(
             SegmentSurveyRequest(
-                sectionName = "구간 ${segmentIndex + 1}",
+                sectionName = roadName,
                 trafficCongestion = false,
                 roadType = false,
                 laneSwitch = false,
@@ -64,6 +74,27 @@ fun SegmentSurveyScreen(
         )
     }
 
+//    LaunchedEffect(Unit) {
+//        val completeResponse = performCompleteService(
+//            Point(37.5050, 126.9539), // 시작 좌표
+//            Point(37.5666, 126.9782), // 종료 좌표
+//            null, // 경유지 좌표 없음
+//            context // 컨텍스트
+//        )
+//
+//        if (completeResponse != null) {
+//            // 서버에서 받은 응답 확인 (디버깅용 로그 추가)
+//            Log.d("SegmentSurveyScreen", "Complete Response: $completeResponse")
+//        } else {
+//            Log.e("SegmentSurveyScreen", "Complete 호출 실패")
+//        }
+//    }
+//
+//    LaunchedEffect(Unit) {
+//        val intent = android.content.Intent(context, SurveyActivity::class.java)
+//        context.startActivity(intent)
+//    }
+
     Scaffold(
         topBar = {
             Row(
@@ -74,7 +105,9 @@ fun SegmentSurveyScreen(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 IconButton(onClick = {
-                    navController.popBackStack()
+                    if (navController != null) {
+                        navController.popBackStack()
+                    }
                 }) {
                     Icon(
                         imageVector = Icons.Default.ArrowBackIosNew,
@@ -82,7 +115,7 @@ fun SegmentSurveyScreen(
                     )
                 }
                 Text(
-                    text = "설문 (${segmentIndex + 1}/$totalSegments)",
+                    text = "설문 - $roadName",
                     style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
                     fontFamily = FontFamily(Font(R.font.freesentation))
                 )
@@ -98,15 +131,20 @@ fun SegmentSurveyScreen(
             Button(
                 onClick = {
                     surveyViewModel.submitSegmentSurvey(
-                        segmentIndex,
+                        //segmentIndex,
+                        1,
                         surveyRequest.value,
                         context
                     ) {
-                        if (segmentIndex < totalSegments - 1) {
-                            navController.navigate("segmentSurveyScreen/${segmentIndex + 1}/$totalSegments")
-                        } else {
-                            navController.navigate("overallSurveyScreen")
-                        }
+//                        // ComposeView를 숨기고 SurveyActivity에서 showFullRoute 호출
+//                        if (context is SurveyActivity) {
+//                            Log.d("1","1")
+//                            val composeContainer = (context as SurveyActivity).findViewById<FrameLayout>(R.id.compose_container)
+//                            composeContainer.visibility = View.GONE
+//                            Log.d("1", "${context.getRouteResponse}")
+//                            context.showFullRoute(context.getRouteResponse) // 전체 경로 화면으로 돌아감
+//                        }
+                        onExitSurvey()
                     }
 
                 },
@@ -130,49 +168,63 @@ fun SegmentSurveyScreen(
                         ),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = "Next", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily(Font(R.font.freesentation)))
+                    // 구간 설문 저장하고 제출
+                    // 전으로 돌아가기
+                    Text(text = "구간 설문 저장", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily(Font(R.font.freesentation)))
                 }
             }
 
         }
-    ) { padding ->
+    ) { innerPadding ->
+
+//        CoroutineScope(Dispatchers.Main).launch {
+//            val completeResponse = performCompleteService(
+//                Point(37.5050, 126.9539), Point(37.5666, 126.9782),
+//                null, context
+//            )
+//        }
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding)
+                .padding(innerPadding)
                 .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.SpaceBetween
+            verticalArrangement = Arrangement.Top
         ) {
-            // 구간 이미지 및 시간 정보
-//            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-//                Box(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .height(200.dp)
-//                        .background(Color.Gray, shape = RoundedCornerShape(16.dp))
-//                ) {
-//                    // 이미지가 제공되었을 경우만 표시
-//                    segmentImage?.let {
-//                        Image(
-//                            painter = painterResource(id = it),
-//                            contentDescription = null,
-//                            modifier = Modifier.fillMaxSize()
-//                        )
-//                    }
-//                }
-//                Spacer(modifier = Modifier.height(16.dp))
-//
-//                Row(
-//                    modifier = Modifier.fillMaxWidth(),
-//                    horizontalArrangement = Arrangement.SpaceBetween
-//                ) {
-//                    Text(text = "소요시간: $actualTime", style = MaterialTheme.typography.bodyLarge, fontFamily = FontFamily(Font(R.font.freesentation)), fontSize = 20.sp)
-//                    Text(text = "예상시간: $estimatedTime", style = MaterialTheme.typography.bodyLarge, fontFamily = FontFamily(Font(R.font.freesentation)), fontSize = 20.sp)
-//                }
-//            }
+            // 지도
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(350.dp)
+                    .background(Color.LightGray, shape = RoundedCornerShape(16.dp))
+            ) {
+                AndroidView(
+                    factory = { context ->
+                        MapView(context).apply {
+                            getMapAsync { nmap ->
+                                val pathOverlay = PathOverlay().apply {
+                                    coords = segmentCoords
+                                    color = PathColor.RED
+                                    width = 10
+                                    outlineWidth = 5
+                                    map = nmap
+                                }
+                                val bounds = LatLngBounds.Builder().include(segmentCoords).build()
+                                nmap.moveCamera(CameraUpdate.fitBounds(bounds, 100))
+                            }
+                        }
+                    },
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             // 설문 질문
-            Column {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.White) // 배경색 지정
+            ) {
                 QuestionToggle(
                     title = "교통 혼잡도가 ‘’로 높았습니다",
                     description = "교통 혼잡도에 문제가 있었나요?",
@@ -307,6 +359,21 @@ fun SurveyButton(label: String, isSelected: Boolean, onSelectedChange: (Boolean)
             fontSize = 20.sp
         )
     }
+}
+
+@Composable
+fun NaverMapViewComposable() {
+    AndroidView(
+        factory = { context ->
+            MapView(context).apply {
+                getMapAsync { map ->
+                    map.lightness = 0.5f
+                    // 추가적인 지도 설정
+                }
+            }
+        },
+        modifier = Modifier.fillMaxSize()
+    )
 }
 
 //@Preview(showBackground = true, widthDp = 412, heightDp = 917)
