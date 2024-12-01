@@ -41,6 +41,8 @@ public class DriveMateService {
     private final String trafficUrl = "https://apis.openapi.sk.com/tmap/traffic";
     private final String geoURl = "https://apis.openapi.sk.com/tmap/geo/reversegeocoding";
 
+    private final String reverseGeoUrl = "https://apis.openapi.sk.com/tmap/geo/reversegeocoding";
+
     @Value("${tmap.api.key}") // application.properties 파일에 API 키를 저장
     private String appKey;
 
@@ -117,6 +119,37 @@ public class DriveMateService {
     }
 
 
+    public String CoordinateToAddress(Double lat, Double lon){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.set("appKey", appKey);
+
+        String urlWithParams = String.format(
+                "%s?version=1&lat=%s&lon=%s&coordType=WGS84GEO&addressType=A02&newAddressExtend=Y",
+                reverseGeoUrl, lat, lon
+        );
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+
+        // GET 요청으로 변경된 URL과 함께 전송
+        ResponseEntity<String> responseEntity = restTemplate.exchange(urlWithParams, HttpMethod.GET, requestEntity, String.class
+        );
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String address = "";
+
+        try {
+            JsonNode rootNode = objectMapper.readTree(responseEntity.getBody());
+            address += rootNode.path("addressInfo").path("legalDong");
+            address += " ";
+            address += rootNode.path("addressInfo").path("bunji");
+            address.replace("\"", "");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return address;
+    }
 
     /**
      *  getRoute

@@ -39,6 +39,13 @@ public class PathController {
         return addressRespondDTO;
     }
 
+    @PostMapping("/reverseCoord")
+    public String reverseCoord(@RequestBody CoordinateDTO coordinateDTO){
+        Double lat = coordinateDTO.getLat();
+        Double lon = coordinateDTO.getLng();
+        return driveMateService.CoordinateToAddress(lat, lon);
+    }
+
     @PostMapping("/set")
     public RouteResponseDTO setRoute(@RequestBody RouteRequestDTO routeRequestDTO){
 

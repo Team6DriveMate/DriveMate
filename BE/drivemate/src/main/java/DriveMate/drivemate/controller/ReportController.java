@@ -25,6 +25,11 @@ public class ReportController {
 
     private final UserService userService;
 
+    private Double startLat;
+    private Double startLon;
+    private Double endLat;
+    private Double endLon;
+
     @Autowired
     public ReportController(DriveMateService driveMateService, RouteService routeService, UserService userService, DriveReportService driveReportService) {
         this.driveMateService = driveMateService;
@@ -38,6 +43,11 @@ public class ReportController {
     public SuccessRespondDTO setRoute(@RequestBody PostRouteRequestDTO postRouteRequestDTO){
         SuccessRespondDTO successRespondDTO = new SuccessRespondDTO();
         String passList = "";
+
+        startLat = postRouteRequestDTO.getStart_location().getLat();
+        startLon = postRouteRequestDTO.getStart_location().getLng();
+        endLat = postRouteRequestDTO.getEnd_location().getLat();
+        endLon = postRouteRequestDTO.getEnd_location().getLng();
 
         if (postRouteRequestDTO.getStopover_location() != null) {
             for (int i = 0; i < postRouteRequestDTO.getStopover_location().size(); i++) {
@@ -273,8 +283,16 @@ public class ReportController {
 
     @PostMapping("/submit")
     public SubmitRespondDTO submitReport(@RequestBody SubmitRequestDTO submitRequestDTO){
-        driveMateService.getPostRouteTmp().getDriveReport().setStartLocation(submitRequestDTO.getStartLocation());
-        driveMateService.getPostRouteTmp().getDriveReport().setEndLocation(submitRequestDTO.getEndLocation());
+        Route route = driveMateService.getPostRouteTmp();
+        String startLocation = driveMateService.CoordinateToAddress(startLat, startLon).replace("\"", "");
+        String endLocation = driveMateService.CoordinateToAddress(endLat, endLon).replace("\"", "");
+        ////////////////////////////
+
+        System.out.println(startLocation);
+        System.out.println(endLocation);
+
+        driveMateService.getPostRouteTmp().getDriveReport().setStartLocation(startLocation);
+        driveMateService.getPostRouteTmp().getDriveReport().setEndLocation(endLocation);
         driveMateService.getPostRouteTmp().getDriveReport().setStartTime(submitRequestDTO.getStartTime());
         driveMateService.getPostRouteTmp().getDriveReport().setEndTime(submitRequestDTO.getEndTime());
 
