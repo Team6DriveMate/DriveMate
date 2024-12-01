@@ -23,13 +23,18 @@ class UserViewModel : ViewModel() {
     var title by mutableStateOf("")
     private set
 
+    var level by mutableStateOf(0)
+    private set
+    var experience by mutableStateOf(0)
+        private set
+
 
 
     // 유저 정보 조회
     fun getUserInfo(username: String, context: Context, onResult: (UserInfoResponse?) -> Unit) {
         viewModelScope.launch {
             try {
-                val url = "http://10.0.2.2/user/info/$username"
+                val url = "http://10.0.2.2:8080/user/info/$username"
                 Log.d("UserViewModel", "API 호출 URL: $url")
 
                 val response = withContext(Dispatchers.IO) {
@@ -40,6 +45,8 @@ class UserViewModel : ViewModel() {
                     this@UserViewModel.username = username
                     nickname = userInfo?.nickname ?: ""
                     title = userInfo?.mainTitle?: ""
+                    this@UserViewModel.level = userInfo?.level?:0
+                    this@UserViewModel.experience = userInfo?.experience?:0
                     onResult(userInfo)
                 } else {
                     Toast.makeText(context, "유저 정보 조회 실패: ${response.message()}", Toast.LENGTH_SHORT).show()

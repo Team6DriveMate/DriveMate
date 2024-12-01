@@ -169,7 +169,7 @@ fun ProfileScreen(navController: NavController, selectedItem: MutableState<Int>,
                 ) {
                     Box(
                         modifier = Modifier
-                            .fillMaxWidth(0.7f) // 예시: 70% 차 있음
+                            .fillMaxWidth(viewModel.experience/100f) // 예시: 70% 차 있음
                             .fillMaxHeight()
                             .background(
                                 brush = Brush.linearGradient(
