@@ -67,7 +67,7 @@ fun LoginScreen(navController: NavController, viewModel: UserViewModel, context:
         Text(
             text = "Drive Mate",
             fontSize = 36.sp,
-            fontFamily = FontFamily(Font(R.font.poppins)),
+            fontFamily = FontFamily(Font(R.font.ydestreet)),
             fontWeight = FontWeight.Bold,
             color = Color.Black
         )

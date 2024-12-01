@@ -117,7 +117,7 @@ fun SegmentReportScreen(
                     if (segmentScreenIndex < totalSegments - 1) {
                         segmentScreenIndex += 1 // 다음 Segment로 이동
                     } else {
-                        navController.navigate("overallReportScreen") // 전체 리포트 화면으로 이동
+                        navController.navigate("overallReportScreen/${reportId}") // 전체 리포트 화면으로 이동
                     }
                 },
                 modifier = Modifier

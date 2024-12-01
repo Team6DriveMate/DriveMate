@@ -64,8 +64,25 @@ fun AppNavigation(navController: NavHostController) {
             )
         }
 
-        composable("overallReportScreen") {
-            OverallReportScreen(navController = navController)
+        composable("overallReportScreen/{reportId}",
+            arguments = listOf(
+                navArgument("reportId") { type = NavType.IntType },
+//                navArgument("totalSegments") { type = NavType.IntType }
+            )
+        ) { backStackEntry ->
+            val reportId = backStackEntry.arguments?.getInt("reportId") ?: 0
+            OverallReportScreen(reportId, navController = navController)
+        }
+
+        composable(
+            route = "sightAdjustmentReportScreen/{sightDegree}",
+            arguments = listOf(navArgument("sightDegree") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val sightDegree = backStackEntry.arguments?.getInt("sightDegree") ?: 0
+            SightAdjustmentReportScreen(
+                sightDegree = sightDegree,
+                navController = navController
+            )
         }
 
         composable("tipScreen") {

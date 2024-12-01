@@ -4,14 +4,12 @@ import android.content.Intent
 import android.graphics.Color
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.compose.ui.unit.dp
-import com.jeoktoma.drivemate.R
+import androidx.appcompat.app.AppCompatActivity
 import com.kakaomobility.knsdk.KNLanguageType
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
@@ -22,9 +20,7 @@ import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Align
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.MultipartPathOverlay
-import com.naver.maps.map.overlay.MultipartPathOverlay.ColorPart
 import com.naver.maps.map.overlay.OverlayImage
-import com.naver.maps.map.overlay.PathOverlay
 import com.naver.maps.map.util.FusedLocationSource
 import com.naver.maps.map.util.MarkerIcons
 import kotlinx.coroutines.CoroutineScope
@@ -147,7 +143,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                         val endmarker = Marker().apply {
                             position = LatLng(end_lat, end_lng)
                             icon = MarkerIcons.BLACK
-                            iconTintColor = Color.RED
+                            iconTintColor = Color.parseColor("#92A3FD")
                             captionText = "도착"
                             captionTextSize = 16f
                             setCaptionAligns(Align.Top)

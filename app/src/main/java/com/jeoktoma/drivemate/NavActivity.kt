@@ -90,7 +90,7 @@ class NavActivity : AppCompatActivity(), OnMapReadyCallback {
                     marker.captionText = selectedItem.first
                     marker.captionTextSize = 16f
                     marker.icon = MarkerIcons.BLACK
-                    marker.iconTintColor = Color.RED
+                    marker.iconTintColor = Color.parseColor("#92A3FD")
                     marker.isHideCollidedSymbols = true
                     marker.map = naverMap
 
