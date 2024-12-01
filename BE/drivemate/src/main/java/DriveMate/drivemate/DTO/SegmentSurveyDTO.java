@@ -13,4 +13,5 @@ public class SegmentSurveyDTO {
     private Boolean trafficLaws;
     private Boolean tensions;
     private Boolean laneConfusion;
+    private Integer segmentIndex;
 }

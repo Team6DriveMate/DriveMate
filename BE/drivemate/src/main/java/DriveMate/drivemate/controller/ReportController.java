@@ -352,6 +352,7 @@ public class ReportController {
             segmentSurveyDTO.setTrafficLaws(semiRouteSurvey.getTrafficLaws());
             segmentSurveyDTO.setTensions(semiRouteSurvey.getTension());
             segmentSurveyDTO.setLaneConfusion(semiRouteSurvey.getLaneConfusion());
+            segmentSurveyDTO.setSegmentIndex(semiRouteSurvey.getSemiRouteLineString().getNumIndex());
             driveReportRespondDTO.addSegment(segmentSurveyDTO);
         }
 
