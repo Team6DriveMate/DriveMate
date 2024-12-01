@@ -48,6 +48,7 @@ public class UserController {
             UserRespondDTO userRespondDTO = new UserRespondDTO();
             userRespondDTO.setNickname(user.getUserNickname());
             userRespondDTO.setUsername(user.getUserName());
+            userRespondDTO.setLevel(user.getLevel());
             userRespondDTO.setExperience(user.getExperience());
             userRespondDTO.setNextLevelExperience(100 - (user.getExperience() % 100));
             userRespondDTO.setMainTitle(user.getMainTitle());

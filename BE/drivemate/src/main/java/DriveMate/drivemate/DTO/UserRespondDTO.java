@@ -11,6 +11,7 @@ public class UserRespondDTO {
     private String nickname;
     private String username;
     private String mainTitle;
+    private Integer level;
     private Integer experience;
     private Integer nextLevelExperience;
     private List<String> weakPoint;
