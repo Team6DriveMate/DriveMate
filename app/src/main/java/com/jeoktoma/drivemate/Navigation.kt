@@ -49,15 +49,12 @@ fun AppNavigation(navController: NavHostController) {
         composable(
             route = "segmentReportScreen/{reportId}",
             arguments = listOf(
-                navArgument("reportId") { type = NavType.IntType },
-//                navArgument("totalSegments") { type = NavType.IntType }
+                navArgument("reportId") { type = NavType.IntType }
             )
         ) { backStackEntry ->
             val reportId = backStackEntry.arguments?.getInt("reportId") ?: 0
-//            val totalSegments = backStackEntry.arguments?.getInt("totalSegments") ?: 1
 
             val reportViewModel: ReportViewModel = viewModel()
-//            val surveyRequest = reportViewModel.getSurveyRequestForSegment(segmentIndex)
 
             SegmentReportScreen(
                 reportId = reportId,

@@ -64,7 +64,6 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
     private val showNext = mutableStateOf(true)
 
 
-
     val pathOutlineWidth = 5
 
     enum class MapState {
@@ -92,6 +91,7 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
                             MapState.SEGMENT -> {
                                 showSection(currentSection!!)
                             }
+
                             else -> Unit
                         }
                         // 이전 화면으로 돌아가기
@@ -144,10 +144,10 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
 
-     internal fun showFullRoute(getRouteResponse: GetRouteResponse) {
+    internal fun showFullRoute(getRouteResponse: GetRouteResponse) {
         currentState = MapState.FULL_ROUTE
         showBack.value = false
-         showNext.value = false
+        showNext.value = false
         clearMap()
 
         getRouteResponse.route.sections.forEach { section ->
@@ -181,8 +181,10 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
             val allPathPoints = section.segments.flatMap { it.path }
 
             // 전체 경로의 중간 지점을 찾습니다.
-            val avgPoint = Point((allPathPoints.first().lat + allPathPoints.last().lat)/2,
-                (allPathPoints.first().lng + allPathPoints.last().lng)/2)
+            val avgPoint = Point(
+                (allPathPoints.first().lat + allPathPoints.last().lat) / 2,
+                (allPathPoints.first().lng + allPathPoints.last().lng) / 2
+            )
 
             val midPoint = allPathPoints.minByOrNull { point ->
                 val latDiff = point.lat - avgPoint.lat
@@ -217,20 +219,20 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun toggleSectionHighlight(index: Int) {
         if (currentSectionIndex == index) {
             // 이미 선택된 섹션을 다시 클릭하면 하이라이트 제거
-            pathOverlays.filter{it.tag == index}.forEach {
+            pathOverlays.filter { it.tag == index }.forEach {
                 it.outlineWidth = 0
             }
-            infoWindows.find{it.tag == index}?.alpha = 0.7f
+            infoWindows.find { it.tag == index }?.alpha = 0.7f
             currentSectionIndex = -1
             showNext.value = false
         } else {
             // 새로운 섹션 선택
             pathOverlays.forEach { it.outlineWidth = 0 } // 모든 섹션의 하이라이트 제거
-            pathOverlays.filter{it.tag == index}.forEach {
+            pathOverlays.filter { it.tag == index }.forEach {
                 it.outlineWidth = pathOutlineWidth // 선택된 섹션에 테두리 추가
             }
             infoWindows.forEach { it.alpha = 0.7f }
-            infoWindows.find{it.tag == index}?.alpha = 1f
+            infoWindows.find { it.tag == index }?.alpha = 1f
             currentSectionIndex = index
             showNext.value = true
             // add
@@ -267,8 +269,10 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun addSegmentMarkers(section: GetSection) {
         section.segments.forEach { segment ->
             // 전체 경로의 중간 지점을 찾습니다.
-            val avgPoint = Point((segment.path.first().lat + segment.path.last().lat)/2,
-                (segment.path.first().lng + segment.path.last().lng)/2)
+            val avgPoint = Point(
+                (segment.path.first().lat + segment.path.last().lat) / 2,
+                (segment.path.first().lng + segment.path.last().lng) / 2
+            )
 
             val midPoint = segment.path.minByOrNull { point ->
                 val latDiff = point.lat - avgPoint.lat
@@ -303,20 +307,20 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun toggleSegmentHighlight(index: Int) {
         if (currentSegmentIndex == index) {
             // 이미 선택된 섹션을 다시 클릭하면 하이라이트 제거
-            pathOverlays.filter{it.tag == index}.forEach {
+            pathOverlays.filter { it.tag == index }.forEach {
                 it.outlineWidth = 0
             }
-            infoWindows.find{it.tag == index}?.alpha = 0.7f
+            infoWindows.find { it.tag == index }?.alpha = 0.7f
             currentSegmentIndex = -1
             showNext.value = false
         } else {
             // 새로운 섹션 선택
             pathOverlays.forEach { it.outlineWidth = 0 } // 모든 섹션의 하이라이트 제거
-            pathOverlays.filter{it.tag == index}.forEach {
+            pathOverlays.filter { it.tag == index }.forEach {
                 it.outlineWidth = pathOutlineWidth // 선택된 섹션에 테두리 추가
             }
             infoWindows.forEach { it.alpha = 0.7f }
-            infoWindows.find{it.tag == index}?.alpha = 1f
+            infoWindows.find { it.tag == index }?.alpha = 1f
             currentSegmentIndex = index
             showNext.value = true
         }
@@ -344,38 +348,39 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
 //        addCircleOverlay(segment.startPoint, Color.RED, "S")
 //        addCircleOverlay(segment.endPoint, Color.BLUE, "E")
         // TODO: 여기에 Segment 상세 정보를 표시하는 로직 추가
-//            when (currentState) {
-//                MapState.SEGMENT -> {
-//                    // ComposeView로 SegmentSurveyScreen 렌더링
-//                    val composeContainer = findViewById<FrameLayout>(R.id.compose_container)
-//                    composeContainer.visibility = View.VISIBLE
-//
-//                    // 기존 View를 삭제하고 새로운 ComposeView 렌더링
-//                    composeContainer.removeAllViews()
-//                    val composeView = ComposeView(this)
-//                    composeView.setContent {
-//                        SegmentSurveyScreen(
-//                            roadName = segment.roadName ?: "Unnamed Road",
-//                            segmentIndex = segment.segmentIndex!!.toInt() ?: 0,
-//                            totalSegments = 3, // 총 세그먼트 수를 전달합니다.
-//                            surveyViewModel = SurveyViewModel(),
-//                            segmentCoords = path.coords, // 지도 경로 전달
-//                            context = this,
-//                            onExitSurvey = {
-//                                composeContainer.removeAllViews()
-//                                composeContainer.visibility = View.GONE
-//                                mapView.getMapAsync(this)
-////                                showFullRoute(getRouteResponse)
-//                            }
-//                        )
-//                    }
-//                    composeContainer.addView(composeView)
-//                }
-//                else -> null
-//            }
-//        }
+        when (currentState) {
+            MapState.SEGMENT -> {
+                // ComposeView로 SegmentSurveyScreen 렌더링
+                val composeContainer = findViewById<FrameLayout>(R.id.compose_container)
+                composeContainer.visibility = View.VISIBLE
 
+                // 기존 View를 삭제하고 새로운 ComposeView 렌더링
+                composeContainer.removeAllViews()
+                val composeView = ComposeView(this)
+                composeView.setContent {
+                    SegmentSurveyScreen(
+                        roadName = segment.roadName ?: "Unnamed Road",
+                        segmentIndex = segment.segmentIndex!!.toInt() ?: 0,
+                        totalSegments = 3, // 총 세그먼트 수를 전달합니다.
+                        surveyViewModel = SurveyViewModel(),
+                        segmentCoords = path.coords, // 지도 경로 전달
+                        context = this,
+                        onExitSurvey = {
+                            composeContainer.removeAllViews()
+                            composeContainer.visibility = View.GONE
+                            mapView.getMapAsync(this)
+                            showFullRoute(getRouteResponse)
+                        }
+                    )
+                }
+                composeContainer.addView(composeView)
+            }
+
+            else -> null
+        }
     }
+
+
 
 
     private fun getColorForTraffic(traffic: String): Int {

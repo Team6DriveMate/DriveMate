@@ -1,5 +1,6 @@
 package com.jeoktoma.drivemate
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -39,7 +40,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.geometry.LatLngBounds
+import com.naver.maps.map.CameraPosition
+import com.naver.maps.map.CameraUpdate
+import com.naver.maps.map.compose.CameraPositionState
+import com.naver.maps.map.compose.ExperimentalNaverMapApi
+import com.naver.maps.map.compose.MapUiSettings
+import com.naver.maps.map.compose.NaverMap
+import com.naver.maps.map.compose.PathOverlay
+import com.naver.maps.map.compose.rememberCameraPositionState
 
+
+@OptIn(ExperimentalNaverMapApi::class)
 @Composable
 fun SegmentReportScreen(
     reportId: Int,
@@ -49,8 +62,8 @@ fun SegmentReportScreen(
 ) {
     val context = LocalContext.current
     var detailReport by remember { mutableStateOf<DetailReportResponse?>(null) }
-    var isLoading by remember { mutableStateOf(true) }
-    var segmentIndex by remember { mutableStateOf(0) } // 현재 표시 중인 Segment Index
+    var isLoading by remember { mutableStateOf(false) }
+    var segmentScreenIndex by remember { mutableStateOf(0) } // 현재 표시 중인 Segment Index
 
 
 
@@ -60,7 +73,9 @@ fun SegmentReportScreen(
         isLoading = false
     }
 
-    val totalSegments = detailReport?.segmentSurveys?.size?:0
+    val totalSegments = detailReport?.segmentSurveys?.size ?: 0
+    Log.d("segmentreportscreen", "reportID = ${reportId}")
+    Log.d("segmentreportscreen", "${detailReport}")
 
     Scaffold(
         topBar = {
@@ -71,19 +86,20 @@ fun SegmentReportScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                IconButton(onClick = { navController.popBackStack() }) {
-                    if (segmentIndex > 0) {
-                        segmentIndex -= 1 // 이전 Segment로 이동
+                IconButton(onClick = {
+                    if (segmentScreenIndex > 0) {
+                        segmentScreenIndex -= 1 // 이전 Segment로 이동
                     } else {
                         navController.popBackStack() // 이전 화면으로 이동
                     }
+                }) {
                     Icon(
                         imageVector = Icons.Default.ArrowBackIosNew,
                         contentDescription = "Back"
                     )
                 }
                 Text(
-                    text = "구간 리포트 (${segmentIndex + 1}/$totalSegments)",
+                    text = "구간 리포트 (${segmentScreenIndex + 1}/${totalSegments})",
                     style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
                     fontFamily = FontFamily(Font(R.font.freesentation))
                 )
@@ -98,8 +114,8 @@ fun SegmentReportScreen(
         bottomBar = {
             Button(
                 onClick = {
-                    if (segmentIndex < totalSegments - 1) {
-                        segmentIndex += 1 // 다음 Segment로 이동
+                    if (segmentScreenIndex < totalSegments - 1) {
+                        segmentScreenIndex += 1 // 다음 Segment로 이동
                     } else {
                         navController.navigate("overallReportScreen") // 전체 리포트 화면으로 이동
                     }
@@ -141,7 +157,7 @@ fun SegmentReportScreen(
             }
         } else {
             detailReport?.let { report ->
-                val currentSegment = report.segmentSurveys.getOrNull(segmentIndex)
+                val currentSegment = report.segmentSurveys.getOrNull(segmentScreenIndex)
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -156,11 +172,55 @@ fun SegmentReportScreen(
                             .height(350.dp)
                             .background(Color.LightGray, shape = RoundedCornerShape(16.dp))
                     ) {
-                        Text(
-                            text = "지도 placeholder",
-                            modifier = Modifier.align(Alignment.Center)
-                        )
+                        val segment = report.path.route.segments[currentSegment!!.segmentIndex]
+                        val cameraPositionState:CameraPositionState = rememberCameraPositionState{
+                            position = CameraPosition(
+                                LatLng((segment.startPoint.lat + segment.endPoint.lat)/2,
+                                (segment.startPoint.lng + segment.endPoint.lng)/2), 11.0)
+                        }
+
+                        var mapUiSettings by remember {
+                            mutableStateOf(
+                                MapUiSettings(isScrollGesturesEnabled = false,
+                                    isZoomGesturesEnabled = false,
+                                    isTiltGesturesEnabled = false,
+                                    isRotateGesturesEnabled = false,
+                                    isLocationButtonEnabled = false,
+                                    isCompassEnabled = false,
+                                    isScaleBarEnabled = false,
+                                    isZoomControlEnabled = false
+                                    )
+                            )
+                        }
+
+                        NaverMap(modifier = Modifier.fillMaxSize(),
+                            cameraPositionState = cameraPositionState,
+                            uiSettings = mapUiSettings,
+                            onMapLoaded = {
+                                cameraPositionState.move(CameraUpdate.fitBounds(
+                                    LatLngBounds.Builder()
+                                        .include(LatLng(segment.startPoint.lat, segment.startPoint.lng))
+                                        .include(LatLng(segment.endPoint.lat, segment.endPoint.lng))
+                                        .build(), 100))
+                            }
+                        ) {
+                            PathOverlay(
+                                coords = segment.path.map { LatLng(it.lat, it.lng) },
+                                color = when(segment.traffic){
+                                    "1" -> Color.Green  // 원활
+                                    "2" -> Color.Yellow // 서행
+                                    "3" -> Color(0xFFFFA500)// 지체
+                                    "4" -> Color.Red   // 정체
+                                    else -> Color.Gray // 알 수 없음
+                                    },
+                                width = 10.dp, // 경로의 두께 설정
+                                outlineColor = Color.Black,
+                                outlineWidth = 2.dp
+                            )
+
+                        }
                     }
+
 
                     Spacer(modifier = Modifier.height(16.dp))
 
@@ -273,7 +333,7 @@ fun SegmentReportScreen(
 //    val dummyNavController = object : NavController(LocalContext.current) {}
 //
 //    SegmentReportScreen(
-//        segmentIndex = 0,
+//        segmentScreenIndex = 0,
 //        totalSegments = 3,
 //        surveyRequest = dummySurveyRequest,
 //        navController = dummyNavController // 프리뷰용 NavController

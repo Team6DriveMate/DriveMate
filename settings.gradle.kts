@@ -17,6 +17,7 @@ dependencyResolutionManagement {
         maven("https://devrepo.kakaomobility.com/repository/kakao-mobility-android-knsdk-public/")
         maven("https://www.jitpack.io")
         maven("https://devrepo.kakao.com/nexus/content/groups/public/")
+        maven("https://repository.map.naver.com/archive/maven")
     }
 }
 

@@ -140,6 +140,7 @@ fun ReportScreen(navController: NavController, selectedItem: MutableState<Int>) 
                 itemsIndexed(reports) { index, report ->
                     Column(modifier = Modifier.fillMaxWidth()) {
                         ReportItem(report, onClick = {
+                            Log.d("reportscreen", "reportID = ${report.reportId}")
                             navController.navigate("segmentReportScreen/${report.reportId}")
                         })
 

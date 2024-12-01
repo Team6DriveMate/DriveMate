@@ -1,6 +1,7 @@
 package com.jeoktoma.drivemate
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -124,6 +125,7 @@ suspend fun getReportDetail(reportId:Int,context: Context): DetailReportResponse
         } else {
             // 실패 시 UI 스레드에서 토스트 메시지 표시
             withContext(Dispatchers.Main) {
+                Log.e("ReportService", "서버 오류: ${response.code()}")
                 Toast.makeText(context, "서버 오류: ${response.code()}", Toast.LENGTH_LONG).show()
             }
             null  // 실패 시 null 반환
@@ -131,6 +133,7 @@ suspend fun getReportDetail(reportId:Int,context: Context): DetailReportResponse
     } catch (e: Exception) {
         // 네트워크 오류 발생 시 예외 처리 및 토스트 메시지 표시
         withContext(Dispatchers.Main) {
+            Log.e("ReportService", "네트워크 오류: ${e.message}")
             Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_LONG).show()
         }
         null  // 오류 발생 시 null 반환
