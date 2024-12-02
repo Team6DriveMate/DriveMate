@@ -28,6 +28,8 @@ class UserViewModel : ViewModel() {
     var experience by mutableStateOf(0)
         private set
 
+    var weakPoints by mutableStateOf(listOf("0"))
+
 
 
     // 유저 정보 조회
@@ -47,6 +49,7 @@ class UserViewModel : ViewModel() {
                     title = userInfo?.mainTitle?: ""
                     this@UserViewModel.level = userInfo?.level?:0
                     this@UserViewModel.experience = userInfo?.experience?:0
+                    this@UserViewModel.weakPoints = userInfo?.weakPoints?:listOf("0")
                     onResult(userInfo)
                 } else {
                     Toast.makeText(context, "유저 정보 조회 실패: ${response.message()}", Toast.LENGTH_SHORT).show()

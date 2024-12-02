@@ -45,8 +45,8 @@ import androidx.navigation.NavController
 
 @Composable
 fun ProfileScreen(navController: NavController, selectedItem: MutableState<Int>, viewModel: UserViewModel) {
-    val nickname = remember { mutableStateOf("Gildong Hong") }
-    val userTitle = remember { mutableStateOf("코너링이 훌룡하시네요") }
+//    val nickname = remember { mutableStateOf("Gildong Hong") }
+//    val userTitle = remember { mutableStateOf("코너링이 훌룡하시네요") }
     val userInfo = remember { mutableStateOf<UserInfoResponse?>(null) }
     val username = viewModel.userInfo?.username?: ""
     val context = LocalContext.current
@@ -148,7 +148,7 @@ fun ProfileScreen(navController: NavController, selectedItem: MutableState<Int>,
 
                 // 레벨 바
                 Text(
-                    text = "Level ${user.level}",
+                    text = "Level ${viewModel.level}",
                     style = MaterialTheme.typography.bodyMedium.copy(
                         fontWeight = FontWeight.Bold,
                         fontSize = 23.sp,
@@ -195,8 +195,8 @@ fun ProfileScreen(navController: NavController, selectedItem: MutableState<Int>,
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Column {
-                    if(user.weakPoints != null) {
-                        user.weakPoints.forEach { weakPoint ->
+                    if(viewModel.weakPoints != null) {
+                        viewModel.weakPoints.forEach { weakPoint ->
                             Text(
                                 text = weakPoint,
                                 style = MaterialTheme.typography.bodyMedium.copy(

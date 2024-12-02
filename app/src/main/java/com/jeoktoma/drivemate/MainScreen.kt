@@ -320,6 +320,7 @@ fun MainScreen(navController: NavController, viewModel: UserViewModel, selectedI
                     )
                     .background(Color(0xFFF7F8F8), shape = RoundedCornerShape(16.dp))
                     .padding(16.dp)
+                    .clickable { navController.navigate("segmentReportScreen/${latestReport!!.reportId}") }
             ) {
                 Column {
                     Row(
