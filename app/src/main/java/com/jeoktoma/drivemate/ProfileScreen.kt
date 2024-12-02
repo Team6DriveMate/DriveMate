@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,6 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -169,7 +171,7 @@ fun ProfileScreen(navController: NavController, selectedItem: MutableState<Int>,
                 ) {
                     Box(
                         modifier = Modifier
-                            .fillMaxWidth(viewModel.experience/100f) // 예시: 70% 차 있음
+                            .fillMaxWidth(viewModel.experience / 100f) // 예시: 70% 차 있음
                             .fillMaxHeight()
                             .background(
                                 brush = Brush.linearGradient(
@@ -218,16 +220,22 @@ fun ProfileScreen(navController: NavController, selectedItem: MutableState<Int>,
                     horizontalArrangement = Arrangement.spacedBy(8.dp), // 칸 간격
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    items(user.titles.size) { index ->
-                        val title = user.titles[index] // 칭호 칸 6개 예시
+                    // 모든 칭호를 데이터베이스에서 불러온 전체 칭호 리스트 (ex. allTitles)로 처리
+                    val allTitles = listOf(
+                        "병아리 운전자", "도로 위 무법자", "평정심", "날씨의 아이", "눈이 두개지요", "사팔뜨기", "준법 시민", "드리블의 귀재", "그대 참치마요"
+                    )
+                    items(allTitles.size) { index ->
+                        val title = allTitles[index]
+//                        val isOwned = userInfo.value?.titles?.contains(title) == true // 칭호 보유 여부 확인
+
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .aspectRatio(1f) // 정사각형 칸
                                 .background(
-                                    Brush.linearGradient(
-                                        colors = listOf(Color(0xFFF5F5F5), Color(0xFFF5F5F5))
-                                    ),
+                                    color = if (false) Color(0xFFF5F5F5) else Color(0xFF000000).copy(
+                                        alpha = 0.7f
+                                    ), // 보유 여부에 따라 색상 변경
                                     shape = RoundedCornerShape(8.dp)
                                 )
                         ) {
@@ -238,19 +246,29 @@ fun ProfileScreen(navController: NavController, selectedItem: MutableState<Int>,
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.Center
                             ) {
+                                if (!false) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_lock), // 잠금 아이콘
+                                        contentDescription = "잠금 아이콘",
+                                        tint = Color.White, // 아이콘 색상
+                                        modifier = Modifier.size(24.dp) // 아이콘 크기
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(4.dp))
                                 Text(
-                                    text = title.name,
+                                    text = title,
                                     style = MaterialTheme.typography.bodyMedium.copy(
-                                        color = Color.Gray,
+                                        color = if (false) Color.Gray else Color.Gray, // 보유 여부에 따라 텍스트 색상 변경
                                         fontSize = 20.sp,
                                         fontFamily = FontFamily(Font(R.font.freesentation))
                                     )
                                 )
-                            }
 
+                            }
                         }
                     }
                 }
+
             }
         }
     }
