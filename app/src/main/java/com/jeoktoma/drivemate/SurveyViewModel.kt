@@ -3,6 +3,9 @@ package com.jeoktoma.drivemate
 
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
@@ -22,6 +25,15 @@ data class DriveReportResponse(
 )
 class SurveyViewModel : ViewModel() {
     private val surveyService = RetrofitInstance.surveyService
+
+    var switchLight: Int by mutableStateOf(0)
+    var sideMirror: Int by mutableStateOf(0)
+    var tension: Int by mutableStateOf(0)
+    var weather: Int by mutableStateOf(0)
+    var laneStaying: Int by mutableStateOf(0)
+    var sightDegree: Int by mutableStateOf(0)
+    var memo: String by mutableStateOf("")
+
 
     fun submitSegmentSurvey(
         segmentIndex: Int,

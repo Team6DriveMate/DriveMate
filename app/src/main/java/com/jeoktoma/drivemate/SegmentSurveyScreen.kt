@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -58,6 +59,7 @@ fun SegmentSurveyScreen(
     segmentCoords: List<LatLng>,
     traffic: String,
     roadType: String,
+    onBackSurvey: () -> Unit,
     onExitSurvey: () -> Unit // 추가
 ) {
     val surveyRequest = remember {
@@ -106,9 +108,7 @@ fun SegmentSurveyScreen(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 IconButton(onClick = {
-                    if (navController != null) {
-                        navController.popBackStack()
-                    }
+                    onBackSurvey()
                 }) {
                     Icon(
                         imageVector = Icons.Default.ArrowBackIosNew,
@@ -120,13 +120,12 @@ fun SegmentSurveyScreen(
                     style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
                     fontFamily = FontFamily(Font(R.font.freesentation))
                 )
-                if (navController != null) {
-                    ThreeDotMenu(navController = navController) {
-                        navController.navigate("loginScreen") {
-                            popUpTo("loginScreen") { inclusive = true }
-                        }
-                    }
-                }
+
+                Icon(
+                    imageVector = Icons.Default.MoreVert,
+                    contentDescription = "More",
+                    tint = Color.White
+                )
             }
         },
         bottomBar = {

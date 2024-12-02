@@ -113,6 +113,12 @@ fun OverallSurveyScreen(
 //                        }
 //                    }
                     if (navController != null) {
+                        surveyViewModel.switchLight = surveyRequest.value.switchLight
+                        surveyViewModel.laneStaying = surveyRequest.value.laneStaying
+                        surveyViewModel.sideMirror = surveyRequest.value.sideMirror
+                        surveyViewModel.tension = surveyRequest.value.tension
+                        surveyViewModel.weather = surveyRequest.value.weather
+                        surveyViewModel.memo = surveyRequest.value.memo
                         navController.navigate("sightAdjustmentScreen")
                     }
                 },
@@ -359,13 +365,26 @@ fun SightAdjustmentScreen(
         bottomBar = {
             Button(
                 onClick = {
+                    surveyViewModel.sightDegree = sightDegree
                     surveyViewModel.submitOverallSurvey(
-                        OverallSurveyRequest(0, 0, 0, 0, 0, 0, ""), // 예시 요청
+                        OverallSurveyRequest(surveyViewModel.switchLight,
+                            surveyViewModel.sideMirror,
+                            surveyViewModel.tension,
+                            surveyViewModel.weather,
+                            surveyViewModel.laneStaying,
+                            surveyViewModel.sightDegree,
+                            surveyViewModel.memo),
                         context
                     ) {
-                        //navController.navigate("reportScreen") {
-                        //    popUpTo("segmentSurveyScreen") { inclusive = true }
-                        //}
+                        val reportRequest = DriveReportRequest(
+                            startLocation = "출발지 예시",
+                            endLocation = "도착지 예시",
+                            startTime = "2024-11-15T13:00:00Z",
+                            endTime = "2024-11-15T13:30:00Z"
+                        )
+                        surveyViewModel.submitDriveReport(reportRequest, context) {
+                            navController.navigate("mainScreen")
+                        }
                     }
                 },
                 modifier = Modifier
@@ -388,7 +407,7 @@ fun SightAdjustmentScreen(
                         ),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = "Next", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily(Font(R.font.freesentation)))
+                    Text(text = "Submit", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily(Font(R.font.freesentation)))
                 }
             }
         }
@@ -473,49 +492,49 @@ fun SightAdjustmentScreen(
             )
 
             //submit
-            Button(
-                onClick = {
-                    val reportRequest = DriveReportRequest(
-                        startLocation = "출발지 예시",
-                        endLocation = "도착지 예시",
-                        startTime = "2024-11-15T13:00:00Z",
-                        endTime = "2024-11-15T13:30:00Z"
-                    )
-                    surveyViewModel.submitDriveReport(reportRequest, context) { driveId ->
-                        //navController.navigate("reportScreen/$driveId") {
-                          //  popUpTo("segmentSurveyScreen") { inclusive = true }
-                        //}
-                    }
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 16.dp)
-                    .height(56.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                contentPadding = PaddingValues()
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(
-                            Brush.linearGradient(
-                                colors = listOf(
-                                    Color(0xFF92A3FD),
-                                    Color(0xFF9DCEFF)
-                                )
-                            )
-                        ),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "Submit",
-                        color = Color.White,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily(Font(R.font.freesentation))
-                    )
-                }
-            }
+//            Button(
+//                onClick = {
+//                    val reportRequest = DriveReportRequest(
+//                        startLocation = "출발지 예시",
+//                        endLocation = "도착지 예시",
+//                        startTime = "2024-11-15T13:00:00Z",
+//                        endTime = "2024-11-15T13:30:00Z"
+//                    )
+//                    surveyViewModel.submitDriveReport(reportRequest, context) { driveId ->
+//                        //navController.navigate("reportScreen/$driveId") {
+//                          //  popUpTo("segmentSurveyScreen") { inclusive = true }
+//                        //}
+//                    }
+//                },
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(horizontal = 16.dp, vertical = 16.dp)
+//                    .height(56.dp),
+//                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+//                contentPadding = PaddingValues()
+//            ) {
+//                Box(
+//                    modifier = Modifier
+//                        .fillMaxSize()
+//                        .background(
+//                            Brush.linearGradient(
+//                                colors = listOf(
+//                                    Color(0xFF92A3FD),
+//                                    Color(0xFF9DCEFF)
+//                                )
+//                            )
+//                        ),
+//                    contentAlignment = Alignment.Center
+//                ) {
+//                    Text(
+//                        text = "Submit",
+//                        color = Color.White,
+//                        fontSize = 20.sp,
+//                        fontWeight = FontWeight.Bold,
+//                        fontFamily = FontFamily(Font(R.font.freesentation))
+//                    )
+//                }
+//            }
 
 //            // 드래그 가능한 박스
 //            Box(

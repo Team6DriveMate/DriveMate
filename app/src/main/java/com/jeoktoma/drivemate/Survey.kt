@@ -25,6 +25,7 @@ public class SegmentSurveyDTO {
 
  */
 
+
 data class OverallSurveyRequest(
     val switchLight: Int,
     val sideMirror: Int,

@@ -21,6 +21,8 @@ import com.google.gson.reflect.TypeToken
 fun AppNavigation(navController: NavHostController) {
     val selectedItem = remember { mutableStateOf(0) }
     val sharedViewModel: UserViewModel = remember { UserViewModel() }
+    val surveyRequest = remember { mutableStateOf(OverallSurveyRequest(0, 0, 0, 0, 0, 0, "")) }
+
 
     NavHost(navController = navController, startDestination = "loginScreen") {
         composable("loginScreen") {

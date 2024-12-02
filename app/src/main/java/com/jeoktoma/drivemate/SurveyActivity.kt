@@ -80,32 +80,7 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
-        // TopBar를 Compose로 추가
-        val composeContainer = findViewById<FrameLayout>(R.id.compose_container_topbar)
-        composeContainer.addView(ComposeView(this).apply {
-            setContent {
-                TopBar(
-                    onBackPressed = {
-                        when (currentState) {
-                            MapState.SECTION -> showFullRoute(getRouteResponse)
-                            MapState.SEGMENT -> {
-                                showSection(currentSection!!)
-                            }
 
-                            else -> Unit
-                        }
-                        // 이전 화면으로 돌아가기
-                    },
-                    onNextPressed = {
-                        when (currentState) {
-                            MapState.FULL_ROUTE -> currentSection?.let { showSection(it) }
-                            MapState.SECTION -> currentSegment?.let { showSegment(it) }
-                            else -> Unit
-                        }
-                    }, showBack.value, showNext.value
-                )
-            }
-        })
 
 
     }
@@ -133,10 +108,32 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
                     val intent = Intent(this@SurveyActivity, OverallSurveyActivity::class.java)
                     startActivity(intent)
                 }
-
-
                 // 초기 상태에서 버튼 보이기
                 btnPass.visibility = View.VISIBLE
+
+                // TopBar를 Compose로 추가
+                val composeContainer = findViewById<FrameLayout>(R.id.compose_container_topbar)
+                composeContainer.addView(ComposeView(this@SurveyActivity).apply {
+                    setContent {
+                        TopBar(
+                            onBackPressed = {
+                                when (currentState) {
+                                    MapState.SECTION -> showFullRoute(getRouteResponse)
+                                    MapState.SEGMENT -> showSection(currentSection!!)
+                                    else -> Unit
+                                }
+                                // 이전 화면으로 돌아가기
+                            },
+                            onNextPressed = {
+                                when (currentState) {
+                                    MapState.FULL_ROUTE -> currentSection?.let { showSection(it) }
+                                    MapState.SECTION -> currentSegment?.let { showSegment(it) }
+                                    else -> Unit
+                                }
+                            }, showBack.value, showNext.value
+                        )
+                    }
+                })
 
                 showFullRoute(getRouteResponse)
             }
@@ -354,6 +351,10 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
                 val composeContainer = findViewById<FrameLayout>(R.id.compose_container)
                 composeContainer.visibility = View.VISIBLE
 
+                // Hide btnPass when navigating to SegmentSurveyScreen
+                val btnPass = findViewById<Button>(R.id.btn_pass)
+                btnPass.visibility = View.GONE
+
                 // 기존 View를 삭제하고 새로운 ComposeView 렌더링
                 composeContainer.removeAllViews()
                 val composeView = ComposeView(this)
@@ -373,6 +374,12 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
                             else -> "혼잡도 정보 없음"
                         },
                         roadType = segment.roadType,
+                        onBackSurvey = {
+                            composeContainer.removeAllViews()
+                            composeContainer.visibility = View.GONE
+                            mapView.getMapAsync(this)
+                            showSection(currentSection!!)
+                        },
                         onExitSurvey = {
                             composeContainer.removeAllViews()
                             composeContainer.visibility = View.GONE
