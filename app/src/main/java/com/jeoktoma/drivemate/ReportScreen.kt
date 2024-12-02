@@ -47,13 +47,6 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun ReportScreen(navController: NavController, selectedItem: MutableState<Int>) {
-    // 샘플 데이터
-//    val reports: List<ReportData> = listOf(
-//        ReportData("제목1", "2024/11/11 오전 11:11"),
-//        ReportData("제목2", "2024/10/31 오후 12:14"),
-//        ReportData("제목3", "2024/10/26 오후 2:44")
-//    )
-
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val surveyViewModel: SurveyViewModel = viewModel() // ViewModel 선언
@@ -195,7 +188,7 @@ fun ReportItem(report: Report, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = Color(0xFFF9F9F9), shape = RoundedCornerShape(8.dp))
+            .background(color = Color.White, shape = RoundedCornerShape(8.dp))
             .clickable { onClick() }
             .padding(vertical = 16.dp, horizontal = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,

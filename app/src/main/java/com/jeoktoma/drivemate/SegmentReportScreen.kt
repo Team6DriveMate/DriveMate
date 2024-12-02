@@ -287,7 +287,7 @@ fun SegmentReportScreen(
                                 ) {
                                     Column {
                                         Text(
-                                            text = "이 구간에서 다음과 같은 문제를 겪으셨네요!",
+                                            text = "해당 구간에서 다음과 같은 문제가 발생했습니다",
                                             style = MaterialTheme.typography.bodyLarge.copy(
                                                 fontWeight = FontWeight.Bold
                                             ),
