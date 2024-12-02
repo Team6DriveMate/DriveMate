@@ -56,6 +56,8 @@ fun SegmentSurveyScreen(
     context: Context,
     navController: NavController? = null,
     segmentCoords: List<LatLng>,
+    traffic: String,
+    roadType: String,
     onExitSurvey: () -> Unit // 추가
 ) {
     val surveyRequest = remember {
@@ -226,7 +228,7 @@ fun SegmentSurveyScreen(
                     .background(Color.White) // 배경색 지정
             ) {
                 QuestionToggle(
-                    title = "교통 혼잡도가 ‘’로 높았습니다",
+                    title = "교통 혼잡도가 ${traffic}로 높았습니다",
                     description = "교통 혼잡도에 문제가 있었나요?",
                     isChecked = surveyRequest.value.trafficCongestion,
                     onCheckedChange = { isChecked ->
@@ -235,8 +237,8 @@ fun SegmentSurveyScreen(
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 QuestionToggle(
-                    title = "해당 도로의 타입은 ‘‘ 이었습니다",
-                    description = "‘’가 익숙하지 않았나요?",
+                    title = "해당 도로의 타입은 ${roadType}이었습니다",
+                    description = "${roadType} 도로가 익숙하지 않았나요?",
                     isChecked = surveyRequest.value.roadType,
                     onCheckedChange = { isChecked ->
                         surveyRequest.value = surveyRequest.value.copy(roadType = isChecked)
