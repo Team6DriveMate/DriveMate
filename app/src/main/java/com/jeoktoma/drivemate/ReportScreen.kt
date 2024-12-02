@@ -15,7 +15,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.filled.Map
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -95,17 +95,37 @@ fun ReportScreen(navController: NavController, selectedItem: MutableState<Int>) 
                     style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
                     fontFamily = FontFamily(Font(R.font.freesentation))
                 )
-                ThreeDotMenu(navController = navController) {
-                    navController.navigate("loginScreen") {
-                        popUpTo("loginScreen") { inclusive = true }
+                IconButton(onClick = {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        val completeResponse = performCompleteService(
+                            Point(37.5050, 126.9539), // 시작 좌표
+                            Point(37.5666, 126.9782), // 종료 좌표
+                            null, // 경유지 좌표 없음
+                            context // 컨텍스트
+                        )
+
+                        if (completeResponse != null) {
+                            // 서버에서 받은 응답 확인 (디버깅용 로그 추가)
+                            Log.d("SegmentSurveyScreen", "Complete Response: $completeResponse")
+                        } else {
+                            Log.e("SegmentSurveyScreen", "Complete 호출 실패")
+                        }
                     }
+
+                    CoroutineScope(Dispatchers.Main).launch {
+                        val intent = Intent(context, SurveyActivity::class.java)
+                        context.startActivity(intent)
+                    }
+                }) {
+                    Icon(
+                        imageVector = Icons.Default.Map,
+                        contentDescription = "Segment Survey Screen"
+                    )
                 }
             }
         },
         bottomBar = { BottomNavigationBar(navController, selectedItem) }
     ) { padding ->
-
-
 //        performCompleteService(Point(37.5050, 126.9539), Point(37.5666, 126.9782),
 //            null, context)
 
@@ -147,38 +167,6 @@ fun ReportScreen(navController: NavController, selectedItem: MutableState<Int>) 
                 }
             }
         }
-
-        Button(onClick = {
-//            navController.navigate("segmentSurveyScreen/1/0/3")
-            CoroutineScope(Dispatchers.Main).launch {
-                val completeResponse = performCompleteService(
-                    Point(37.5050, 126.9539), // 시작 좌표
-                    Point(37.5666, 126.9782), // 종료 좌표
-                    null, // 경유지 좌표 없음
-                    context // 컨텍스트
-                )
-
-                if (completeResponse != null) {
-                    // 서버에서 받은 응답 확인 (디버깅용 로그 추가)
-                    Log.d("SegmentSurveyScreen", "Complete Response: $completeResponse")
-                } else {
-                    Log.e("SegmentSurveyScreen", "Complete 호출 실패")
-                }
-            }
-
-            CoroutineScope(Dispatchers.Main).launch {
-                val intent = Intent(context, SurveyActivity::class.java)
-                context.startActivity(intent)
-            }
-        }) {
-            Text(text = "SegmentSurveyScreen")
-        }
-
-//        Spacer(modifier = Modifier.height(16.dp))
-//
-//        Button(onClick = {  navController.navigate("overallSurveyScreen") }) {
-//        Text(text = "OverallSurveyScreen")
-//        }
     }
 
 }
