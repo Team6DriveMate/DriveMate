@@ -25,7 +25,7 @@ public class User {
 
     private String userNickname;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Title> titleList = new ArrayList<>();
 
     // Title 아닌 String으로 Title의 name만 받아온다
@@ -134,40 +134,50 @@ public class User {
         title9.setUser(this);
     }
 
-    public void updateTitle(){
-        if (this.weakPoints.get("trafficCongestion") >= 5) {
+    public List<String> updateTitle(){
+        List<String> obtainedTitleList = new ArrayList<>();
+        if (this.weakPoints.get("trafficCongestion") >= 1 && !titleList.get(1).isObtained()) {
             titleList.get(1).setObtained(true);
             titleList.get(1).setObtainedTime(""); // 현재 시간
+            obtainedTitleList.add("trafficCongestion");
         }
-        if (this.weakPoints.get("laneStaying") >= 5) {
+        if (this.weakPoints.get("laneStaying") >= 1 && !titleList.get(2).isObtained()) {
             titleList.get(2).setObtained(true);
             titleList.get(2).setObtainedTime(""); // 현재 시간
+            obtainedTitleList.add("laneStaying");
         }
-        if (this.weakPoints.get("weather") >= 5) {
+        if (this.weakPoints.get("weather") >= 5 && !titleList.get(3).isObtained()) {
             titleList.get(3).setObtained(true);
             titleList.get(3).setObtainedTime(""); // 현재 시간
+            obtainedTitleList.add("weather");
         }
-        if (this.weakPoints.get("sightDegree") >= 5) {
+        if (this.weakPoints.get("sightDegree") >= 5 && !titleList.get(4).isObtained()) {
             titleList.get(4).setObtained(true);
             titleList.get(4).setObtainedTime(""); // 현재 시간
+            obtainedTitleList.add("sightDegree");
         }
-        if (this.weakPoints.get("sideMirror") >= 5) {
+        if (this.weakPoints.get("sideMirror") >= 5 && !titleList.get(5).isObtained()) {
             titleList.get(5).setObtained(true);
             titleList.get(5).setObtainedTime(""); // 현재 시간
+            obtainedTitleList.add("sideMirror");
         }
-        if (this.weakPoints.get("trafficLaws") >= 5) {
+        if (this.weakPoints.get("trafficLaws") >= 5 && !titleList.get(6).isObtained()) {
             titleList.get(6).setObtained(true);
             titleList.get(6).setObtainedTime(""); // 현재 시간
+            obtainedTitleList.add("trafficLaws");
         }
-        if (this.weakPoints.get("switchLight") >= 5) {
+        if (this.weakPoints.get("switchLight") >= 5 && !titleList.get(7).isObtained()) {
             titleList.get(7).setObtained(true);
             titleList.get(7).setObtainedTime(""); // 현재 시간
+            obtainedTitleList.add("switchLight");
         }
-        if (this.weakPoints.get("tension") >= 5) {
+        if (this.weakPoints.get("tension") >= 5 && !titleList.get(8).isObtained()) {
             titleList.get(8).setObtained(true);
             titleList.get(8).setObtainedTime(""); // 현재 시간
+            obtainedTitleList.add("tension");
         }
 
+        return obtainedTitleList;
     }
 
     public void updateExperienceByRoute(){

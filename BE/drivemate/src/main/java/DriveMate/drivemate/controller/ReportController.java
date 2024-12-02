@@ -299,13 +299,25 @@ public class ReportController {
         User user = userService.getCurrentUser();
         user.updateExperienceByRoute();
         user.expToLevel();
-        user.updateTitle(); // 타이틀이 업데이트 되었음을 어떻게 알려줄 것인가?
+        List<String> obtainedTitleList = user.updateTitle();
+
+        SubmitRespondDTO submitRespondDTO = new SubmitRespondDTO();
+        submitRespondDTO.setSuccess(true);
+        if (!obtainedTitleList.isEmpty()) {
+            submitRespondDTO.setTitleUpdate(true);
+            for (String titleName : obtainedTitleList){
+                ObtainedTitleDTO obtainedTitleDTO = new ObtainedTitleDTO();
+                obtainedTitleDTO.setTitle(titleName);
+                submitRespondDTO.addTitle(obtainedTitleDTO);
+            }
+        }
+        else{
+            submitRespondDTO.setTitleUpdate(false);
+        }
 
         userService.updateUser(userService.getCurrentUser());
         driveMateService.saveRoute(driveMateService.getPostRouteTmp());
 
-        SubmitRespondDTO submitRespondDTO = new SubmitRespondDTO();
-        submitRespondDTO.setSuccess(true);
         return submitRespondDTO;
     }
 

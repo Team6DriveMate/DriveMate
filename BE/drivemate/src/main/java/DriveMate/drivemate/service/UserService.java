@@ -29,8 +29,6 @@ public class UserService {
 
     public User createUser(String username, String password, String userNickname){
         User user = User.createUser(username, password, userNickname);
-        user.setInitialTitle();
-        user.setInitialWeakPoint();
         return user;
     }
 

@@ -54,10 +54,12 @@ public class UserController {
             userRespondDTO.setMainTitle(user.getMainTitle());
             userRespondDTO.setWeakPoint(user.getTop3WeakPoints());
             for (Title title : user.getTitleList()) {
-                TitleDTO titleDTO = new TitleDTO();
-                titleDTO.setName(title.getName());
-                titleDTO.setDateObtained(title.getObtainedTime());
-                userRespondDTO.addTitleDTO(titleDTO);
+                if(title.isObtained()){
+                    TitleDTO titleDTO = new TitleDTO();
+                    titleDTO.setName(title.getName());
+                    titleDTO.setDateObtained(title.getObtainedTime());
+                    userRespondDTO.addTitleDTO(titleDTO);
+                }
             }
             return userRespondDTO;
         } catch (Exception e){
