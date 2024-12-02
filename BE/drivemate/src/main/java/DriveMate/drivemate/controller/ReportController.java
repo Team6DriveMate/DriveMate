@@ -522,7 +522,7 @@ public class ReportController {
         return driveReportRespondDTO;
     }
 
-    @PostMapping("/")
+    @PostMapping("/read")
     public SuccessRespondDTO checkReport(){
         SuccessRespondDTO successRespondDTO = new SuccessRespondDTO();
         try {
