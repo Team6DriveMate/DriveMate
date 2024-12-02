@@ -30,6 +30,8 @@ class UserViewModel : ViewModel() {
 
     var weakPoints by mutableStateOf(listOf("0"))
 
+    var titles by mutableStateOf(listOf(Title("", "")))
+
 
 
     // 유저 정보 조회
@@ -49,7 +51,24 @@ class UserViewModel : ViewModel() {
                     title = userInfo?.mainTitle?: ""
                     this@UserViewModel.level = userInfo?.level?:0
                     this@UserViewModel.experience = userInfo?.experience?:0
-                    this@UserViewModel.weakPoints = userInfo?.weakPoints?:listOf("0")
+                    this@UserViewModel.weakPoints = (userInfo?.weakPoint?:listOf("아직 취약점 데이터가 없습니다.")).map { weakpoint ->
+                        when (weakpoint) {
+                            "switchLight" -> "방향등"
+                            "sideMirror" -> "사이드미러"
+                            "tension" -> "긴장도"
+                            "weather" -> "날씨"
+                            "laneStaying" -> "차선 유지"
+                            "laneSwitch" -> "차선 변경"
+                            "laneConfusion" -> "차선 혼동"
+                            "trafficLaws" -> "교통 법규 준수"
+                            "situationDecision" -> "상황 판단"
+                            "sightDegree" -> "시야각"
+                            "trafficCongestion" -> "혼잡도"
+                            "roadType" -> "도로 유형"
+                            else -> "아직 취약점 데이터가 없습니다."
+                        }
+                    }
+                    this@UserViewModel.titles = userInfo?.titles?: listOf(Title("", ""))
                     onResult(userInfo)
                 } else {
                     Toast.makeText(context, "유저 정보 조회 실패: ${response.message()}", Toast.LENGTH_SHORT).show()

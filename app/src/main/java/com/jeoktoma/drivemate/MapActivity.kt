@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ScrollView
@@ -247,18 +248,36 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         builder.setCustomTitle(customTitle)
 
+        // Retrieve the list from the intent
+        val weakPoints = intent.getStringArrayListExtra("weakpoints")
+
         // 유의사항 내용을 동적으로 생성
-        val message = StringBuilder()
+        val message = StringBuilder().apply {
+            padStart(50)
+        }
+        if (!weakPoints.isNullOrEmpty()) {
+            message.append("취약점 경고\n")
+            weakPoints?.let { weakpoint ->
+                message.append("$weakpoint ")
+            }
+            message.append(" 에서 취약합니다.\n\n")
+        }
         routeResponse.route.segments.forEach { segment ->
-//        message.append("구간 이름: ${segment.name}\n")
-//        message.append("혼잡도: ${segment.traffic}\n")
-//        if (segment.roadType.isNotEmpty()) {
-//            message.append("도로 유형: ${segment.roadType}\n")
-//        }
-//        if (segment.isWeakness) {
-//            message.append("취약점 경고: 이 구간에서 어려움이 예상됩니다.\n")
-//        }
-//        message.append("\n")
+            if (segment.traffic.toInt() > 2) {
+                val trafficString = when (segment.traffic) {
+                    "1" -> "원활"
+                    "2" -> "서행"
+                    "3" -> "지체"
+                    "4" -> "정체"
+                    else -> "정체 정보 없음"
+                }
+                message.append("구간 이름: ${segment.roadName}\n")
+                if(!segment.roadType.isNullOrEmpty()) {
+                    message.append("도로 유형: ${segment.roadType}\n")
+                }
+                message.append("이 구간의 혼잡도가 \"${trafficString}\"로 예상됩니다. 주의해주세요.\n")
+                message.append("\n")
+            }
         }
 
         // ScrollView로 텍스트를 스크롤 가능하도록 설정
@@ -267,7 +286,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         val textView = TextView(this).apply {
             text = message.toString()
             textSize = 16f
-            setPadding(16, 16, 16, 16)
+            setPadding(50, 16, 16, 16)
             setTypeface(typeface)
         }
         scrollView.addView(textView)

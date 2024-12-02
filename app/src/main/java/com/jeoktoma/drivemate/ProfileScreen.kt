@@ -226,14 +226,14 @@ fun ProfileScreen(navController: NavController, selectedItem: MutableState<Int>,
                     )
                     items(allTitles.size) { index ->
                         val title = allTitles[index]
-//                        val isOwned = userInfo.value?.titles?.contains(title) == true // 칭호 보유 여부 확인
+                        val isOwned = userInfo.value?.titles?.any {it.name == title}?:false // 칭호 보유 여부 확인
 
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .aspectRatio(1f) // 정사각형 칸
+                                .aspectRatio(1.2f) // 정사각형 칸
                                 .background(
-                                    color = if (false) Color(0xFFF5F5F5) else Color(0xFF000000).copy(
+                                    color = if (isOwned) Color(0xFFF5F5F5) else Color(0xFF000000).copy(
                                         alpha = 0.7f
                                     ), // 보유 여부에 따라 색상 변경
                                     shape = RoundedCornerShape(8.dp)
@@ -246,7 +246,7 @@ fun ProfileScreen(navController: NavController, selectedItem: MutableState<Int>,
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.Center
                             ) {
-                                if (!false) {
+                                if (!isOwned) {
                                     Icon(
                                         painter = painterResource(id = R.drawable.ic_lock), // 잠금 아이콘
                                         contentDescription = "잠금 아이콘",
@@ -258,7 +258,7 @@ fun ProfileScreen(navController: NavController, selectedItem: MutableState<Int>,
                                 Text(
                                     text = title,
                                     style = MaterialTheme.typography.bodyMedium.copy(
-                                        color = if (false) Color.Gray else Color.Gray, // 보유 여부에 따라 텍스트 색상 변경
+                                        color = if (isOwned) Color.Gray else Color.Gray, // 보유 여부에 따라 텍스트 색상 변경
                                         fontSize = 20.sp,
                                         fontFamily = FontFamily(Font(R.font.freesentation))
                                     )

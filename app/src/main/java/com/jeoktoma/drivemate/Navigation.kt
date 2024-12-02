@@ -2,6 +2,7 @@ package com.jeoktoma.drivemate
 
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -36,8 +37,9 @@ fun AppNavigation(navController: NavHostController) {
             val context = LocalContext.current
             LaunchedEffect(Unit) {
                 val intent = Intent(context, NavActivity::class.java)
+                val weakpoints = ArrayList<String>(sharedViewModel.weakPoints)
                 // 필요한 데이터를 전달
-                intent.putExtra("key", "value")
+                intent.putStringArrayListExtra("weakpoints", weakpoints)
                 context.startActivity(intent)
             }
         }
@@ -71,7 +73,7 @@ fun AppNavigation(navController: NavHostController) {
             )
         ) { backStackEntry ->
             val reportId = backStackEntry.arguments?.getInt("reportId") ?: 0
-            OverallReportScreen(reportId, navController = navController)
+            OverallReportScreen(reportId, navController = navController, context = LocalContext.current)
         }
 
         composable(
@@ -81,7 +83,8 @@ fun AppNavigation(navController: NavHostController) {
             val sightDegree = backStackEntry.arguments?.getInt("sightDegree") ?: 0
             SightAdjustmentReportScreen(
                 sightDegree = sightDegree,
-                navController = navController
+                navController = navController,
+                context = LocalContext.current
             )
         }
 

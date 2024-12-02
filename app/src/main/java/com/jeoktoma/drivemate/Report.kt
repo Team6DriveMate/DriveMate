@@ -53,3 +53,5 @@ data class Path(
     val totalTime: Int,
     val route: Route
 )
+
+data class readResponse(val success: Boolean)

@@ -32,6 +32,9 @@ interface ReportService {
 
     @GET("{reportId}")
     suspend fun detailReport(@Path("reportId") reportId: Int): Response<DetailReportResponse>
+
+    @POST("read")
+    suspend fun readReport(): Response<readResponse>
 }
 suspend fun performCompleteService(start_location:Point, end_location:Point, stopover_location:List<Point>?,
                                  context:Context): CompleteResponse? {
@@ -137,5 +140,31 @@ suspend fun getReportDetail(reportId:Int,context: Context): DetailReportResponse
             Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_LONG).show()
         }
         null  // 오류 발생 시 null 반환
+    }
+}
+
+suspend fun performReadReport(context:Context):Boolean {
+    return try {
+        withContext(Dispatchers.IO) {
+            val response = reportService.readReport()
+            if (response.isSuccessful && response.body()?.success == true) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "리포트 읽기 완료", Toast.LENGTH_SHORT).show()
+                }
+                true
+            } else {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "리포트 읽기 실패: ${response.code()}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                false
+            }
+        }
+    } catch (e: Exception) {
+        withContext(Dispatchers.Main) {
+            Log.e("signup", "${e.message}")
+            Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
+        false
     }
 }
