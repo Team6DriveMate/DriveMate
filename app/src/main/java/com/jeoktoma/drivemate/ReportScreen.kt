@@ -130,7 +130,6 @@ fun ReportScreen(navController: NavController, selectedItem: MutableState<Int>) 
                 Text("로딩 중...")
             }
         } else {
-
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()

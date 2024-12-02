@@ -5,7 +5,7 @@ data class ReportListResponse(
 )
 
 data class Report(
-    val reportId: String,
+    val reportId: Int,
     val title: String,
     val date: String,
     val time: String,
