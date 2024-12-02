@@ -11,7 +11,7 @@ data class UserInfoResponse(
     val level: Int,
     val experience: Int,
     val nextLevelExperience: Int,
-    val weakPoints: List<String>,
+    val weakPoint: List<String>,
     val titles: List<Title>
 )
 

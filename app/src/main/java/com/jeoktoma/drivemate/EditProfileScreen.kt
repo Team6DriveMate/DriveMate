@@ -154,42 +154,46 @@ fun EditProfileScreen(navController: NavController, selectedItem: MutableState<I
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 val titles = listOf("병아리 운전자", "도로 위 무법자", "평정심", "날씨의 아이", "눈이 두개지요", "사팔뜨기", "준법 시민", "드리블의 귀재", "그대 참치마요")
+
                 items(titles.size) { index ->
                     val title = titles[index]
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .aspectRatio(1f)
-                            .clip(RoundedCornerShape(8.dp))
-                            .background(
-                                brush = if (selectedTitle.value == title) {
-                                    Brush.linearGradient(
-                                        colors = listOf(Color(0xFF92A3FD), Color(0xFF9DCEFF))
-                                    )
-                                } else {
-                                    Brush.linearGradient(
-                                        colors = listOf(Color(0xFFF5F5F5), Color(0xFFF5F5F5))
-                                    )
-                                }
-                            )
-                            .clickable { selectedTitle.value = title }
-                    ) {
-                        Column(
+                    val isOwned = viewModel.titles?.any { it.name == title } ?: false // 칭호 보유 여부 확인
+                    if (isOwned) {
+                        Box(
                             modifier = Modifier
-                                .fillMaxSize()
-                                .padding(8.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Text(
-                                text = title,
-                                style = MaterialTheme.typography.bodyMedium.copy(
-                                    //fontWeight = FontWeight.Bold,
-                                    color = if (selectedTitle.value == title) Color.White else Color.Gray,
-                                    fontFamily = FontFamily(Font(R.font.freesentation)),
-                                    fontSize = 20.sp
+                                .fillMaxWidth()
+                                .aspectRatio(1.2f)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(
+                                    brush = if (selectedTitle.value == title) {
+                                        Brush.linearGradient(
+                                            colors = listOf(Color(0xFF92A3FD), Color(0xFF9DCEFF))
+                                        )
+                                    } else {
+                                        Brush.linearGradient(
+                                            colors = listOf(Color(0xFFF5F5F5), Color(0xFFF5F5F5))
+                                        )
+                                    }
                                 )
-                            )
+                                .clickable { selectedTitle.value = title }
+                        ) {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(8.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                Text(
+                                    text = title,
+                                    style = MaterialTheme.typography.bodyMedium.copy(
+                                        //fontWeight = FontWeight.Bold,
+                                        color = if (selectedTitle.value == title) Color.White else Color.Gray,
+                                        fontFamily = FontFamily(Font(R.font.freesentation)),
+                                        fontSize = 20.sp
+                                    )
+                                )
+                            }
                         }
                     }
                 }

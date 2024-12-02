@@ -345,6 +345,7 @@ fun MainScreen(navController: NavController, viewModel: UserViewModel, selectedI
                     )
                     .background(Color(0xFFF7F8F8), shape = RoundedCornerShape(16.dp))
                     .padding(16.dp)
+                    .clickable { navController.navigate("segmentReportScreen/${latestReport!!.reportId}") }
             ) {
                 Column {
                     Row(
@@ -357,7 +358,7 @@ fun MainScreen(navController: NavController, viewModel: UserViewModel, selectedI
                     ) {
                         Column {
                             Text(
-                                text = "저번 운행",
+                                text = "최근 운행",
                                 style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
                                 fontFamily = FontFamily(Font(R.font.freesentation)),
                                 fontSize = 20.sp

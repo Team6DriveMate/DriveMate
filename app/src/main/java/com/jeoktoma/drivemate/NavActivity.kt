@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,6 +64,9 @@ class NavActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nav)
+
+        // Retrieve the list from the intent
+        val weakPoints = intent.getStringArrayListExtra("weakpoints")
 
         // 목적지 입력 창
         destinationInput = findViewById(R.id.destination_input)
@@ -158,6 +162,8 @@ class NavActivity : AppCompatActivity(), OnMapReadyCallback {
             intent.putExtra("start_lng", cur_lng)
             intent.putExtra("latitude", marker.position.latitude)
             intent.putExtra("longitude", marker.position.longitude)
+
+            intent.putStringArrayListExtra("weakpoints", weakPoints)
 
             startActivity(intent)  // MapActivity로 전환
             finish()

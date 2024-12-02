@@ -1,5 +1,6 @@
 package com.jeoktoma.drivemate
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -49,11 +50,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Composable
 fun OverallReportScreen(
     reportId: Int,
-    navController: NavController
+    navController: NavController,
+    context: Context
 ) {
     val context = LocalContext.current
     var detailReport by remember { mutableStateOf<DetailReportResponse?>(null) }
@@ -297,7 +302,8 @@ fun OverallReportResponseGroup(question: String, response: Int, showDivider: Boo
 @Composable
 fun SightAdjustmentReportScreen(
     sightDegree: Int, // 0 ~ 100 값
-    navController: NavController
+    navController: NavController,
+    context: Context
 ) {
     val backgroundImage: Painter = painterResource(id = R.drawable.sightdegree_img)
 
@@ -332,6 +338,9 @@ fun SightAdjustmentReportScreen(
         bottomBar = {
             Button(
                 onClick = {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        val success = performReadReport(context)
+                    }
                     navController.navigate("reportScreen")
                 },
                 modifier = Modifier
