@@ -4,14 +4,15 @@ import android.content.Intent
 import android.graphics.Color
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.compose.ui.unit.dp
-import com.jeoktoma.drivemate.R
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import com.kakaomobility.knsdk.KNLanguageType
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
@@ -22,9 +23,7 @@ import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Align
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.MultipartPathOverlay
-import com.naver.maps.map.overlay.MultipartPathOverlay.ColorPart
 import com.naver.maps.map.overlay.OverlayImage
-import com.naver.maps.map.overlay.PathOverlay
 import com.naver.maps.map.util.FusedLocationSource
 import com.naver.maps.map.util.MarkerIcons
 import kotlinx.coroutines.CoroutineScope
@@ -147,7 +146,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                         val endmarker = Marker().apply {
                             position = LatLng(end_lat, end_lng)
                             icon = MarkerIcons.BLACK
-                            iconTintColor = Color.RED
+                            iconTintColor = Color.parseColor("#92A3FD")
                             captionText = "도착"
                             captionTextSize = 16f
                             setCaptionAligns(Align.Top)
@@ -178,6 +177,16 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 estimatedTimeView.visibility = View.VISIBLE
                 estimatedArrivalView.visibility = View.VISIBLE
                 startNavigationButton.visibility = View.VISIBLE
+
+                // 유의사항 Dialog 표시
+                showPrecautionsDialog(routeResponse)
+
+                // UI 업데이트
+                totalDistanceView.visibility = View.VISIBLE
+                estimatedTimeView.visibility = View.VISIBLE
+                estimatedArrivalView.visibility = View.VISIBLE
+                startNavigationButton.visibility = View.VISIBLE
+
             }
             else{   // 만약 response가 null이라면 전으로 돌아감
                 val intent = Intent(this@MapActivity, NavActivity::class.java)
@@ -225,6 +234,64 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    // 유의사항 Dialog 표시 함수
+    private fun showPrecautionsDialog(routeResponse: RouteResponse) {
+        val builder = AlertDialog.Builder(this)
+        // 커스텀 제목 설정
+        val customTitle = TextView(this).apply {
+            text = "운행 전 유의사항"
+            textSize = 25f
+            typeface = ResourcesCompat.getFont(this@MapActivity, R.font.freesentation)
+            setPadding(50, 50, 50, 50)
+            //gravity = Gravity.CENTER
+        }
+        builder.setCustomTitle(customTitle)
+
+        // 유의사항 내용을 동적으로 생성
+        val message = StringBuilder()
+        routeResponse.route.segments.forEach { segment ->
+//        message.append("구간 이름: ${segment.name}\n")
+//        message.append("혼잡도: ${segment.traffic}\n")
+//        if (segment.roadType.isNotEmpty()) {
+//            message.append("도로 유형: ${segment.roadType}\n")
+//        }
+//        if (segment.isWeakness) {
+//            message.append("취약점 경고: 이 구간에서 어려움이 예상됩니다.\n")
+//        }
+//        message.append("\n")
+        }
+
+        // ScrollView로 텍스트를 스크롤 가능하도록 설정
+        val scrollView = ScrollView(this)
+        val typeface = ResourcesCompat.getFont(this, R.font.freesentation)
+        val textView = TextView(this).apply {
+            text = message.toString()
+            textSize = 16f
+            setPadding(16, 16, 16, 16)
+            setTypeface(typeface)
+        }
+        scrollView.addView(textView)
+
+        builder.setView(scrollView)
+
+        // 확인 버튼
+        builder.setPositiveButton("확인") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        // Dialog 생성 및 표시
+        val dialog = builder.create()
+        dialog.show()
+
+        // 확인 버튼 스타일 변경
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.let { button ->
+            button.typeface = ResourcesCompat.getFont(this, R.font.freesentation)
+            button.textSize = 16f
+        }
+    }
+
+
+
 }
 
 // 교통 상황에 따른 색상 지정
@@ -237,4 +304,3 @@ fun getColorForTraffic(traffic: String): Int {
         else -> Color.GRAY  // 알 수 없음
     }
 }
-
