@@ -356,7 +356,53 @@ public class ReportController {
 
         for (SemiRouteSurvey semiRouteSurvey : driveReport.getSemiRouteSurveyList()) {
             SegmentSurveyDTO segmentSurveyDTO = new SegmentSurveyDTO();
-            segmentSurveyDTO.setSegmentName("");
+            switch(semiRouteSurvey.getSemiRouteLineString().getRoadType()){
+                case 0:
+                    segmentSurveyDTO.setSegmentName("고속국도");
+                    break;
+                case 1:
+                    segmentSurveyDTO.setSegmentName("자동차전용");
+                    break;
+                case 2:
+                    segmentSurveyDTO.setSegmentName("국도");
+                    break;
+                case 3:
+                    segmentSurveyDTO.setSegmentName("국가지원 지방도");
+                    break;
+                case 4:
+                    segmentSurveyDTO.setSegmentName("지방도");
+                    break;
+                case 5:
+                    segmentSurveyDTO.setSegmentName("5-6차선");
+                    break;
+                case 6:
+                    segmentSurveyDTO.setSegmentName("3-4차선");
+                    break;
+                case 7:
+                    segmentSurveyDTO.setSegmentName("2차선");
+                    break;
+                case 8:
+                    segmentSurveyDTO.setSegmentName("1차선");
+                    break;
+                case 9:
+                    segmentSurveyDTO.setSegmentName("이면도로");
+                    break;
+                case 10:
+                    segmentSurveyDTO.setSegmentName("페리항로");
+                    break;
+                case 11:
+                    segmentSurveyDTO.setSegmentName("아파트 단지 내 도로");
+                    break;
+                case 12:
+                    segmentSurveyDTO.setSegmentName("시장 내 도로");
+                    break;
+                case 16:
+                    segmentSurveyDTO.setSegmentName("일반도로");
+                    break;
+                case 20:
+                    segmentSurveyDTO.setSegmentName("번화가 링크");
+                    break;
+            }
             segmentSurveyDTO.setTrafficCongestion(semiRouteSurvey.getTrafficCongestion());
             segmentSurveyDTO.setRoadType(semiRouteSurvey.getRoadType());
             segmentSurveyDTO.setLaneSwitch(semiRouteSurvey.getLaneSwitch());
@@ -474,5 +520,20 @@ public class ReportController {
         driveReportRespondDTO.setPath(routeResponseDTO);
 
         return driveReportRespondDTO;
+    }
+
+    @PostMapping("/")
+    public SuccessRespondDTO checkReport(){
+        SuccessRespondDTO successRespondDTO = new SuccessRespondDTO();
+        try {
+            User user = userService.getCurrentUser();
+            user.updateExperienceByCheck();
+            user.expToLevel();
+            userService.updateUser(userService.getCurrentUser());
+            successRespondDTO.setSuccess(true);
+        } catch (Exception e){
+            successRespondDTO.setSuccess(false);
+        }
+        return successRespondDTO;
     }
 }
