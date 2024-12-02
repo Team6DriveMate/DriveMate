@@ -6,15 +6,17 @@ import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class UserViewModel : ViewModel() {
+//    var userInfo: UserInfoResponse? = null
     var userInfo: UserInfoResponse? = null
+        private set
 
     var username by mutableStateOf("")
     private set
@@ -109,43 +111,18 @@ class UserViewModel : ViewModel() {
         }
     }
 
-    // 레벨업 및 경험치 업데이트
-    fun updateLevelAndExperience(context: Context, username: String) {
-        userInfo?.let { user ->
-            val updatedExperience = user.experience + 50 // 주행 완료 시 경험치 추가
-            val experienceForNextLevel = user.nextLevelExperience
 
-            val isLevelUp = updatedExperience >= experienceForNextLevel
-            val newExperience = if (isLevelUp) updatedExperience % experienceForNextLevel else updatedExperience
-            val newLevelExperience = if (isLevelUp) experienceForNextLevel + 50 else experienceForNextLevel // 다음 레벨 경험치 증가 로직
-
-            // 업데이트된 유저 데이터를 UserInfoResponse를 기반으로 업데이트
-            val updatedUserInfo = user.copy(
-                experience = newExperience,
-                nextLevelExperience = newLevelExperience
-            )
-
-            // 새로운 UserUpdateRequest 생성
-            val updateRequest = UserUpdateRequest(
-                nickname = user.nickname,
-                mainTitle = user.mainTitle
-            )
-
-            // 백엔드로 업데이트 요청
-            updateUserInfo(username, updateRequest, context, onSuccess = {
-                // 성공 시 로컬 데이터 업데이트
-                userInfo = updatedUserInfo
-                if (isLevelUp) {
-                    Toast.makeText(context, "레벨 업 성공!", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(context, "경험치가 추가되었습니다.", Toast.LENGTH_SHORT).show()
-                }
-            }, onError = {
-                Toast.makeText(context, "레벨 업 실패", Toast.LENGTH_SHORT).show()
-            })
-        }
+    fun clearUserData() {
+        userInfo = null
     }
 
+}
 
-
+fun performLogout(navController: NavController, viewModel: UserViewModel) {
+    // 사용자 정보 초기화
+    viewModel.clearUserData()
+    // 로그인 화면으로 이동
+    navController.navigate("loginScreen") {
+        popUpTo(0) { inclusive = true } // 스택 초기화
+    }
 }

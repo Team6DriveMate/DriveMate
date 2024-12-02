@@ -21,7 +21,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -30,7 +29,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -89,11 +87,10 @@ fun EditProfileScreen(navController: NavController, selectedItem: MutableState<I
                         fontFamily = FontFamily(Font(R.font.freesentation))
                     )
                 )
-                IconButton(onClick = { /* 오른쪽 버튼: 아직 미정 */ }) {
-                    Icon(
-                        imageVector = Icons.Default.MoreVert,
-                        contentDescription = "More"
-                    )
+                ThreeDotMenu(navController = navController) {
+                    navController.navigate("loginScreen") {
+                        popUpTo("loginScreen") { inclusive = true }
+                    }
                 }
             }
 

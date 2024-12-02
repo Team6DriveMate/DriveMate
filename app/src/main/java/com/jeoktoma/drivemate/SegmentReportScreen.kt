@@ -40,6 +40,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.google.accompanist.flowlayout.FlowRow
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.geometry.LatLngBounds
 import com.naver.maps.map.CameraPosition
@@ -103,11 +104,10 @@ fun SegmentReportScreen(
                     style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
                     fontFamily = FontFamily(Font(R.font.freesentation))
                 )
-                IconButton(onClick = { /* 점 세 개 버튼 로직 (미정) */ }) {
-                    Icon(
-                        imageVector = Icons.Default.MoreVert,
-                        contentDescription = "More"
-                    )
+                ThreeDotMenu(navController = navController) {
+                    navController.navigate("loginScreen") {
+                        popUpTo("loginScreen") { inclusive = true }
+                    }
                 }
             }
         },
@@ -267,15 +267,15 @@ fun SegmentReportScreen(
                             Spacer(modifier = Modifier.height(16.dp))
 
                             // 세부 문제 표시
-                            val issues = mutableListOf<String>().apply {
-                                if (segment.laneSwitch) add("차선 변경")
-                                if (segment.situationDecision) add("판단 미숙")
-                                if (segment.laneConfusion) add("차선 혼동")
-                                if (segment.trafficLaws) add("도로 규범 준수")
-                                if (segment.tension) add("긴장")
-                            }
+                            val issues = listOf(
+                                "차선 변경" to segment.laneSwitch,
+                                "판단 미숙" to segment.situationDecision,
+                                "차선 혼동" to segment.laneConfusion,
+                                "도로 규범 준수" to segment.trafficLaws,
+                                "긴장" to segment.tension
+                            ).filter { it.second }
 
-                            if (issues.isNotEmpty()) {
+                            if (issues.any { it.second }) {
                                 Box(
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -295,15 +295,18 @@ fun SegmentReportScreen(
                                             fontSize = 18.sp
                                         )
                                         Spacer(modifier = Modifier.height(8.dp))
-                                        issues.forEach { issue ->
-                                            Text(
-                                                text = issue,
-                                                style = MaterialTheme.typography.bodyMedium.copy(
-                                                    color = Color.Gray
-                                                ),
-                                                fontFamily = FontFamily(Font(R.font.freesentation)),
-                                                fontSize = 16.sp
-                                            )
+                                        // 문제들을 버튼으로 표시
+                                        FlowRow(
+                                            modifier = Modifier.fillMaxWidth(),
+                                            mainAxisSpacing = 8.dp, // 버튼 간의 가로 간격
+                                            crossAxisSpacing = 8.dp // 버튼 간의 세로 간격
+                                        )  {
+                                            issues.forEach { (issue, isActive) ->
+                                                StaticSurveyButton(
+                                                    label = issue,
+                                                    isSelected = isActive
+                                                )
+                                            }
                                         }
                                     }
                                 }
@@ -313,6 +316,32 @@ fun SegmentReportScreen(
                 }
             }
         }
+    }
+}
+
+// 비활성화된 SurveyButton
+@Composable
+fun StaticSurveyButton(label: String, isSelected: Boolean) {
+    Box(
+        modifier = Modifier
+            .padding(horizontal = 8.dp)
+            .background(
+                brush = if (isSelected) Brush.linearGradient(
+                    colors = listOf(Color(0xFFC58BF2), Color(0xFFEEA4CE))
+                ) else Brush.linearGradient(
+                    colors = listOf(Color(0xFFDDDADA), Color(0xFFDDDADA))
+                ),
+                shape = RoundedCornerShape(16.dp)
+            )
+            .padding(vertical = 8.dp, horizontal = 16.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = label,
+            color = if (isSelected) Color.White else Color.Black,
+            fontFamily = FontFamily(Font(R.font.freesentation)),
+            fontSize = 18.sp
+        )
     }
 }
 

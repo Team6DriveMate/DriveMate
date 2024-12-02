@@ -365,6 +365,14 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
                         surveyViewModel = SurveyViewModel(),
                         segmentCoords = path.coords, // 지도 경로 전달
                         context = this,
+                        traffic = when(segment.traffic) {
+                            "1" -> "원활"
+                            "2" -> "서행"
+                            "3" -> "지체"
+                            "4" -> "정체"
+                            else -> "혼잡도 정보 없음"
+                        },
+                        roadType = segment.roadType,
                         onExitSurvey = {
                             composeContainer.removeAllViews()
                             composeContainer.visibility = View.GONE
@@ -486,7 +494,7 @@ fun TopBar(
 
         // 중앙 제목
         Text(
-            text = "전체 경로",
+            text = "경로",
             style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
             fontSize = 18.sp,
             modifier = Modifier.align(Alignment.Center).padding(10.dp)

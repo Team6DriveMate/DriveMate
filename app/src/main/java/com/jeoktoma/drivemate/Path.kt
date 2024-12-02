@@ -66,5 +66,6 @@ data class GetSegment(
     val distance: Int,
     val time: Double,
     val roadName: String,
-    val traffic: String
+    val traffic: String,
+    val roadType: String
 )

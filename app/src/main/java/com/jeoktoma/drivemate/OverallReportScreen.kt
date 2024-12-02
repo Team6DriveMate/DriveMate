@@ -91,11 +91,10 @@ fun OverallReportScreen(
                     style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
                     fontFamily = FontFamily(Font(R.font.freesentation))
                 )
-                IconButton(onClick = { /* 점 세 개 버튼 로직 (미정) */ }) {
-                    Icon(
-                        imageVector = Icons.Default.MoreVert,
-                        contentDescription = "More"
-                    )
+                ThreeDotMenu(navController = navController) {
+                    navController.navigate("loginScreen") {
+                        popUpTo("loginScreen") { inclusive = true }
+                    }
                 }
             }
         },

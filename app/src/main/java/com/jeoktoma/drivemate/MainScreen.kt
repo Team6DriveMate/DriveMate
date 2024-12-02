@@ -21,12 +21,16 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Article
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -112,6 +116,27 @@ fun MainScreen(navController: NavController, viewModel: UserViewModel, selectedI
     }
 
     Scaffold(
+        topBar = {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 16.dp, horizontal = 16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = "Drive Mate",
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily(Font(R.font.ydestreet))
+                )
+                ThreeDotMenu(navController = navController) {
+                    navController.navigate("loginScreen") {
+                        popUpTo("loginScreen") { inclusive = true }
+                    }
+                }
+            }
+        },
         bottomBar = { BottomNavigationBar(navController, selectedItem) }
     ) { padding ->
         Column(
@@ -122,12 +147,12 @@ fun MainScreen(navController: NavController, viewModel: UserViewModel, selectedI
                 .padding(bottom = 16.dp)
         ) {
             // DriveMate 타이틀
-            Text(
-                text = "DriveMate",
-                fontSize = 32.sp,
-                fontFamily = FontFamily(Font(R.font.ydestreet)), // 커스텀 폰트 사용
-                modifier = Modifier.padding(vertical = 32.dp)
-            )
+//            Text(
+//                text = "DriveMate",
+//                fontSize = 32.sp,
+//                fontFamily = FontFamily(Font(R.font.ydestreet)), // 커스텀 폰트 사용
+//                modifier = Modifier.padding(vertical = 32.dp)
+//            )
             Row (modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start) {
@@ -338,6 +363,9 @@ fun MainScreen(navController: NavController, viewModel: UserViewModel, selectedI
                                 fontFamily = FontFamily(Font(R.font.freesentation)),
                                 fontSize = 20.sp
                             )
+
+                            Spacer(modifier = Modifier.height(4.dp))
+
                             Text(
                                 text = "${latestReport?.title ?: ""}",
                                 style = MaterialTheme.typography.bodyMedium.copy(color = Color.Gray),
@@ -345,6 +373,8 @@ fun MainScreen(navController: NavController, viewModel: UserViewModel, selectedI
                                 fontSize = 16.sp,
                                 modifier = Modifier.padding(bottom = 8.dp)
                             )
+
+                            Spacer(modifier = Modifier.height(4.dp))
 
                             if (isLoading) {
                                 // 로딩 중 표시
@@ -479,6 +509,41 @@ fun BottomNavigationBar(navController: NavController, selectedItem: MutableState
     }
 }
 
+@Composable
+fun ThreeDotMenu(navController: NavController, onLogout: () -> Unit) {
+    var showMenu by remember { mutableStateOf(false) }
+
+    Box {
+        IconButton(onClick = { showMenu = !showMenu }) {
+            Icon(
+                imageVector = Icons.Default.MoreVert,
+                contentDescription = "More",
+                tint = Color.Black
+            )
+        }
+        DropdownMenu(
+            expanded = showMenu,
+            onDismissRequest = { showMenu = false }
+        ) {
+            DropdownMenuItem(
+                text = {
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) { Text(
+                    text = "로그아웃",
+                    fontFamily = FontFamily(Font(R.font.freesentation)),
+                    fontSize = 18.sp
+                    ) }
+                },
+                onClick = {
+                    showMenu = false
+                    onLogout()
+                }
+            )
+        }
+    }
+}
 
 
 fun DrawScope.drawBackgroundShapes() {
