@@ -122,32 +122,6 @@ fun AppNavigation(navController: NavHostController) {
             TipDetailsScreen(navController = navController, tipTitle = tipTitle, tips = tipDetails, selectedItem)
         }
 
-//        composable(
-//            route = "segmentSurveyScreen/{roadName}/{segmentIndex}/{totalSegments}",
-//            arguments = listOf(
-//                navArgument("roadName") { type = NavType.StringType },
-//                navArgument("segmentIndex") { type = NavType.IntType },
-//                navArgument("totalSegments") { type = NavType.IntType }
-//            )
-//        ) { backStackEntry ->
-//            val roadName = backStackEntry.arguments?.getString("roadName") ?: "Unknown Road"
-//            val segmentIndex = backStackEntry.arguments?.getInt("segmentIndex") ?: 0
-//            val totalSegments = backStackEntry.arguments?.getInt("totalSegments") ?: 1
-//            val context = LocalContext.current
-//
-//            val surveyViewModel: SurveyViewModel = viewModel()
-//
-//            SegmentSurveyScreen(
-//                roadName = roadName,
-//                segmentIndex = segmentIndex,
-//                totalSegments = totalSegments,
-//                surveyViewModel = surveyViewModel, // ViewModel 주입
-//                context = context,
-//
-//                navController = navController
-//            )
-//        }
-
 
         composable("overallSurveyScreen") {
             val context = LocalContext.current

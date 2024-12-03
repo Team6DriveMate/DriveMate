@@ -1,6 +1,7 @@
 package com.jeoktoma.drivemate
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -64,7 +65,7 @@ import androidx.navigation.compose.rememberNavController
 fun OverallSurveyScreen(
     surveyViewModel: SurveyViewModel,
     context: Context,
-    navController: NavController? = null
+    navController: NavController
 ) {
     val surveyRequest = remember { mutableStateOf(OverallSurveyRequest(0, 0, 0, 0, 0, 0, "")) }
 
@@ -104,14 +105,6 @@ fun OverallSurveyScreen(
         bottomBar = {
             Button(
                 onClick = {
-//                    surveyViewModel.submitOverallSurvey(
-//                        surveyRequest.value,
-//                        context
-//                    ) {
-//                        navController.navigate("reportScreen") {
-//                            popUpTo("segmentSurveyScreen") { inclusive = true }
-//                        }
-//                    }
                     if (navController != null) {
                         surveyViewModel.switchLight = surveyRequest.value.switchLight
                         surveyViewModel.laneStaying = surveyRequest.value.laneStaying
@@ -376,16 +369,17 @@ fun SightAdjustmentScreen(
                             surveyViewModel.memo),
                         context
                     ) {
-                        val reportRequest = DriveReportRequest(
-                            startLocation = "출발지 예시",
-                            endLocation = "도착지 예시",
-                            startTime = "2024-11-15T13:00:00Z",
-                            endTime = "2024-11-15T13:30:00Z"
-                        )
-                        surveyViewModel.submitDriveReport(reportRequest, context) {
-                            navController.navigate("mainScreen")
-                        }
                     }
+                    val reportRequest = DriveReportRequest(
+                        startLocation = "출발지 예시",
+                        endLocation = "도착지 예시",
+                        startTime = "2024-11-15T13:00:00Z",
+                        endTime = "2024-11-15T13:30:00Z"
+                    )
+                    surveyViewModel.submitDriveReport(reportRequest, context) {
+                    }
+                    //navController.navigate("mainScreen")
+                    ////// 수정 필요!
                 },
                 modifier = Modifier
                     .fillMaxWidth()

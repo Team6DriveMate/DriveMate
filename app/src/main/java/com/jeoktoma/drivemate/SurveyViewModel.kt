@@ -70,7 +70,7 @@ class SurveyViewModel : ViewModel() {
                 val response = surveyService.submitOverallSurvey(surveyRequest)
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful && response.body()?.success == true) {
-                        Toast.makeText(context, "전체 설문 제출 성공", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(context, "전체 설문 제출 성공", Toast.LENGTH_SHORT).show()
                         onSuccess()
                     } else {
                         Toast.makeText(context, "전체 설문 제출 실패", Toast.LENGTH_SHORT).show()
@@ -87,16 +87,15 @@ class SurveyViewModel : ViewModel() {
     fun submitDriveReport(
         reportRequest: DriveReportRequest,
         context: Context,
-        onSuccess: (String) -> Unit
+        onSuccess: () -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = surveyService.submitDriveReport(reportRequest)
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful && response.body()?.success == true) {
-                        val driveId = response.body()?.driveId ?: ""
-                        Toast.makeText(context, "운행 기록 제출 성공: ID $driveId", Toast.LENGTH_SHORT).show()
-                        onSuccess(driveId)
+                        Toast.makeText(context, "운행 기록 제출 성공", Toast.LENGTH_SHORT).show()
+                        onSuccess()
                     } else {
                         Toast.makeText(context, "운행 기록 제출 실패", Toast.LENGTH_SHORT).show()
                     }
