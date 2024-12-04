@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -288,13 +290,21 @@ public class ReportController {
         String endLocation = driveMateService.CoordinateToAddress(endLat, endLon).replace("\"", "");
         ////////////////////////////
 
+        LocalDateTime now = LocalDateTime.now();
+
+        // Formatter 생성
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        // LocalDateTime -> String
+        String formattedDate = now.format(formatter);
+
         System.out.println(startLocation);
         System.out.println(endLocation);
 
         driveMateService.getPostRouteTmp().getDriveReport().setStartLocation(startLocation);
         driveMateService.getPostRouteTmp().getDriveReport().setEndLocation(endLocation);
         driveMateService.getPostRouteTmp().getDriveReport().setStartTime(submitRequestDTO.getStartTime());
-        driveMateService.getPostRouteTmp().getDriveReport().setEndTime(submitRequestDTO.getEndTime());
+        driveMateService.getPostRouteTmp().getDriveReport().setEndTime(formattedDate);
 
         User user = userService.getCurrentUser();
         user.updateExperienceByRoute();
