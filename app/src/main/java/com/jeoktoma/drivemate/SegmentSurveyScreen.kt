@@ -227,7 +227,7 @@ fun SegmentSurveyScreen(
                     .background(Color.White) // 배경색 지정
             ) {
                 QuestionToggle(
-                    title = "교통 혼잡도가 ${traffic}로 높았습니다",
+                    title = "교통 상황은 ${traffic} 상태였습니다",
                     description = "교통 혼잡도에 문제가 있었나요?",
                     isChecked = surveyRequest.value.trafficCongestion,
                     onCheckedChange = { isChecked ->
@@ -236,8 +236,8 @@ fun SegmentSurveyScreen(
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 QuestionToggle(
-                    title = "해당 도로의 타입은 ${roadType}이었습니다",
-                    description = "${roadType} 도로가 익숙하지 않았나요?",
+                    title = "해당 도로는 ${roadType} 타입이었습니다",
+                    description = "${roadType} 도로를 이용하는데 어려움이 있었나요?",
                     isChecked = surveyRequest.value.roadType,
                     onCheckedChange = { isChecked ->
                         surveyRequest.value = surveyRequest.value.copy(roadType = isChecked)
@@ -361,32 +361,3 @@ fun SurveyButton(label: String, isSelected: Boolean, onSelectedChange: (Boolean)
         )
     }
 }
-
-@Composable
-fun NaverMapViewComposable() {
-    AndroidView(
-        factory = { context ->
-            MapView(context).apply {
-                getMapAsync { map ->
-                    map.lightness = 0.5f
-                    // 추가적인 지도 설정
-                }
-            }
-        },
-        modifier = Modifier.fillMaxSize()
-    )
-}
-
-//@Preview(showBackground = true, widthDp = 412, heightDp = 917)
-//@Composable
-//fun PreviewSegmentSurveyScreen() {
-//    SegmentSurveyScreen(
-//        segmentIndex = 1, // 두 번째 구간 (예시)
-//        totalSegments = 3, // 총 3개 구간 (예시)
-//        segmentImage = null, // 이미지 없이 (회색 배경으로 대체)
-//        estimatedTime = "10 min",
-//        actualTime = "12 min",
-//        onNext = {}, // 다음 버튼 클릭 시 동작 없음
-//        navController = null // 가짜 NavController 사용
-//    )
-//}

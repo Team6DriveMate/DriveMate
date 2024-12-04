@@ -15,7 +15,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.filled.Map
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -47,13 +47,6 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun ReportScreen(navController: NavController, selectedItem: MutableState<Int>) {
-    // 샘플 데이터
-//    val reports: List<ReportData> = listOf(
-//        ReportData("제목1", "2024/11/11 오전 11:11"),
-//        ReportData("제목2", "2024/10/31 오후 12:14"),
-//        ReportData("제목3", "2024/10/26 오후 2:44")
-//    )
-
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val surveyViewModel: SurveyViewModel = viewModel() // ViewModel 선언
@@ -102,17 +95,37 @@ fun ReportScreen(navController: NavController, selectedItem: MutableState<Int>) 
                     style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
                     fontFamily = FontFamily(Font(R.font.freesentation))
                 )
-                ThreeDotMenu(navController = navController) {
-                    navController.navigate("loginScreen") {
-                        popUpTo("loginScreen") { inclusive = true }
+                IconButton(onClick = {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        val completeResponse = performCompleteService(
+                            Point(37.5050, 126.9539), // 시작 좌표
+                            Point(37.5666, 126.9782), // 종료 좌표
+                            null, // 경유지 좌표 없음
+                            context // 컨텍스트
+                        )
+
+                        if (completeResponse != null) {
+                            // 서버에서 받은 응답 확인 (디버깅용 로그 추가)
+                            Log.d("SegmentSurveyScreen", "Complete Response: $completeResponse")
+                        } else {
+                            Log.e("SegmentSurveyScreen", "Complete 호출 실패")
+                        }
                     }
+
+                    CoroutineScope(Dispatchers.Main).launch {
+                        val intent = Intent(context, SurveyActivity::class.java)
+                        context.startActivity(intent)
+                    }
+                }) {
+                    Icon(
+                        imageVector = Icons.Default.Map,
+                        contentDescription = "Segment Survey Screen"
+                    )
                 }
             }
         },
         bottomBar = { BottomNavigationBar(navController, selectedItem) }
     ) { padding ->
-
-
 //        performCompleteService(Point(37.5050, 126.9539), Point(37.5666, 126.9782),
 //            null, context)
 
@@ -154,38 +167,6 @@ fun ReportScreen(navController: NavController, selectedItem: MutableState<Int>) 
                 }
             }
         }
-
-        Button(onClick = {
-//            navController.navigate("segmentSurveyScreen/1/0/3")
-            CoroutineScope(Dispatchers.Main).launch {
-                val completeResponse = performCompleteService(
-                    Point(37.5050, 126.9539), // 시작 좌표
-                    Point(37.5666, 126.9782), // 종료 좌표
-                    null, // 경유지 좌표 없음
-                    context // 컨텍스트
-                )
-
-                if (completeResponse != null) {
-                    // 서버에서 받은 응답 확인 (디버깅용 로그 추가)
-                    Log.d("SegmentSurveyScreen", "Complete Response: $completeResponse")
-                } else {
-                    Log.e("SegmentSurveyScreen", "Complete 호출 실패")
-                }
-            }
-
-            CoroutineScope(Dispatchers.Main).launch {
-                val intent = Intent(context, SurveyActivity::class.java)
-                context.startActivity(intent)
-            }
-        }) {
-            Text(text = "SegmentSurveyScreen")
-        }
-
-//        Spacer(modifier = Modifier.height(16.dp))
-//
-//        Button(onClick = {  navController.navigate("overallSurveyScreen") }) {
-//        Text(text = "OverallSurveyScreen")
-//        }
     }
 
 }
@@ -195,7 +176,7 @@ fun ReportItem(report: Report, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = Color(0xFFF9F9F9), shape = RoundedCornerShape(8.dp))
+            .background(color = Color.White, shape = RoundedCornerShape(8.dp))
             .clickable { onClick() }
             .padding(vertical = 16.dp, horizontal = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,

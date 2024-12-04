@@ -175,7 +175,7 @@ fun OverallReportScreen(
                         Text(
                             text = "Memo",
                             style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
-                            fontSize = 22.sp,
+                            fontSize = 24.sp,
                             fontFamily = FontFamily(Font(R.font.freesentation)),
                             modifier = Modifier.padding(vertical = 8.dp)
                         )
@@ -385,7 +385,7 @@ fun SightAdjustmentReportScreen(
                 text = "운행 평균 시야각",
                 style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
                 fontFamily = FontFamily(Font(R.font.freesentation)),
-                fontSize = 20.sp,
+                fontSize = 24.sp,
                 modifier = Modifier.padding(16.dp)
             )
 

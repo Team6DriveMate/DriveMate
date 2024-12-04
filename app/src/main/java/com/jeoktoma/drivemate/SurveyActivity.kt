@@ -63,7 +63,6 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
     private val showBack = mutableStateOf(true)
     private val showNext = mutableStateOf(true)
 
-
     val pathOutlineWidth = 5
 
     enum class MapState {
@@ -100,6 +99,7 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
 
             if (getRouteResponse != null) {
                 showFullRoute(getRouteResponse)
+
 
                 // PASS 버튼 추가
                 val btnPass = findViewById<Button>(R.id.btn_pass)
@@ -357,6 +357,7 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 // 기존 View를 삭제하고 새로운 ComposeView 렌더링
                 composeContainer.removeAllViews()
+
                 val composeView = ComposeView(this)
                 composeView.setContent {
                     SegmentSurveyScreen(
