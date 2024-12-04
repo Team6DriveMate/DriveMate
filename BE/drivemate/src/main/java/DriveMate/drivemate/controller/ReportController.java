@@ -14,8 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -290,21 +288,13 @@ public class ReportController {
         String endLocation = driveMateService.CoordinateToAddress(endLat, endLon).replace("\"", "");
         ////////////////////////////
 
-        LocalDateTime now = LocalDateTime.now();
-
-        // Formatter 생성
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        // LocalDateTime -> String
-        String formattedDate = now.format(formatter);
-
         System.out.println(startLocation);
         System.out.println(endLocation);
 
         driveMateService.getPostRouteTmp().getDriveReport().setStartLocation(startLocation);
         driveMateService.getPostRouteTmp().getDriveReport().setEndLocation(endLocation);
         driveMateService.getPostRouteTmp().getDriveReport().setStartTime(submitRequestDTO.getStartTime());
-        driveMateService.getPostRouteTmp().getDriveReport().setEndTime(formattedDate);
+        driveMateService.getPostRouteTmp().getDriveReport().setEndTime(submitRequestDTO.getEndTime());
 
         User user = userService.getCurrentUser();
         user.updateExperienceByRoute();
@@ -340,10 +330,11 @@ public class ReportController {
             ReportDTO reportDTO = new ReportDTO();
             String startDateTime = driveReport.getStartTime();
             String endDateTime = driveReport.getEndTime();
+            String[] splitStartDateTime = startDateTime.split(" ");
             String[] splitEndDateTime = endDateTime.split(" ");
             reportDTO.setReportId(driveReport.getId());
             reportDTO.setTitle(driveReport.getStartLocation() + " - " +driveReport.getEndLocation());
-            reportDTO.setDistance(driveReport.getRoute().getTotalDistance());
+            reportDTO.setDistance(driveReport.getRoute().getTotalDistance()); // 여기서 문제가 생기나봐
             reportDTO.setTime(splitEndDateTime[1]);
             reportDTO.setDate(splitEndDateTime[0]);
             driveReportListRespondDTO.addReport(reportDTO);
