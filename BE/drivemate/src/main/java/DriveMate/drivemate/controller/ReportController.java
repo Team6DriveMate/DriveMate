@@ -340,13 +340,12 @@ public class ReportController {
             ReportDTO reportDTO = new ReportDTO();
             String startDateTime = driveReport.getStartTime();
             String endDateTime = driveReport.getEndTime();
-            String[] splitStartDateTime = startDateTime.split("[TZ]");
-            String[] splitEndDateTime = endDateTime.split("[TZ]");
+            String[] splitEndDateTime = endDateTime.split(" ");
             reportDTO.setReportId(driveReport.getId());
             reportDTO.setTitle(driveReport.getStartLocation() + " - " +driveReport.getEndLocation());
-            reportDTO.setDistance(driveReport.getRoute().getTotalDistance()); // 여기서 문제가 생기나봐
-            reportDTO.setTime(splitStartDateTime[1] + " - " + splitEndDateTime[1]);
-            reportDTO.setDate(splitStartDateTime[0] + " - " + splitEndDateTime[0]);
+            reportDTO.setDistance(driveReport.getRoute().getTotalDistance());
+            reportDTO.setTime(splitEndDateTime[1]);
+            reportDTO.setDate(splitEndDateTime[0]);
             driveReportListRespondDTO.addReport(reportDTO);
         }
         return driveReportListRespondDTO;
