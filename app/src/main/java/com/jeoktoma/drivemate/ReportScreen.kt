@@ -73,7 +73,7 @@ fun ReportScreen(navController: NavController, selectedItem: MutableState<Int>) 
         scope.launch {
             val response = getReportList(context)
             if (response != null) {
-                reports = response.reports
+                reports = response.reports.reversed()
             }
             isLoading = false
         }
