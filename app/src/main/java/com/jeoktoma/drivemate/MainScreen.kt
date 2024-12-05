@@ -1,6 +1,7 @@
 package com.jeoktoma.drivemate
 
 import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -87,12 +88,18 @@ fun MainScreen(navController: NavController, viewModel: UserViewModel, selectedI
     // 랜덤한 팁을 선택합니다.
     val randomTip = remember { tips.random() }
 
+    val username = viewModel.userInfo?.username?: ""
+
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     // API 호출 결과 상태 관리
     var reports by remember { mutableStateOf<List<Report>>(emptyList()) }
     var isLoading by remember { mutableStateOf(true) }
     var detailReport by remember { mutableStateOf<DetailReportResponse?>(null) }
+
+    LaunchedEffect(Unit) {
+        viewModel.getUserInfo(username, context) {}
+    }
 
     // API 호출
     LaunchedEffect(key1 = Unit) {

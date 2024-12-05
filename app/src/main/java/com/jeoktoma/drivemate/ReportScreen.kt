@@ -1,7 +1,11 @@
 package com.jeoktoma.drivemate
 
+import android.app.Activity
 import android.content.Intent
 import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -75,6 +79,12 @@ fun ReportScreen(navController: NavController, selectedItem: MutableState<Int>) 
         }
     }
 
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()){ result ->
+        // Activity B가 정상적으로 종료됨
+        navController.navigate("overallSurveyScreen")
+    }
+
     Scaffold(
         topBar = {
             Row(
@@ -114,7 +124,7 @@ fun ReportScreen(navController: NavController, selectedItem: MutableState<Int>) 
 
                     CoroutineScope(Dispatchers.Main).launch {
                         val intent = Intent(context, SurveyActivity::class.java)
-                        context.startActivity(intent)
+                        launcher.launch(intent)
                     }
                 }) {
                     Icon(

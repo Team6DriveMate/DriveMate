@@ -165,7 +165,7 @@ class KakaoActivity : AppCompatActivity(), KNGuidance_GuideStateDelegate, KNGuid
     override fun guidanceGuideEnded(aGuidance: KNGuidance) {
         naviView.guidanceGuideEnded(aGuidance)
 
-        naviViewGuideEnded()
+        //naviViewGuideEnded()
 
         finish()
     }
@@ -211,13 +211,13 @@ class KakaoActivity : AppCompatActivity(), KNGuidance_GuideStateDelegate, KNGuid
         Location.distanceBetween(wgspoi.x, wgspoi.y, nextwgs.x, nextwgs.y, distanceArray)
         // 포인트와의 거리가 50m 미만
         if(distanceArray[0] < 50){
-            Toast.makeText(this, "$poidx 포인트 도착", Toast.LENGTH_LONG).show()
+            //Toast.makeText(this, "$poidx 포인트 도착", Toast.LENGTH_LONG).show()
             times.add(System.currentTimeMillis())
             poidx += 1
         }
-        else{
-            Toast.makeText(this, "$poidx 포인트까지 ${distanceArray[0]} 미터", Toast.LENGTH_SHORT).show()
-        }
+//        else{
+//            Toast.makeText(this, "$poidx 포인트까지 ${distanceArray[0]} 미터", Toast.LENGTH_SHORT).show()
+//        }
     }
 
     override fun guidanceDidUpdateRouteGuide(aGuidance: KNGuidance, aRouteGuide: KNGuide_Route) {
@@ -250,6 +250,10 @@ class KakaoActivity : AppCompatActivity(), KNGuidance_GuideStateDelegate, KNGuid
 
     override fun naviViewGuideEnded() {
         Log.d("a", "a")
+
+        naviView.guideCancel()
+        naviView.guidance.stop()
+
         finish()
     }
 

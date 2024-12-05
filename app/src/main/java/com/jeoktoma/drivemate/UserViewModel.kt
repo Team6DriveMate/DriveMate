@@ -73,12 +73,12 @@ class UserViewModel : ViewModel() {
                     this@UserViewModel.titles = userInfo?.titles?: listOf(Title("", ""))
                     onResult(userInfo)
                 } else {
-                    Toast.makeText(context, "유저 정보 조회 실패: ${response.message()}", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "유저 정보 조회 실패: ${response.message()}", Toast.LENGTH_SHORT).show()
                     onResult(null)
                 }
             } catch (e: Exception) {
                 Log.e("EditProfile", "${e.message}")
-                Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_SHORT).show()
                 onResult(null)
             }
         }

@@ -59,6 +59,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -358,27 +361,34 @@ fun SightAdjustmentScreen(
         bottomBar = {
             Button(
                 onClick = {
-                    surveyViewModel.sightDegree = sightDegree
-                    surveyViewModel.submitOverallSurvey(
-                        OverallSurveyRequest(surveyViewModel.switchLight,
-                            surveyViewModel.sideMirror,
-                            surveyViewModel.tension,
-                            surveyViewModel.weather,
-                            surveyViewModel.laneStaying,
-                            surveyViewModel.sightDegree,
-                            surveyViewModel.memo),
-                        context
-                    ) {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        surveyViewModel.sightDegree = sightDegree
+                        surveyViewModel.submitOverallSurvey(
+                            OverallSurveyRequest(
+                                surveyViewModel.switchLight,
+                                surveyViewModel.sideMirror,
+                                surveyViewModel.tension,
+                                surveyViewModel.weather,
+                                surveyViewModel.laneStaying,
+                                surveyViewModel.sightDegree,
+                                surveyViewModel.memo
+                            ),
+                            context
+                        ) {
+                        }
+                        val reportRequest = DriveReportRequest(
+                            startLocation = "출발지 예시",
+                            endLocation = "도착지 예시",
+                            startTime = "2024-11-15 13:00:00",
+                            endTime = "2024-11-15 13:30:00"
+                        )
+                        surveyViewModel.submitDriveReport(reportRequest, context) {
+                            navController.navigate("mainScreen")
+                            {
+                                popUpTo("mainScreen") { inclusive = true }
+                            }
+                        }
                     }
-                    val reportRequest = DriveReportRequest(
-                        startLocation = "출발지 예시",
-                        endLocation = "도착지 예시",
-                        startTime = "2024-11-15T13:00:00Z",
-                        endTime = "2024-11-15T13:30:00Z"
-                    )
-                    surveyViewModel.submitDriveReport(reportRequest, context) {
-                    }
-                    //navController.navigate("mainScreen")
                     ////// 수정 필요!
                 },
                 modifier = Modifier
@@ -484,88 +494,6 @@ fun SightAdjustmentScreen(
                     activeTrackColor = Color(0xFFAA66CC)
                 )
             )
-
-            //submit
-//            Button(
-//                onClick = {
-//                    val reportRequest = DriveReportRequest(
-//                        startLocation = "출발지 예시",
-//                        endLocation = "도착지 예시",
-//                        startTime = "2024-11-15T13:00:00Z",
-//                        endTime = "2024-11-15T13:30:00Z"
-//                    )
-//                    surveyViewModel.submitDriveReport(reportRequest, context) { driveId ->
-//                        //navController.navigate("reportScreen/$driveId") {
-//                          //  popUpTo("segmentSurveyScreen") { inclusive = true }
-//                        //}
-//                    }
-//                },
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(horizontal = 16.dp, vertical = 16.dp)
-//                    .height(56.dp),
-//                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-//                contentPadding = PaddingValues()
-//            ) {
-//                Box(
-//                    modifier = Modifier
-//                        .fillMaxSize()
-//                        .background(
-//                            Brush.linearGradient(
-//                                colors = listOf(
-//                                    Color(0xFF92A3FD),
-//                                    Color(0xFF9DCEFF)
-//                                )
-//                            )
-//                        ),
-//                    contentAlignment = Alignment.Center
-//                ) {
-//                    Text(
-//                        text = "Submit",
-//                        color = Color.White,
-//                        fontSize = 20.sp,
-//                        fontWeight = FontWeight.Bold,
-//                        fontFamily = FontFamily(Font(R.font.freesentation))
-//                    )
-//                }
-//            }
-
-//            // 드래그 가능한 박스
-//            Box(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(vertical = 16.dp)
-//            ) {
-//                // 배경 트랙
-//                Box(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .height(20.dp)
-//                        .background(Color(0xFFE0E0E0), RoundedCornerShape(2.dp))
-//                        .align(Alignment.Center)
-//                )
-//                // 드래그 가능한 상자
-//                Box(
-//                    modifier = Modifier
-//                        .width(40.dp)
-//                        .height(20.dp)
-//                        .background(
-//                            Brush.linearGradient(
-//                                colors = listOf(Color(0xFFC58BF2), Color(0xFFEEA4CE))
-//                            ),
-//                            RoundedCornerShape(2.dp)
-//                        )
-//                        .align(Alignment.CenterStart)
-//                        .offset(x = dragOffset.dp)
-//                        .draggable(
-//                            orientation = androidx.compose.foundation.gestures.Orientation.Horizontal,
-//                            state = rememberDraggableState { delta ->
-//                                dragOffset = (dragOffset + delta).coerceIn(0f, maxDragValue)
-//                                sliderValue = (dragOffset / maxDragValue).coerceIn(0f, 1f) // 드래그 오프셋과 슬라이더 값 연동
-//                            }
-//                        )
-//                )
-//            }
 
         }
     }

@@ -78,245 +78,273 @@ fun SegmentReportScreen(
     Log.d("segmentreportscreen", "reportID = ${reportId}")
     Log.d("segmentreportscreen", "${detailReport}")
 
-    Scaffold(
-        topBar = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 16.dp, horizontal = 16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                IconButton(onClick = {
-                    if (segmentScreenIndex > 0) {
-                        segmentScreenIndex -= 1 // 이전 Segment로 이동
-                    } else {
-                        navController.popBackStack() // 이전 화면으로 이동
-                    }
-                }) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowBackIosNew,
-                        contentDescription = "Back"
-                    )
-                }
-                Text(
-                    text = "구간 리포트 (${segmentScreenIndex + 1}/${totalSegments})",
-                    style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
-                    fontFamily = FontFamily(Font(R.font.freesentation))
-                )
-                ThreeDotMenu(navController = navController) {
-                    navController.navigate("loginScreen") {
-                        popUpTo("loginScreen") { inclusive = true }
-                    }
-                }
-            }
-        },
-        bottomBar = {
-            Button(
-                onClick = {
-                    if (segmentScreenIndex < totalSegments - 1) {
-                        segmentScreenIndex += 1 // 다음 Segment로 이동
-                    } else {
-                        navController.navigate("overallReportScreen/${reportId}") // 전체 리포트 화면으로 이동
-                    }
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 16.dp)
-                    .height(56.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                contentPadding = PaddingValues()
-            ) {
-                Box(
+//    if(detailReport?.segmentSurveys?.getOrNull(segmentScreenIndex) != null) {
+        Scaffold(
+            topBar = {
+                Row(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .background(
-                            Brush.linearGradient(
-                                colors = listOf(
-                                    Color(0xFF92A3FD),
-                                    Color(0xFF9DCEFF)
-                                )
-                            )
-                        ),
-                    contentAlignment = Alignment.Center
+                        .fillMaxWidth()
+                        .padding(vertical = 16.dp, horizontal = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
+                    IconButton(onClick = {
+                        if (segmentScreenIndex > 0) {
+                            segmentScreenIndex -= 1 // 이전 Segment로 이동
+                        } else {
+                            navController.popBackStack() // 이전 화면으로 이동
+                        }
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBackIosNew,
+                            contentDescription = "Back"
+                        )
+                    }
                     Text(
-                        text = "Next",
-                        color = Color.White,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
+                        text = "구간 리포트 (${segmentScreenIndex + 1}/${totalSegments})",
+                        style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
                         fontFamily = FontFamily(Font(R.font.freesentation))
                     )
-                }
-            }
-        }
-    ) { padding ->
-        if (isLoading) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text("로딩 중...")
-            }
-        } else {
-            detailReport?.let { report ->
-                val currentSegment = report.segmentSurveys.getOrNull(segmentScreenIndex)
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(padding)
-                        .padding(horizontal = 16.dp),
-                    verticalArrangement = Arrangement.Top
-                ) {
-                    // 지도 placeholder
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(350.dp)
-                            .background(Color.LightGray, shape = RoundedCornerShape(16.dp))
-                    ) {
-                        val segment = report.path.route.segments[currentSegment!!.segmentIndex]
-                        val cameraPositionState:CameraPositionState = rememberCameraPositionState{
-                            position = CameraPosition(
-                                LatLng((segment.startPoint.lat + segment.endPoint.lat)/2,
-                                (segment.startPoint.lng + segment.endPoint.lng)/2), 11.0)
-                        }
-
-                        var mapUiSettings by remember {
-                            mutableStateOf(
-                                MapUiSettings(isScrollGesturesEnabled = false,
-                                    isZoomGesturesEnabled = false,
-                                    isTiltGesturesEnabled = false,
-                                    isRotateGesturesEnabled = false,
-                                    isLocationButtonEnabled = false,
-                                    isCompassEnabled = false,
-                                    isScaleBarEnabled = false,
-                                    isZoomControlEnabled = false
-                                    )
-                            )
-                        }
-
-                        NaverMap(modifier = Modifier.fillMaxSize(),
-                            cameraPositionState = cameraPositionState,
-                            uiSettings = mapUiSettings,
-                            onMapLoaded = {
-                                cameraPositionState.move(CameraUpdate.fitBounds(
-                                    LatLngBounds.Builder()
-                                        .include(LatLng(segment.startPoint.lat, segment.startPoint.lng))
-                                        .include(LatLng(segment.endPoint.lat, segment.endPoint.lng))
-                                        .build(), 100))
-                            }
-                        ) {
-                            PathOverlay(
-                                coords = segment.path.map { LatLng(it.lat, it.lng) },
-                                color = when(segment.traffic){
-                                    "1" -> Color.Green  // 원활
-                                    "2" -> Color.Yellow // 서행
-                                    "3" -> Color(0xFFFFA500)// 지체
-                                    "4" -> Color.Red   // 정체
-                                    else -> Color.Gray // 알 수 없음
-                                    },
-                                width = 10.dp, // 경로의 두께 설정
-                                outlineColor = Color.Black,
-                                outlineWidth = 2.dp
-                            )
-
+                    ThreeDotMenu(navController = navController) {
+                        navController.navigate("loginScreen") {
+                            popUpTo("loginScreen") { inclusive = true }
                         }
                     }
+                }
+            },
+            bottomBar = {
+                Button(
+                    onClick = {
+                        if (segmentScreenIndex < totalSegments - 1) {
+                            segmentScreenIndex += 1 // 다음 Segment로 이동
+                        } else {
+                            navController.navigate("overallReportScreen/${reportId}") // 전체 리포트 화면으로 이동
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 16.dp)
+                        .height(56.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                    contentPadding = PaddingValues()
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(
+                                Brush.linearGradient(
+                                    colors = listOf(
+                                        Color(0xFF92A3FD),
+                                        Color(0xFF9DCEFF)
+                                    )
+                                )
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "Next",
+                            color = Color.White,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = FontFamily(Font(R.font.freesentation))
+                        )
+                    }
+                }
+            }
+        ) { padding ->
+            if (isLoading) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text("로딩 중...")
+                }
+            } else {
+                detailReport?.let { report ->
+                    val currentSegment = report.segmentSurveys.getOrNull(segmentScreenIndex)
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(padding)
+                            .padding(horizontal = 16.dp),
+                        verticalArrangement = Arrangement.Top
+                    ) {
+                        // 지도 placeholder
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(350.dp)
+                                .background(Color.LightGray, shape = RoundedCornerShape(16.dp))
+                        ) {
+                            val segment = report.path.route.segments[currentSegment!!.segmentIndex]
+                            val cameraPositionState: CameraPositionState =
+                                rememberCameraPositionState {
+                                    position = CameraPosition(
+                                        LatLng(
+                                            (segment.startPoint.lat + segment.endPoint.lat) / 2,
+                                            (segment.startPoint.lng + segment.endPoint.lng) / 2
+                                        ), 11.0
+                                    )
+                                }
 
+                            var mapUiSettings by remember {
+                                mutableStateOf(
+                                    MapUiSettings(
+                                        isScrollGesturesEnabled = false,
+                                        isZoomGesturesEnabled = false,
+                                        isTiltGesturesEnabled = false,
+                                        isRotateGesturesEnabled = false,
+                                        isLocationButtonEnabled = false,
+                                        isCompassEnabled = false,
+                                        isScaleBarEnabled = false,
+                                        isZoomControlEnabled = false
+                                    )
+                                )
+                            }
 
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    // 설문 결과
-                    currentSegment?.let { segment ->
-                        Column(modifier = Modifier.fillMaxWidth()) {
-                            // 문제점 강조
-                            if (segment.trafficCongestion || segment.roadType) {
-                                Box(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .background(
-                                            color = Color(0xFFF2F2F2),
-                                            shape = RoundedCornerShape(16.dp)
+                            NaverMap(modifier = Modifier.fillMaxSize(),
+                                cameraPositionState = cameraPositionState,
+                                uiSettings = mapUiSettings,
+                                onMapLoaded = {
+                                    cameraPositionState.move(
+                                        CameraUpdate.fitBounds(
+                                            LatLngBounds.Builder()
+                                                .include(
+                                                    LatLng(
+                                                        segment.startPoint.lat,
+                                                        segment.startPoint.lng
+                                                    )
+                                                )
+                                                .include(
+                                                    LatLng(
+                                                        segment.endPoint.lat,
+                                                        segment.endPoint.lng
+                                                    )
+                                                )
+                                                .build(), 100
                                         )
-                                        .padding(16.dp)
-                                ) {
-                                    Column {
-                                        if (segment.trafficCongestion) {
-                                            Text(
-                                                text = "교통 혼잡도로 인해 이 구간에서 문제를 겪었습니다.",
-                                                style = MaterialTheme.typography.bodyLarge.copy(
-                                                    fontWeight = FontWeight.Bold
-                                                ),
-                                                fontFamily = FontFamily(Font(R.font.freesentation)),
-                                                fontSize = 18.sp
+                                    )
+                                }
+                            ) {
+                                PathOverlay(
+                                    coords = segment.path.map { LatLng(it.lat, it.lng) },
+                                    color = when (segment.traffic) {
+                                        "1" -> Color.Green  // 원활
+                                        "2" -> Color.Yellow // 서행
+                                        "3" -> Color(0xFFFFA500)// 지체
+                                        "4" -> Color.Red   // 정체
+                                        else -> Color.Gray // 알 수 없음
+                                    },
+                                    width = 10.dp, // 경로의 두께 설정
+                                    outlineColor = Color.Black,
+                                    outlineWidth = 2.dp
+                                )
+
+                            }
+                        }
+
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        // 설문 결과
+                        currentSegment?.let { segment ->
+                            Column(modifier = Modifier.fillMaxWidth()) {
+                                // 문제점 강조
+                                if (segment.trafficCongestion || segment.roadType) {
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .background(
+                                                color = Color(0xFFF2F2F2),
+                                                shape = RoundedCornerShape(16.dp)
                                             )
-                                        }
-                                        if (segment.roadType) {
-                                            Spacer(modifier = Modifier.height(8.dp))
-                                            Text(
-                                                text = "${segment.segmentName} 도로에서 어려움을 느꼈습니다.",
-                                                style = MaterialTheme.typography.bodyLarge.copy(
-                                                    fontWeight = FontWeight.Bold
-                                                ),
-                                                fontFamily = FontFamily(Font(R.font.freesentation)),
-                                                fontSize = 18.sp
-                                            )
+                                            .padding(16.dp)
+                                    ) {
+                                        Column {
+                                            if (segment.trafficCongestion) {
+                                                Text(
+                                                    text = "교통 혼잡도로 인해 이 구간에서 문제를 겪었습니다.",
+                                                    style = MaterialTheme.typography.bodyLarge.copy(
+                                                        fontWeight = FontWeight.Bold
+                                                    ),
+                                                    fontFamily = FontFamily(Font(R.font.freesentation)),
+                                                    fontSize = 18.sp
+                                                )
+                                            }
+                                            if (segment.roadType) {
+                                                Spacer(modifier = Modifier.height(8.dp))
+                                                Text(
+                                                    text = "${segment.segmentName} 도로에서 어려움을 느꼈습니다.",
+                                                    style = MaterialTheme.typography.bodyLarge.copy(
+                                                        fontWeight = FontWeight.Bold
+                                                    ),
+                                                    fontFamily = FontFamily(Font(R.font.freesentation)),
+                                                    fontSize = 18.sp
+                                                )
+                                            }
                                         }
                                     }
                                 }
-                            }
 
-                            Spacer(modifier = Modifier.height(16.dp))
+                                Spacer(modifier = Modifier.height(16.dp))
 
-                            // 세부 문제 표시
-                            val issues = listOf(
-                                "차선 변경" to segment.laneSwitch,
-                                "판단 미숙" to segment.situationDecision,
-                                "차선 혼동" to segment.laneConfusion,
-                                "도로 규범 준수" to segment.trafficLaws,
-                                "긴장" to segment.tension
-                            ).filter { it.second }
+                                // 세부 문제 표시
+                                val issues = listOf(
+                                    "차선 변경" to segment.laneSwitch,
+                                    "판단 미숙" to segment.situationDecision,
+                                    "차선 혼동" to segment.laneConfusion,
+                                    "도로 규범 준수" to segment.trafficLaws,
+                                    "긴장" to segment.tension
+                                ).filter { it.second }
 
-                            if (issues.any { it.second }) {
-                                Box(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .background(
-                                            color = Color(0xFFF2F2F2),
-                                            shape = RoundedCornerShape(16.dp)
-                                        )
-                                        .padding(16.dp)
-                                ) {
-                                    Column {
-                                        Text(
-                                            text = "해당 구간에서 다음과 같은 문제가 발생했습니다",
-                                            style = MaterialTheme.typography.bodyLarge.copy(
-                                                fontWeight = FontWeight.Bold
-                                            ),
-                                            fontFamily = FontFamily(Font(R.font.freesentation)),
-                                            fontSize = 18.sp
-                                        )
-                                        Spacer(modifier = Modifier.height(8.dp))
-                                        // 문제들을 버튼으로 표시
-                                        FlowRow(
-                                            modifier = Modifier.fillMaxWidth(),
-                                            mainAxisSpacing = 8.dp, // 버튼 간의 가로 간격
-                                            crossAxisSpacing = 8.dp // 버튼 간의 세로 간격
-                                        )  {
-                                            issues.forEach { (issue, isActive) ->
-                                                StaticSurveyButton(
-                                                    label = issue,
-                                                    isSelected = isActive
-                                                )
+                                if (issues.any { it.second }) {
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .background(
+                                                color = Color(0xFFF2F2F2),
+                                                shape = RoundedCornerShape(16.dp)
+                                            )
+                                            .padding(16.dp)
+                                    ) {
+                                        Column {
+                                            Text(
+                                                text = "해당 구간에서 다음과 같은 문제가 발생했습니다",
+                                                style = MaterialTheme.typography.bodyLarge.copy(
+                                                    fontWeight = FontWeight.Bold
+                                                ),
+                                                fontFamily = FontFamily(Font(R.font.freesentation)),
+                                                fontSize = 18.sp
+                                            )
+                                            Spacer(modifier = Modifier.height(8.dp))
+                                            // 문제들을 버튼으로 표시
+                                            FlowRow(
+                                                modifier = Modifier.fillMaxWidth(),
+                                                mainAxisSpacing = 8.dp, // 버튼 간의 가로 간격
+                                                crossAxisSpacing = 8.dp // 버튼 간의 세로 간격
+                                            ) {
+                                                issues.forEach { (issue, isActive) ->
+                                                    StaticSurveyButton(
+                                                        label = issue,
+                                                        isSelected = isActive
+                                                    )
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
                         }
+
                     }
                 }
             }
         }
-    }
+//    }
+//    else {
+//        navController.navigate("overallReportScreen/${reportId}") {
+//            popUpTo("overallReportScreen/${reportId}") {
+//                inclusive = true
+//            }
+//        }
+//    }
 }
 
 // 비활성화된 SurveyButton

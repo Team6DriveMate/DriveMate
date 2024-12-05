@@ -21,7 +21,13 @@ data class DriveReportRequest(
 
 data class DriveReportResponse(
     val success: Boolean,
-    val driveId: String
+    val titleUpdate: Boolean,
+    val titles: List<GetTitles>
+)
+
+data class GetTitles(
+    val title: String,
+    val dateObtained: String
 )
 class SurveyViewModel : ViewModel() {
     private val surveyService = RetrofitInstance.surveyService
@@ -54,7 +60,7 @@ class SurveyViewModel : ViewModel() {
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }

@@ -341,7 +341,9 @@ fun SightAdjustmentReportScreen(
                     CoroutineScope(Dispatchers.Main).launch {
                         val success = performReadReport(context)
                     }
-                    navController.navigate("reportScreen")
+                    navController.navigate("reportScreen"){
+                        popUpTo("reportScreen"){inclusive = true}
+                    }
                 },
                 modifier = Modifier
                     .fillMaxWidth()

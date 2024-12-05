@@ -63,8 +63,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    implementation(files("libs/tmap-sdk-1.5.aar"))
-    implementation(files("libs/vsm-tmap-sdk-v2-android-1.6.60.aar"))
+
     implementation("com.google.android.material:material:1.9.0")
     implementation ("androidx.compose.material:material-icons-extended:<latest_version>")
 

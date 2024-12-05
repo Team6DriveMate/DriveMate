@@ -58,12 +58,12 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
     private var currentSectionIndex = -1
     private var currentSegmentIndex = -1
 
-    lateinit var getRouteResponse: GetRouteResponse
+    private lateinit var getRouteResponse: GetRouteResponse
 
     private val showBack = mutableStateOf(true)
     private val showNext = mutableStateOf(true)
 
-    val pathOutlineWidth = 5
+    private val pathOutlineWidth = 5
 
     enum class MapState {
         FULL_ROUTE,
@@ -78,10 +78,6 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView = findViewById(R.id.map_view)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
-
-
-
-
     }
 
     override fun onMapReady(map: NaverMap) {
@@ -98,15 +94,13 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
             val getRouteResponse = performGetRouteService(baseContext)
 
             if (getRouteResponse != null) {
-                showFullRoute(getRouteResponse)
-
-
                 // PASS 버튼 추가
                 val btnPass = findViewById<Button>(R.id.btn_pass)
                 btnPass.visibility = View.VISIBLE
                 btnPass.setOnClickListener {
-                    val intent = Intent(this@SurveyActivity, OverallSurveyActivity::class.java)
-                    startActivity(intent)
+//                    val intent = Intent(this@SurveyActivity, OverallSurveyActivity::class.java)
+//                    startActivity(intent)
+                    finish()
                 }
                 // 초기 상태에서 버튼 보이기
                 btnPass.visibility = View.VISIBLE

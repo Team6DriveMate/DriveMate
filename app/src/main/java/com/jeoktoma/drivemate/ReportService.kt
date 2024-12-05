@@ -57,7 +57,7 @@ suspend fun performCompleteService(start_location:Point, end_location:Point, sto
     } catch (e: Exception) {
         // 네트워크 오류 발생 시 예외 처리 및 토스트 메시지 표시
         withContext(Dispatchers.Main) {
-            Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_LONG).show()
+//            Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_LONG).show()
         }
         null  // 오류 발생 시 null 반환
     }
@@ -83,7 +83,7 @@ suspend fun performGetRouteService(context: Context): GetRouteResponse?{
     } catch (e: Exception) {
         // 네트워크 오류 발생 시 예외 처리 및 토스트 메시지 표시
         withContext(Dispatchers.Main) {
-            Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_LONG).show()
+            //Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_LONG).show()
         }
         null  // 오류 발생 시 null 반환
     }
@@ -109,7 +109,7 @@ suspend fun getReportList(context: Context): ReportListResponse?{
     } catch (e: Exception) {
         // 네트워크 오류 발생 시 예외 처리 및 토스트 메시지 표시
         withContext(Dispatchers.Main) {
-            Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_LONG).show()
+//            Toast.makeText(context, "네트워크 오류: ${e.message}", Toast.LENGTH_LONG).show()
         }
         null  // 오류 발생 시 null 반환
     }

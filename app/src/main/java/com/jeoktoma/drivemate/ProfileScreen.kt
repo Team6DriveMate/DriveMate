@@ -19,6 +19,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -95,10 +96,11 @@ fun ProfileScreen(navController: NavController, selectedItem: MutableState<Int>,
                         fontSize = 23.sp
                     )
                 )
-                ThreeDotMenu(navController = navController) {
-                    navController.navigate("loginScreen") {
-                        popUpTo("loginScreen") { inclusive = true }
-                    }
+                IconButton(onClick = { /* 오른쪽 버튼: 아직 미정 */ }) {
+                    Icon(
+                        imageVector = Icons.Default.MoreVert, // 점 세개 아이콘
+                        contentDescription = "More"
+                    )
                 }
             }
 

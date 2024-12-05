@@ -23,6 +23,7 @@ fun AppNavigation(navController: NavHostController) {
     val sharedViewModel: UserViewModel = remember { UserViewModel() }
     val surveyRequest = remember { mutableStateOf(OverallSurveyRequest(0, 0, 0, 0, 0, 0, "")) }
 
+    val sharedSurveyModel: SurveyViewModel = remember { SurveyViewModel()  }
 
     NavHost(navController = navController, startDestination = "loginScreen") {
         composable("loginScreen") {
@@ -126,7 +127,7 @@ fun AppNavigation(navController: NavHostController) {
         composable("overallSurveyScreen") {
             val context = LocalContext.current
             OverallSurveyScreen(
-                surveyViewModel = SurveyViewModel(), // ViewModel 생성
+                surveyViewModel = sharedSurveyModel, // ViewModel 생성
                 context = context,
                 navController = navController
             )
@@ -135,7 +136,7 @@ fun AppNavigation(navController: NavHostController) {
         composable("sightAdjustmentScreen") {
             val context = LocalContext.current
             SightAdjustmentScreen(
-                surveyViewModel = SurveyViewModel(), // 동일한 ViewModel 사용
+                surveyViewModel = sharedSurveyModel, // 동일한 ViewModel 사용
                 context = context,
                 navController = navController
             )
