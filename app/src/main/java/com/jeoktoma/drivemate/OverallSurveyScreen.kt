@@ -379,8 +379,8 @@ fun SightAdjustmentScreen(
                         val reportRequest = DriveReportRequest(
                             startLocation = "출발지 예시",
                             endLocation = "도착지 예시",
-                            startTime = "2024-11-15 13:00:00",
-                            endTime = "2024-11-15 13:30:00"
+                            startTime = "2024-12-06 10:00:00",
+                            endTime = "2024-12-06 10:30:00"
                         )
                         surveyViewModel.submitDriveReport(reportRequest, context) {
                             navController.navigate("mainScreen")

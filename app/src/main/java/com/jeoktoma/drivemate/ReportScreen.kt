@@ -82,7 +82,9 @@ fun ReportScreen(navController: NavController, selectedItem: MutableState<Int>) 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()){ result ->
         // Activity B가 정상적으로 종료됨
-        navController.navigate("overallSurveyScreen")
+        navController.navigate("overallSurveyScreen"){
+            popUpTo("overallSurveyScreen"){inclusive = true}
+        }
     }
 
     Scaffold(

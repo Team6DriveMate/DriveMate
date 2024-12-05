@@ -3,9 +3,11 @@ package com.jeoktoma.drivemate
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -74,6 +76,13 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_survey)
+
+        // 뒤로가기 버튼 동작을 막는 콜백 추가
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // 아무 동작도 하지 않음으로써 뒤로가기 버튼 비활성화
+            }
+        })
 
         mapView = findViewById(R.id.map_view)
         mapView.onCreate(savedInstanceState)
@@ -349,6 +358,8 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
                 val btnPass = findViewById<Button>(R.id.btn_pass)
                 btnPass.visibility = View.GONE
 
+                Log.d("1", "${segment.segmentIndex}")
+
                 // 기존 View를 삭제하고 새로운 ComposeView 렌더링
                 composeContainer.removeAllViews()
 
@@ -361,6 +372,7 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
                         surveyViewModel = SurveyViewModel(),
                         segmentCoords = path.coords, // 지도 경로 전달
                         context = this,
+                        trafficColor = segment.traffic,
                         traffic = when(segment.traffic) {
                             "1" -> "원활"
                             "2" -> "서행"
@@ -468,6 +480,8 @@ class SurveyActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onLowMemory()
         mapView.onLowMemory()
     }
+
+
 }
 
 @Composable

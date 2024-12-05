@@ -173,7 +173,8 @@ fun SegmentReportScreen(
                                 .height(350.dp)
                                 .background(Color.LightGray, shape = RoundedCornerShape(16.dp))
                         ) {
-                            val segment = report.path.route.segments[currentSegment!!.segmentIndex]
+                            val segment = report.path.route.segments.find{
+                                it.segmentIndex!!.toInt() == currentSegment!!.segmentIndex}!!
                             val cameraPositionState: CameraPositionState =
                                 rememberCameraPositionState {
                                     position = CameraPosition(
@@ -238,7 +239,27 @@ fun SegmentReportScreen(
                                 )
 
                             }
+
+                            cameraPositionState.move(
+                                CameraUpdate.fitBounds(
+                                    LatLngBounds.Builder()
+                                        .include(
+                                            LatLng(
+                                                segment.startPoint.lat,
+                                                segment.startPoint.lng
+                                            )
+                                        )
+                                        .include(
+                                            LatLng(
+                                                segment.endPoint.lat,
+                                                segment.endPoint.lng
+                                            )
+                                        )
+                                        .build(), 100
+                                )
+                            )
                         }
+
 
 
                         Spacer(modifier = Modifier.height(16.dp))

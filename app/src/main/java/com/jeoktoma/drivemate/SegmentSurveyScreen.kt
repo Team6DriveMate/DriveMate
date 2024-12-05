@@ -57,6 +57,7 @@ fun SegmentSurveyScreen(
     context: Context,
     navController: NavController? = null,
     segmentCoords: List<LatLng>,
+    trafficColor: String,
     traffic: String,
     roadType: String,
     onBackSurvey: () -> Unit,
@@ -132,8 +133,7 @@ fun SegmentSurveyScreen(
             Button(
                 onClick = {
                     surveyViewModel.submitSegmentSurvey(
-                        //segmentIndex,
-                        1,
+                        segmentIndex,
                         surveyRequest.value,
                         context
                     ) {
@@ -204,7 +204,7 @@ fun SegmentSurveyScreen(
                             getMapAsync { nmap ->
                                 val pathOverlay = PathOverlay().apply {
                                     coords = segmentCoords
-                                    color = PathColor.RED
+                                    color = getColorForTraffic(trafficColor)
                                     width = 10
                                     outlineWidth = 5
                                     map = nmap
