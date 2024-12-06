@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update  # 필요에 따라 `update` 또는 `validate`로 설정
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 30
+        order_inserts: true
+        order_updates: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect  # PostgreSQL Dialect 설정
+        format_sql: true
+        generate_statistics: true  # 쿼리 수행 시간 통계 생성
+
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace   # 쿼리 파라미터 로깅
+    org.hibernate.stat: debug   # Hibernate 통계 로그 출력
