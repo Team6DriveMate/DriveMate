@@ -51,9 +51,6 @@
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="o1vqt1521k" />
-        <meta-data
-            android:name="com.skt.TMAP_API_KEY"
-            android:value="pANn2nD9NfahYdvrZFaQV2oLpMov5xnV5GMfNIih" />
     </application>
 
 </manifest>

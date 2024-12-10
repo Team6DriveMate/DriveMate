@@ -14,7 +14,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 
-private val retrofit = Retrofit.Builder().baseUrl("http://43.203.232.158:8080/report/")
+private val retrofit = Retrofit.Builder().baseUrl("http://3.34.127.76:8080/report/")
     .addConverterFactory(GsonConverterFactory.create())
     .build()
 

@@ -40,7 +40,7 @@ class UserViewModel : ViewModel() {
     fun getUserInfo(username: String, context: Context, onResult: (UserInfoResponse?) -> Unit) {
         viewModelScope.launch {
             try {
-                val url = "http://43.203.232.158:8080/user/info/$username"
+                val url = "http://3.34.127.76:8080/user/info/$username"
                 Log.d("UserViewModel", "API 호출 URL: $url")
 
                 val response = withContext(Dispatchers.IO) {
